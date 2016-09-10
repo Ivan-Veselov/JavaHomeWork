@@ -29,3 +29,32 @@ public class LinkedList {
         // TODO
     }
 }
+
+class LinkedListNode {
+    private String mKey;
+    private String mValue;
+
+    private LinkedListNode mNext;
+
+    LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
+        mKey = aKey;
+        mValue = aValue;
+        mNext = aNext;
+    }
+
+    public String key() {
+        return mKey;
+    }
+
+    public String value() {
+        return mValue;
+    }
+
+    public LinkedListNode next() {
+        return mNext;
+    }
+
+    public void setNext(LinkedListNode aNext) {
+        mNext = aNext;
+    }
+}
