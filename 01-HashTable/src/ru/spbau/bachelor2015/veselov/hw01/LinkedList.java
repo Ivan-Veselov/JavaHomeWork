@@ -1,5 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw01;
 
+import java.lang.IllegalArgumentException;
+
 public class LinkedList {
     private LinkedListNode mHeadNode;
 
@@ -73,6 +75,10 @@ class LinkedListNode {
     }
 
     LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
+        if (aKey == null) {
+            throw new IllegalArgumentException("LinkedListNode key must not be null!");
+        }
+
         mKey = aKey;
         mValue = aValue;
         mNext = aNext;
