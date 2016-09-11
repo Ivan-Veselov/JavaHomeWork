@@ -5,7 +5,7 @@ import java.lang.IllegalArgumentException;
 public class LinkedList {
     private LinkedListNode mHeadNode;
 
-    LinkedList() {
+    public LinkedList() {
         mHeadNode = new LinkedListNode(null);
     }
 
@@ -70,11 +70,11 @@ class LinkedListNode {
 
     private LinkedListNode mNext;
 
-    LinkedListNode(LinkedListNode aNext) {
+    public LinkedListNode(LinkedListNode aNext) {
         mNext = aNext;
     }
 
-    LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
+    public LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
         if (aKey == null) {
             throw new IllegalArgumentException("LinkedListNode key must not be null!");
         }

@@ -1,7 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw01;
 
 public class HashTable {
-    HashTable(int aBucketsNumber) {
+    public HashTable(int aBucketsNumber) {
         // TODO
     }
 
