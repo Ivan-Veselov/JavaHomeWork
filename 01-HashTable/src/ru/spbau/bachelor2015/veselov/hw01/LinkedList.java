@@ -75,6 +75,13 @@ class LinkedListNode {
         return mValue;
     }
 
+    public String setValue(String aValue) {
+        String fPreviousValue = mValue;
+        mValue = aValue;
+
+        return fPreviousValue;
+    }
+
     public LinkedListNode next() {
         return mNext;
     }
