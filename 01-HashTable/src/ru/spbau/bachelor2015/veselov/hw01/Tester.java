@@ -23,12 +23,12 @@ public class Tester {
         assert(!aContainer.contains("b"));
         assert(!aContainer.contains("c"));
 
-        assert(aContainer.get("A") == "a");
-        assert(aContainer.get("B") == "b");
-        assert(aContainer.get("C") == "c");
+        assert(aContainer.get("A").equals("a"));
+        assert(aContainer.get("B").equals("b"));
+        assert(aContainer.get("C").equals("c"));
         assert(aContainer.get("D") == null);
 
-        assert(aContainer.remove("B") == "b"); // !
+        assert(aContainer.remove("B").equals("b")); // !
 
         assert(aContainer.size() == 2);
 
@@ -36,11 +36,11 @@ public class Tester {
         assert(!aContainer.contains("B"));
         assert(aContainer.contains("C"));
 
-        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("A").equals("a"));
         assert(aContainer.get("B") == null);
-        assert(aContainer.get("C") == "c");
+        assert(aContainer.get("C").equals("c"));
 
-        assert(aContainer.put("C", "cc") == "c"); // !
+        assert(aContainer.put("C", "cc").equals("c")); // !
 
         assert(aContainer.size() == 2);
 
@@ -48,21 +48,21 @@ public class Tester {
         assert(!aContainer.contains("B"));
         assert(aContainer.contains("C"));
 
-        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("A").equals("a"));
         assert(aContainer.get("B") == null);
-        assert(aContainer.get("C") == "cc");
+        assert(aContainer.get("C").equals("cc"));
 
         assert(aContainer.remove("B") == null);
         assert(aContainer.size() == 2);
 
-        assert(aContainer.remove("C") == "cc"); // !
+        assert(aContainer.remove("C").equals("cc")); // !
 
         assert(aContainer.size() == 1);
 
         assert(aContainer.contains("A"));
         assert(!aContainer.contains("C"));
 
-        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("A").equals("a"));
         assert(aContainer.get("C") == null);
 
         aContainer.clear(); // !
@@ -78,5 +78,24 @@ public class Tester {
         } catch (IllegalArgumentException e) {}
 
         assert(aContainer.size() == 0);
+
+        final int fAlphabetSize = 26;
+        for (int i = 0; i < fAlphabetSize; ++i) {
+            String fUpperCaseLetter = String.valueOf((char)('A' + i));
+            String fLowerCaseLetter = String.valueOf((char)('a' + i));
+
+            assert(aContainer.put(fUpperCaseLetter, fLowerCaseLetter) == null);
+            assert(aContainer.size() == i + 1);
+        }
+
+        for (int i = 0; i < fAlphabetSize; ++i) {
+            String fUpperCaseLetter = String.valueOf((char)('A' + i));
+            String fLowerCaseLetter = String.valueOf((char)('a' + i));
+
+            assert(aContainer.contains(fUpperCaseLetter));
+            assert(!aContainer.contains(fLowerCaseLetter));
+
+            assert(aContainer.get(fUpperCaseLetter).equals(fLowerCaseLetter));
+        }
     }
 }
