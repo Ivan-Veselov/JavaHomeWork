@@ -18,9 +18,16 @@ public class LinkedList {
     }
 
     public String put(String aKey, String aValue) {
-        // TODO
+        LinkedListNode fPredecessor = findPredecessor(aKey);
+        LinkedListNode fNode = fPredecessor.next();
 
-        return "";
+        if (fNode != null) {
+            return fNode.setValue(aValue);
+        }
+
+        fPredecessor.setNext(new LinkedListNode(aKey, aValue, null));
+
+        return null;
     }
 
     public String remove(String aKey) {
