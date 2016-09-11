@@ -10,6 +10,9 @@ public class HashTable implements KeyValueMap {
         }
 
         mBuckets = new LinkedList[aBucketsNumber];
+        for (int i = 0; i < mBuckets.length; i++) {
+            mBuckets[i] = new LinkedList();
+        }
     }
 
     public int size() {
