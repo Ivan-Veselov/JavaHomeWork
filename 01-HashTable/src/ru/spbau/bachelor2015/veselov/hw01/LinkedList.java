@@ -1,16 +1,20 @@
 package ru.spbau.bachelor2015.veselov.hw01;
 
 public class LinkedList {
-    public boolean contains(String aKey) {
-        // TODO
+    private LinkedListNode mHeadNode;
 
-        return false;
+    LinkedList() {
+        mHeadNode = new LinkedListNode(null, null, null);
+    }
+
+    public boolean contains(String aKey) {
+        return findPredecessor(aKey).next() != null;
     }
 
     public String get(String aKey) {
-        // TODO
+        LinkedListNode fNode = findPredecessor(aKey).next();
 
-        return "";
+        return fNode != null ? fNode.value() : null;
     }
 
     public String put(String aKey, String aValue) {
@@ -20,13 +24,34 @@ public class LinkedList {
     }
 
     public String remove(String aKey) {
-        // TODO
+        LinkedListNode fPredecessor = findPredecessor(aKey);
+        LinkedListNode fNode = fPredecessor.next();
 
-        return "";
+        String fValue = null;
+        if (fNode != null) {
+            fValue = fNode.value();
+            fPredecessor.setNext(fNode.next());
+        }
+
+        return fValue;
     }
 
     public void clear() {
-        // TODO
+        mHeadNode.setNext(null);
+    }
+
+    private LinkedListNode findPredecessor(String aKey) {
+        LinkedListNode fNode = mHeadNode;
+
+        while (fNode.next() != null) {
+            if (fNode.next().key().equals(aKey)) {
+                break;
+            }
+
+            fNode = fNode.next();
+        }
+
+        return fNode;
     }
 }
 
