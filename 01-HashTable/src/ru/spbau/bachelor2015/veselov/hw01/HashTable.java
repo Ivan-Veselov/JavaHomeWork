@@ -1,6 +1,6 @@
 package ru.spbau.bachelor2015.veselov.hw01;
 
-public class HashTable {
+public class HashTable implements KeyValueMap {
     private LinkedList[] mBuckets;
     private int mSize = 0;
 

@@ -2,81 +2,81 @@ package ru.spbau.bachelor2015.veselov.hw01;
 
 public class Tester {
     public static void main(String[] args) {
-        // LinkedList usage
-        LinkedList fLinkedList = new LinkedList();
-        assert(fLinkedList.put("A", "a") == null);
-        assert(fLinkedList.put("B", "b") == null);
-        assert(fLinkedList.put("C", "c") == null);
+        test(new LinkedList());
+        test(new HashTable(3));
+    }
 
-        assert(fLinkedList.size() == 3);
+    static private void test(KeyValueMap aContainer) {
+        assert(aContainer.size() == 0);
 
-        assert(fLinkedList.contains("A"));
-        assert(fLinkedList.contains("B"));
-        assert(fLinkedList.contains("C"));
-        assert(!fLinkedList.contains("D"));
-        assert(!fLinkedList.contains("a"));
-        assert(!fLinkedList.contains("b"));
-        assert(!fLinkedList.contains("c"));
+        assert(aContainer.put("A", "a") == null);
+        assert(aContainer.put("B", "b") == null);
+        assert(aContainer.put("C", "c") == null);
 
-        assert(fLinkedList.get("A") == "a");
-        assert(fLinkedList.get("B") == "b");
-        assert(fLinkedList.get("C") == "c");
-        assert(fLinkedList.get("D") == null);
+        assert(aContainer.size() == 3);
 
-        assert(fLinkedList.remove("B") == "b"); // !
+        assert(aContainer.contains("A"));
+        assert(aContainer.contains("B"));
+        assert(aContainer.contains("C"));
+        assert(!aContainer.contains("D"));
+        assert(!aContainer.contains("a"));
+        assert(!aContainer.contains("b"));
+        assert(!aContainer.contains("c"));
 
-        assert(fLinkedList.size() == 2);
+        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("B") == "b");
+        assert(aContainer.get("C") == "c");
+        assert(aContainer.get("D") == null);
 
-        assert(fLinkedList.contains("A"));
-        assert(!fLinkedList.contains("B"));
-        assert(fLinkedList.contains("C"));
+        assert(aContainer.remove("B") == "b"); // !
 
-        assert(fLinkedList.get("A") == "a");
-        assert(fLinkedList.get("B") == null);
-        assert(fLinkedList.get("C") == "c");
+        assert(aContainer.size() == 2);
 
-        assert(fLinkedList.put("C", "cc") == "c"); // !
+        assert(aContainer.contains("A"));
+        assert(!aContainer.contains("B"));
+        assert(aContainer.contains("C"));
 
-        assert(fLinkedList.size() == 2);
+        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("B") == null);
+        assert(aContainer.get("C") == "c");
 
-        assert(fLinkedList.contains("A"));
-        assert(!fLinkedList.contains("B"));
-        assert(fLinkedList.contains("C"));
+        assert(aContainer.put("C", "cc") == "c"); // !
 
-        assert(fLinkedList.get("A") == "a");
-        assert(fLinkedList.get("B") == null);
-        assert(fLinkedList.get("C") == "cc");
+        assert(aContainer.size() == 2);
 
-        assert(fLinkedList.remove("B") == null);
-        assert(fLinkedList.size() == 2);
+        assert(aContainer.contains("A"));
+        assert(!aContainer.contains("B"));
+        assert(aContainer.contains("C"));
 
-        assert(fLinkedList.remove("C") == "cc"); // !
+        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("B") == null);
+        assert(aContainer.get("C") == "cc");
 
-        assert(fLinkedList.size() == 1);
+        assert(aContainer.remove("B") == null);
+        assert(aContainer.size() == 2);
 
-        assert(fLinkedList.contains("A"));
-        assert(!fLinkedList.contains("C"));
+        assert(aContainer.remove("C") == "cc"); // !
 
-        assert(fLinkedList.get("A") == "a");
-        assert(fLinkedList.get("C") == null);
+        assert(aContainer.size() == 1);
 
-        fLinkedList.clear(); // !
+        assert(aContainer.contains("A"));
+        assert(!aContainer.contains("C"));
 
-        assert(fLinkedList.size() == 0);
+        assert(aContainer.get("A") == "a");
+        assert(aContainer.get("C") == null);
 
-        assert(!fLinkedList.contains("A"));
-        assert(fLinkedList.get("A") == null);
+        aContainer.clear(); // !
+
+        assert(aContainer.size() == 0);
+
+        assert(!aContainer.contains("A"));
+        assert(aContainer.get("A") == null);
 
         try {
-            fLinkedList.put(null, null);
+            aContainer.put(null, null);
             assert(false);
         } catch (IllegalArgumentException e) {}
 
-        assert(fLinkedList.size() == 0);
-
-        // HashTable usage
-        HashTable fHashTable = new HashTable(5);
-
-        System.out.println(fHashTable.size());
+        assert(aContainer.size() == 0);
     }
 }

@@ -2,7 +2,7 @@ package ru.spbau.bachelor2015.veselov.hw01;
 
 import java.lang.IllegalArgumentException;
 
-public class LinkedList {
+public class LinkedList implements KeyValueMap {
     private LinkedListNode mHeadNode;
     private int mSize = 0;
 
