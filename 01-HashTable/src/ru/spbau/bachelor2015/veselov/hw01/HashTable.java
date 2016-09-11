@@ -58,6 +58,10 @@ public class HashTable implements KeyValueMap {
     }
 
     private LinkedList bucket(String aKey) {
+        if (aKey == null) {
+            throw new IllegalArgumentException("HashTable key must not be null!");
+        }
+
         return mBuckets[aKey.hashCode() % mBuckets.length];
     }
 }
