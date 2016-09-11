@@ -4,9 +4,14 @@ import java.lang.IllegalArgumentException;
 
 public class LinkedList {
     private LinkedListNode mHeadNode;
+    private int mSize = 0;
 
     public LinkedList() {
         mHeadNode = new LinkedListNode(null);
+    }
+
+    public int size() {
+        return mSize;
     }
 
     public boolean contains(String aKey) {
@@ -28,6 +33,7 @@ public class LinkedList {
         }
 
         fPredecessor.setNext(new LinkedListNode(aKey, aValue, null));
+        ++mSize;
 
         return null;
     }
@@ -40,6 +46,7 @@ public class LinkedList {
         if (fNode != null) {
             fValue = fNode.value();
             fPredecessor.setNext(fNode.next());
+            --mSize;
         }
 
         return fValue;
@@ -47,6 +54,7 @@ public class LinkedList {
 
     public void clear() {
         mHeadNode.setNext(null);
+        mSize = 0;
     }
 
     private LinkedListNode findPredecessor(String aKey) {

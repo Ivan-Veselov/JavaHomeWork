@@ -8,6 +8,8 @@ public class Tester {
         assert(fLinkedList.put("B", "b") == null);
         assert(fLinkedList.put("C", "c") == null);
 
+        assert(fLinkedList.size() == 3);
+
         assert(fLinkedList.contains("A"));
         assert(fLinkedList.contains("B"));
         assert(fLinkedList.contains("C"));
@@ -23,6 +25,8 @@ public class Tester {
 
         assert(fLinkedList.remove("B") == "b"); // !
 
+        assert(fLinkedList.size() == 2);
+
         assert(fLinkedList.contains("A"));
         assert(!fLinkedList.contains("B"));
         assert(fLinkedList.contains("C"));
@@ -33,6 +37,8 @@ public class Tester {
 
         assert(fLinkedList.put("C", "cc") == "c"); // !
 
+        assert(fLinkedList.size() == 2);
+
         assert(fLinkedList.contains("A"));
         assert(!fLinkedList.contains("B"));
         assert(fLinkedList.contains("C"));
@@ -42,8 +48,11 @@ public class Tester {
         assert(fLinkedList.get("C") == "cc");
 
         assert(fLinkedList.remove("B") == null);
+        assert(fLinkedList.size() == 2);
 
         assert(fLinkedList.remove("C") == "cc"); // !
+
+        assert(fLinkedList.size() == 1);
 
         assert(fLinkedList.contains("A"));
         assert(!fLinkedList.contains("C"));
@@ -53,6 +62,8 @@ public class Tester {
 
         fLinkedList.clear(); // !
 
+        assert(fLinkedList.size() == 0);
+
         assert(!fLinkedList.contains("A"));
         assert(fLinkedList.get("A") == null);
 
@@ -60,6 +71,8 @@ public class Tester {
             fLinkedList.put(null, null);
             assert(false);
         } catch (IllegalArgumentException e) {}
+
+        assert(fLinkedList.size() == 0);
 
         // HashTable usage
         HashTable fHashTable = new HashTable(5);
