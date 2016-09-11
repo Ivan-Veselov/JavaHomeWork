@@ -4,7 +4,7 @@ public class LinkedList {
     private LinkedListNode mHeadNode;
 
     LinkedList() {
-        mHeadNode = new LinkedListNode(null, null, null);
+        mHeadNode = new LinkedListNode(null);
     }
 
     public boolean contains(String aKey) {
@@ -63,10 +63,14 @@ public class LinkedList {
 }
 
 class LinkedListNode {
-    private String mKey;
-    private String mValue;
+    private String mKey = null;
+    private String mValue = null;
 
     private LinkedListNode mNext;
+
+    LinkedListNode(LinkedListNode aNext) {
+        mNext = aNext;
+    }
 
     LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
         mKey = aKey;
