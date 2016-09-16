@@ -6,6 +6,8 @@ public class LinkedList implements KeyValueMap {
     private LinkedListNode mHeadNode;
     private int mSize = 0;
 
+    static private String sNullKeyExceptionMsg = "LinkedList key must not be null!";
+
     public LinkedList() {
         mHeadNode = new LinkedListNode(null);
     }
@@ -15,16 +17,27 @@ public class LinkedList implements KeyValueMap {
     }
 
     public boolean contains(String aKey) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         return findPredecessor(aKey).next() != null;
     }
 
     public String get(String aKey) {
-        LinkedListNode fNode = findPredecessor(aKey).next();
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
 
+        LinkedListNode fNode = findPredecessor(aKey).next();
         return fNode != null ? fNode.value() : null;
     }
 
     public String put(String aKey, String aValue) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         LinkedListNode fPredecessor = findPredecessor(aKey);
         LinkedListNode fNode = fPredecessor.next();
 
@@ -39,6 +52,10 @@ public class LinkedList implements KeyValueMap {
     }
 
     public String remove(String aKey) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         LinkedListNode fPredecessor = findPredecessor(aKey);
         LinkedListNode fNode = fPredecessor.next();
 

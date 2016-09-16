@@ -4,9 +4,13 @@ public class HashTable implements KeyValueMap {
     private LinkedList[] mBuckets;
     private int mSize = 0;
 
+    static private String sNullKeyExceptionMsg = "HashTable key must not be null!";
+    static private String sNonPositiveBucketsNumberExceptionMsg
+                          = "There must be positive number of buckets in HashTable!";
+
     public HashTable(int aBucketsNumber) {
         if (aBucketsNumber <= 0) {
-            throw new IllegalArgumentException("There must be positive number of buckets in HashTable!");
+            throw new IllegalArgumentException(sNonPositiveBucketsNumberExceptionMsg);
         }
 
         mBuckets = new LinkedList[aBucketsNumber];
@@ -20,14 +24,26 @@ public class HashTable implements KeyValueMap {
     }
 
     public boolean contains(String aKey) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         return bucket(aKey).contains(aKey);
     }
 
     public String get(String aKey) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         return bucket(aKey).get(aKey);
     }
 
     public String put(String aKey, String aValue) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         LinkedList fBucket = bucket(aKey);
 
         int fSizeAlteration = -fBucket.size();
@@ -39,6 +55,10 @@ public class HashTable implements KeyValueMap {
     }
 
     public String remove(String aKey) {
+        if (aKey == null) {
+            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+        }
+
         LinkedList fBucket = bucket(aKey);
 
         int fSizeAlteration = -fBucket.size();
@@ -58,10 +78,6 @@ public class HashTable implements KeyValueMap {
     }
 
     private LinkedList bucket(String aKey) {
-        if (aKey == null) {
-            throw new IllegalArgumentException("HashTable key must not be null!");
-        }
-
         return mBuckets[aKey.hashCode() % mBuckets.length];
     }
 }
