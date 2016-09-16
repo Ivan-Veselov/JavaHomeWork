@@ -5,12 +5,10 @@ public class HashTable implements KeyValueMap {
     private int mSize = 0;
 
     static private String sNullKeyExceptionMsg = "HashTable key must not be null!";
-    static private String sNonPositiveBucketsNumberExceptionMsg
-                          = "There must be positive number of buckets in HashTable!";
 
     public HashTable(int aBucketsNumber) {
         if (aBucketsNumber <= 0) {
-            throw new IllegalArgumentException(sNonPositiveBucketsNumberExceptionMsg);
+            throw new IllegalArgumentException("There must be positive number of buckets in HashTable!");
         }
 
         mBuckets = new LinkedList[aBucketsNumber];

@@ -87,48 +87,48 @@ public class LinkedList implements KeyValueMap {
 
         return fNode;
     }
-}
 
-class LinkedListNode {
-    private String mKey = null;
-    private String mValue = null;
+    private class LinkedListNode {
+        private String mKey = null;
+        private String mValue = null;
 
-    private LinkedListNode mNext;
+        private LinkedListNode mNext;
 
-    public LinkedListNode(LinkedListNode aNext) {
-        mNext = aNext;
-    }
-
-    public LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
-        if (aKey == null) {
-            throw new IllegalArgumentException("LinkedListNode key must not be null!");
+        public LinkedListNode(LinkedListNode aNext) {
+            mNext = aNext;
         }
 
-        mKey = aKey;
-        mValue = aValue;
-        mNext = aNext;
-    }
+        public LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
+            if (aKey == null) {
+                throw new IllegalArgumentException("LinkedListNode key must not be null!");
+            }
 
-    public String key() {
-        return mKey;
-    }
+            mKey = aKey;
+            mValue = aValue;
+            mNext = aNext;
+        }
 
-    public String value() {
-        return mValue;
-    }
+        public String key() {
+            return mKey;
+        }
 
-    public String setValue(String aValue) {
-        String fPreviousValue = mValue;
-        mValue = aValue;
+        public String value() {
+            return mValue;
+        }
 
-        return fPreviousValue;
-    }
+        public String setValue(String aValue) {
+            String fPreviousValue = mValue;
+            mValue = aValue;
 
-    public LinkedListNode next() {
-        return mNext;
-    }
+            return fPreviousValue;
+        }
 
-    public void setNext(LinkedListNode aNext) {
-        mNext = aNext;
+        public LinkedListNode next() {
+            return mNext;
+        }
+
+        public void setNext(LinkedListNode aNext) {
+            mNext = aNext;
+        }
     }
 }
