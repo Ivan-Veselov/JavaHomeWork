@@ -37,4 +37,20 @@ public class MatrixTest {
         assertFalse(fMatrix1.equals(fMatrix2));
         assertFalse(fMatrix2.equals(fMatrix1));
     }
+
+    @Test
+    public void testSort1() throws Exception {
+        Matrix<Integer> fMatrix = new Matrix<Integer>(new Integer[][] { {1, 3}, {2, 4} });
+        fMatrix.sort();
+
+        assertTrue(fMatrix.equals(new Matrix<Integer>(new Integer[][] { {1, 3}, {2, 4} })));
+    }
+
+    @Test
+    public void testSort2() throws Exception {
+        Matrix<Integer> fMatrix = new Matrix<Integer>(new Integer[][] { {3, 1, 2}, {1, 3, 2}, {2, 3, 1} });
+        fMatrix.sort();
+
+        assertTrue(fMatrix.equals(new Matrix<Integer>(new Integer[][] { {1, 3, 2}, {2, 3, 1}, {3, 1, 2} })));
+    }
 }
