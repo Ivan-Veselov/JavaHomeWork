@@ -11,10 +11,14 @@ public class Matrix<T extends Comparable<T>> {
      * Creates Matrix on given two-dimensional array.
      *
      * @param aColumns two-dimensional array of elements
-     * @throws IllegalArgumentException if aColumns does not represent square matrix
+     * @throws IllegalArgumentException if aColumns does not represent square matrix of odd size
      */
     public Matrix(T[][] aColumns) {
         mSize = aColumns.length;
+        if (mSize % 2 == 0) {
+            throw new IllegalArgumentException("Size of matrix must be odd!");
+        }
+
         for (T[] fColumn : aColumns) {
             if (fColumn.length != mSize) {
                 throw new IllegalArgumentException("Two-dimensional array must represent a square matrix!");
@@ -39,6 +43,11 @@ public class Matrix<T extends Comparable<T>> {
         return Arrays.deepEquals(mColumns, ((Matrix)aMatrix).mColumns);
     }
 
+    /**
+     * Sorts columns of matrix. One column is less than another one
+     * if first element of this column is less than first element of second
+     * column.
+     */
     public void sort() {
         Arrays.sort(mColumns, (T[] c1, T[] c2) -> c1[0].compareTo(c2[0]));
     }
