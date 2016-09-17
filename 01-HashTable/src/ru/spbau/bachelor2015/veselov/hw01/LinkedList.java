@@ -89,12 +89,12 @@ public class LinkedList implements KeyValueMap {
     }
 
     private class LinkedListNode {
-        private String mKey = null;
-        private String mValue = null;
+        private KeyValuePair mKeyValuePair;
 
         private LinkedListNode mNext;
 
         public LinkedListNode(LinkedListNode aNext) {
+            mKeyValuePair = new KeyValuePair();
             mNext = aNext;
         }
 
@@ -103,22 +103,21 @@ public class LinkedList implements KeyValueMap {
                 throw new IllegalArgumentException("LinkedListNode key must not be null!");
             }
 
-            mKey = aKey;
-            mValue = aValue;
+            mKeyValuePair = new KeyValuePair(aKey, aValue);
             mNext = aNext;
         }
 
         public String key() {
-            return mKey;
+            return mKeyValuePair.key();
         }
 
         public String value() {
-            return mValue;
+            return mKeyValuePair.value();
         }
 
         public String setValue(String aValue) {
-            String fPreviousValue = mValue;
-            mValue = aValue;
+            String fPreviousValue = mKeyValuePair.value();
+            mKeyValuePair.mValue = aValue;
 
             return fPreviousValue;
         }

@@ -130,7 +130,7 @@ abstract public class KeyValueMapTest {
     }
 
     @Test
-    public void clear() throws Exception {
+    public void testClear() throws Exception {
         assertEquals(null, fMap.put("A", "a"));
         assertEquals(null, fMap.put("B", "b"));
         assertEquals(null, fMap.put("C", "c"));
