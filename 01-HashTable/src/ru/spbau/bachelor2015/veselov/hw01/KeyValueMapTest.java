@@ -151,4 +151,34 @@ abstract public class KeyValueMapTest {
         assertEquals(null, fMap.remove("B"));
         assertEquals(null, fMap.remove("C"));
     }
+
+    @Test
+    public void testManyObjects() throws Exception {
+        final int fAlphabetSize = 26;
+        for (int i = 0; i < fAlphabetSize; ++i) {
+            String fUpperCaseLetter = String.valueOf((char)('A' + i));
+            String fLowerCaseLetter = String.valueOf((char)('a' + i));
+
+            assertEquals(null, fMap.put(fUpperCaseLetter, fLowerCaseLetter));
+            assertEquals(i + 1, fMap.size());
+        }
+
+        for (int i = 0; i < fAlphabetSize; ++i) {
+            String fUpperCaseLetter = String.valueOf((char)('A' + i));
+            String fLowerCaseLetter = String.valueOf((char)('a' + i));
+
+            assertEquals(true, fMap.contains(fUpperCaseLetter));
+            assertEquals(false, fMap.contains(fLowerCaseLetter));
+
+            assertEquals(fLowerCaseLetter, fMap.get(fUpperCaseLetter));
+        }
+
+        for (int i = 0; i < fAlphabetSize; ++i) {
+            String fUpperCaseLetter = String.valueOf((char)('A' + i));
+            String fLowerCaseLetter = String.valueOf((char)('a' + i));
+
+            assertEquals(fLowerCaseLetter, fMap.remove(fUpperCaseLetter));
+            assertEquals(fAlphabetSize - i - 1, fMap.size());
+        }
+    }
 }

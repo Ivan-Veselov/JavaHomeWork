@@ -6,15 +6,19 @@ public class HashTable implements KeyValueMap {
 
     static private String sNullKeyExceptionMsg = "HashTable key must not be null!";
 
+    private void initializeBuckets(int aBucketsNumber) {
+        mBuckets = new LinkedList[aBucketsNumber];
+        for (int i = 0; i < mBuckets.length; i++) {
+            mBuckets[i] = new LinkedList();
+        }
+    }
+
     public HashTable(int aBucketsNumber) {
         if (aBucketsNumber <= 0) {
             throw new IllegalArgumentException("There must be positive number of buckets in HashTable!");
         }
 
-        mBuckets = new LinkedList[aBucketsNumber];
-        for (int i = 0; i < mBuckets.length; i++) {
-            mBuckets[i] = new LinkedList();
-        }
+        initializeBuckets(aBucketsNumber);
     }
 
     public int size() {
@@ -42,6 +46,10 @@ public class HashTable implements KeyValueMap {
             throw new IllegalArgumentException(sNullKeyExceptionMsg);
         }
 
+        if (size() == mBuckets.length) {
+            extend();
+        }
+
         LinkedList fBucket = bucket(aKey);
 
         int fSizeAlteration = -fBucket.size();
@@ -49,6 +57,7 @@ public class HashTable implements KeyValueMap {
         fSizeAlteration += fBucket.size();
 
         mSize += fSizeAlteration;
+
         return fPreviousValue;
     }
 
@@ -77,5 +86,16 @@ public class HashTable implements KeyValueMap {
 
     private LinkedList bucket(String aKey) {
         return mBuckets[aKey.hashCode() % mBuckets.length];
+    }
+
+    private void extend() {
+        LinkedList[] fOldBuckets = mBuckets;
+        initializeBuckets(fOldBuckets.length * 2 + 1);
+
+        for (LinkedList fBucket : fOldBuckets) {
+            for (KeyValuePair fPair : fBucket) {
+                bucket(fPair.key()).put(fPair.key(), fPair.value());
+            }
+        }
     }
 }
