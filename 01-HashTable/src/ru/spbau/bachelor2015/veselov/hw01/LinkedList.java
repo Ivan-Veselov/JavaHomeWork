@@ -1,8 +1,10 @@
 package ru.spbau.bachelor2015.veselov.hw01;
 
 import java.lang.IllegalArgumentException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class LinkedList implements KeyValueMap {
+public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
     private LinkedListNode mHeadNode;
     private int mSize = 0;
 
@@ -115,5 +117,32 @@ public class LinkedList implements KeyValueMap {
         public void setNext(LinkedListNode aNext) {
             mNext = aNext;
         }
+    }
+
+    private class LinkedListIterator implements Iterator<KeyValuePair> {
+        private LinkedListNode mNode;
+
+        public LinkedListIterator() {
+            mNode = LinkedList.this.mHeadNode.next();
+        }
+
+        public boolean hasNext() {
+            return mNode != null;
+        }
+
+        public KeyValuePair next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            KeyValuePair fValue = mNode.element();
+            mNode = mNode.next();
+
+            return fValue;
+        }
+    }
+
+    public Iterator<KeyValuePair> iterator() {
+        return new LinkedListIterator();
     }
 }
