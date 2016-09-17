@@ -9,7 +9,7 @@ public class LinkedList implements KeyValueMap {
     static private String sNullKeyExceptionMsg = "LinkedList key must not be null!";
 
     public LinkedList() {
-        mHeadNode = new LinkedListNode(null);
+        mHeadNode = new LinkedListNode();
     }
 
     public int size() {
@@ -30,7 +30,7 @@ public class LinkedList implements KeyValueMap {
         }
 
         LinkedListNode fNode = findPredecessor(aKey).next();
-        return fNode != null ? fNode.value() : null;
+        return fNode != null ? fNode.element().value() : null;
     }
 
     public String put(String aKey, String aValue) {
@@ -42,10 +42,10 @@ public class LinkedList implements KeyValueMap {
         LinkedListNode fNode = fPredecessor.next();
 
         if (fNode != null) {
-            return fNode.setValue(aValue);
+            return fNode.element().setValue(aValue);
         }
 
-        fPredecessor.setNext(new LinkedListNode(aKey, aValue, null));
+        fPredecessor.setNext(new LinkedListNode(new KeyValuePair(aKey, aValue), null));
         ++mSize;
 
         return null;
@@ -61,7 +61,7 @@ public class LinkedList implements KeyValueMap {
 
         String fValue = null;
         if (fNode != null) {
-            fValue = fNode.value();
+            fValue = fNode.element().value();
             fPredecessor.setNext(fNode.next());
             --mSize;
         }
@@ -78,7 +78,7 @@ public class LinkedList implements KeyValueMap {
         LinkedListNode fNode = mHeadNode;
 
         while (fNode.next() != null) {
-            if (fNode.next().key().equals(aKey)) {
+            if (fNode.next().element().key().equals(aKey)) {
                 break;
             }
 
@@ -93,34 +93,20 @@ public class LinkedList implements KeyValueMap {
 
         private LinkedListNode mNext;
 
-        public LinkedListNode(LinkedListNode aNext) {
-            mKeyValuePair = new KeyValuePair();
+        public LinkedListNode() {
+            mKeyValuePair = null;
+            mNext = null;
+        }
+
+        public LinkedListNode(KeyValuePair aKeyValuePair, LinkedListNode aNext) {
+            mKeyValuePair = aKeyValuePair;
             mNext = aNext;
         }
 
-        public LinkedListNode(String aKey, String aValue, LinkedListNode aNext) {
-            if (aKey == null) {
-                throw new IllegalArgumentException("LinkedListNode key must not be null!");
-            }
-
-            mKeyValuePair = new KeyValuePair(aKey, aValue);
-            mNext = aNext;
+        public KeyValuePair element() {
+            return mKeyValuePair;
         }
 
-        public String key() {
-            return mKeyValuePair.key();
-        }
-
-        public String value() {
-            return mKeyValuePair.value();
-        }
-
-        public String setValue(String aValue) {
-            String fPreviousValue = mKeyValuePair.value();
-            mKeyValuePair.mValue = aValue;
-
-            return fPreviousValue;
-        }
 
         public LinkedListNode next() {
             return mNext;
