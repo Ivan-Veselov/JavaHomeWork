@@ -135,7 +135,8 @@ public class HashTable implements KeyValueMap {
     }
 
     private LinkedList bucket(String aKey) {
-        return mBuckets[aKey.hashCode() % mBuckets.length];
+        // Bitwise AND converts negative hashCode to positive value by treating all bits as is
+        return mBuckets[(int)((aKey.hashCode() & 0x00000000ffffffffL) % mBuckets.length)];
     }
 
     private void extend() {

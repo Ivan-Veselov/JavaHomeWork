@@ -45,6 +45,11 @@ abstract public class KeyValueMapTest {
     }
 
     @Test
+    public void testPut5() throws Exception {
+        fMap.put("random", "1");
+    }
+
+    @Test
     public void testSize() throws Exception {
         assertEquals(0, fMap.size());
 
