@@ -2,47 +2,46 @@ package ru.spbau.bachelor2015.veselov.hw02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 public class Matrix<T extends Comparable<T>> {
-    private int mSize;
-    private T[][] mColumns;
+    private int size;
+    private T[][] columns;
 
     /**
      * Creates Matrix on given two-dimensional array.
      *
-     * @param aColumns two-dimensional array of elements
-     * @throws IllegalArgumentException if aColumns does not represent square matrix of odd size
+     * @param columns two-dimensional array of elements
+     * @throws IllegalArgumentException if columns does not represent square matrix of odd size
      */
-    public Matrix(T[][] aColumns) {
-        mSize = aColumns.length;
-        if (mSize % 2 == 0) {
+    public Matrix(T[][] columns) {
+        size = columns.length;
+        if (size % 2 == 0) {
             throw new IllegalArgumentException("Size of matrix must be odd!");
         }
 
-        for (T[] fColumn : aColumns) {
-            if (fColumn.length != mSize) {
+        for (T[] column : columns) {
+            if (column.length != size) {
                 throw new IllegalArgumentException("Two-dimensional array must represent a square matrix!");
             }
         }
 
-        mColumns = aColumns;
+        this.columns = columns;
     }
 
     /**
      * Compares content of two matrices for equality.
      *
-     * @param aMatrix a second matrix to compare with
+     * @param matrix a second matrix to compare with
      * @return true if matrices are equal, false otherwise
-     * @throws IllegalArgumentException if aMatrix is not an instance of Matrix
+     * @throws IllegalArgumentException if matrix is not an instance of Matrix
      */
-    public boolean equals(Object aMatrix) {
-        if (!(aMatrix instanceof Matrix)) {
+    public boolean equals(Object matrix) {
+        if (!(matrix instanceof Matrix)) {
             throw new IllegalArgumentException();
         }
 
-        return Arrays.deepEquals(mColumns, ((Matrix)aMatrix).mColumns);
+        return Arrays.deepEquals(columns, ((Matrix)matrix).columns);
     }
 
     /**
@@ -51,7 +50,7 @@ public class Matrix<T extends Comparable<T>> {
      * column.
      */
     public void sort() {
-        Arrays.sort(mColumns, (T[] c1, T[] c2) -> c1[0].compareTo(c2[0]));
+        Arrays.sort(columns, (T[] c1, T[] c2) -> c1[0].compareTo(c2[0]));
     }
 
     /**
@@ -61,68 +60,68 @@ public class Matrix<T extends Comparable<T>> {
      * @return an array that contains references to matrix elements in spiral traverse order
      */
     public T[] getSpiralTraverse() {
-        ArrayList<T> fTraverse = new ArrayList<T>();
+        ArrayList<T> traverse = new ArrayList<T>();
 
-        int fCenterIndex = mSize / 2;
-        fTraverse.add(mColumns[fCenterIndex][fCenterIndex]);
+        int centerIndex = size / 2;
+        traverse.add(columns[centerIndex][centerIndex]);
 
-        for (int i = fCenterIndex - 1; i >= 0; i--) {
-            addFrameToTraverse(fTraverse, i);
+        for (int i = centerIndex - 1; i >= 0; i--) {
+            addFrameToTraverse(traverse, i);
         }
 
-        return fTraverse.toArray(mColumns[0]);
+        return traverse.toArray(columns[0]);
     }
 
-    private void addFrameToTraverse(ArrayList<T> aTraverse, int aFrameIndex) {
-        int fOppositeIndex = mSize - aFrameIndex - 1;
+    private void addFrameToTraverse(ArrayList<T> traverse, int frameIndex) {
+        int oppositeIndex = size - frameIndex - 1;
 
-        addLineToTraverse(aTraverse, new LineIterator(aFrameIndex, aFrameIndex, aFrameIndex, fOppositeIndex));
-        addLineToTraverse(aTraverse, new LineIterator(aFrameIndex, fOppositeIndex, fOppositeIndex, fOppositeIndex));
-        addLineToTraverse(aTraverse, new LineIterator(fOppositeIndex, fOppositeIndex, fOppositeIndex, aFrameIndex));
-        addLineToTraverse(aTraverse, new LineIterator(fOppositeIndex, aFrameIndex, aFrameIndex, aFrameIndex));
+        addLineToTraverse(traverse, new LineIterator(frameIndex, frameIndex, frameIndex, oppositeIndex));
+        addLineToTraverse(traverse, new LineIterator(frameIndex, oppositeIndex, oppositeIndex, oppositeIndex));
+        addLineToTraverse(traverse, new LineIterator(oppositeIndex, oppositeIndex, oppositeIndex, frameIndex));
+        addLineToTraverse(traverse, new LineIterator(oppositeIndex, frameIndex, frameIndex, frameIndex));
     }
 
-    private void addLineToTraverse(ArrayList<T> aTraverse, LineIterator aIterator) {
+    private void addLineToTraverse(ArrayList<T> traverse, LineIterator iterator) {
         do {
-            aIterator.next();
-            aTraverse.add(mColumns[aIterator.column()][aIterator.row()]);
-        } while (aIterator.hasNext());
+            iterator.next();
+            traverse.add(columns[iterator.column()][iterator.row()]);
+        } while (iterator.hasNext());
     }
 
     private class LineIterator {
-        private int mCurrentColumn;
-        private int mCurrentRow;
+        private int currentColumn;
+        private int currentRow;
 
-        private int mLastColumn;
-        private int mLastRow;
+        private int lastColumn;
+        private int lastRow;
 
-        private int mColumnAlteration;
-        private int mRowAlteration;
+        private int columnAlteration;
+        private int rowAlteration;
 
-        public LineIterator(int aCurrentColumn, int aCurrentRow, int aLastColumn, int aLastRow) {
-            if (aCurrentColumn != aLastColumn && aCurrentRow != aLastRow) {
+        public LineIterator(int currentColumn, int currentRow, int lastColumn, int lastRow) {
+            if (currentColumn != lastColumn && currentRow != lastRow) {
                 throw new IllegalArgumentException("Coordinates must represent a line!");
             }
 
-            mCurrentColumn = aCurrentColumn;
-            mCurrentRow = aCurrentRow;
-            mLastColumn = aLastColumn;
-            mLastRow = aLastRow;
+            this.currentColumn = currentColumn;
+            this.currentRow = currentRow;
+            this.lastColumn = lastColumn;
+            this.lastRow = lastRow;
 
-            mColumnAlteration = Integer.signum(mLastColumn - mCurrentColumn);
-            mRowAlteration = Integer.signum(mLastRow - mCurrentRow);
+            columnAlteration = Integer.signum(this.lastColumn - this.currentColumn);
+            rowAlteration = Integer.signum(this.lastRow - this.currentRow);
         }
 
         public int column() {
-            return mCurrentColumn;
+            return currentColumn;
         }
 
         public int row() {
-            return mCurrentRow;
+            return currentRow;
         }
 
         public boolean hasNext() {
-            return mCurrentColumn != mLastColumn || mCurrentRow != mLastRow;
+            return currentColumn != lastColumn || currentRow != lastRow;
         }
 
         public void next() {
@@ -130,8 +129,8 @@ public class Matrix<T extends Comparable<T>> {
                 throw new NoSuchElementException();
             }
 
-            mCurrentColumn += mColumnAlteration;
-            mCurrentRow += mRowAlteration;
+            currentColumn += columnAlteration;
+            currentRow += rowAlteration;
 
         }
     }
