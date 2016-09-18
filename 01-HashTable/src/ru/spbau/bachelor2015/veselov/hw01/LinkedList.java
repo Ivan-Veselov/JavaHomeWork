@@ -9,16 +9,16 @@ import java.util.NoSuchElementException;
  * Implemented as linked list of pairs.
  */
 public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
-    private LinkedListNode mHeadNode;
-    private int mSize = 0;
+    private LinkedListNode headNode;
+    private int size = 0;
 
-    static private String sNullKeyExceptionMsg = "LinkedList key must not be null!";
+    private static final String NULL_KEY_EXCEPTION_MSG = "LinkedList key must not be null!";
 
     /**
      * Creates empty list.
      */
     public LinkedList() {
-        mHeadNode = new LinkedListNode();
+        headNode = new LinkedListNode();
     }
 
     /**
@@ -27,22 +27,22 @@ public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
      * @return number of elements currently stored in list
      */
     public int size() {
-        return mSize;
+        return size;
     }
 
     /**
      * Checks whether list contains element with a given key.
      * Complexity: linear in list size
      *
-     * @param aKey a key to search for
-     * @return true if list contains element with key equal to aKey, false otherwise
+     * @param key a key to search for
+     * @return true if list contains element with key equal to key, false otherwise
      */
-    public boolean contains(String aKey) {
-        if (aKey == null) {
-            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+    public boolean contains(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException(NULL_KEY_EXCEPTION_MSG);
         }
 
-        return findPredecessor(aKey).next() != null;
+        return findPredecessor(key).next() != null;
     }
 
     /**
@@ -50,16 +50,16 @@ public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
      * element with such a key in list.
      * Complexity: linear in list size
      *
-     * @param aKey a key to search for
-     * @return value associated with aKey or null if there is no element with key equal to aKey
+     * @param key a key to search for
+     * @return value associated with key or null if there is no element with key equal to key
      */
-    public String get(String aKey) {
-        if (aKey == null) {
-            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+    public String get(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException(NULL_KEY_EXCEPTION_MSG);
         }
 
-        LinkedListNode fNode = findPredecessor(aKey).next();
-        return fNode != null ? fNode.element().value() : null;
+        LinkedListNode node = findPredecessor(key).next();
+        return node != null ? node.element().value() : null;
     }
 
     /**
@@ -68,24 +68,24 @@ public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
      * with a new one.
      * Complexity: linear in list size
      *
-     * @param aKey a key which will be put in list or which value will be replaced
-     * @param aValue a value to associate with aKey
-     * @return previous value that was associated with aKey or null if aKey was not presented in list before
+     * @param key a key which will be put in list or which value will be replaced
+     * @param value a value to associate with key
+     * @return previous value that was associated with key or null if key was not presented in list before
      */
-    public String put(String aKey, String aValue) {
-        if (aKey == null) {
-            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+    public String put(String key, String value) {
+        if (key == null) {
+            throw new IllegalArgumentException(NULL_KEY_EXCEPTION_MSG);
         }
 
-        LinkedListNode fPredecessor = findPredecessor(aKey);
-        LinkedListNode fNode = fPredecessor.next();
+        LinkedListNode predecessor = findPredecessor(key);
+        LinkedListNode node = predecessor.next();
 
-        if (fNode != null) {
-            return fNode.element().setValue(aValue);
+        if (node != null) {
+            return node.element().setValue(value);
         }
 
-        fPredecessor.setNext(new LinkedListNode(new KeyValuePair(aKey, aValue), null));
-        ++mSize;
+        predecessor.setNext(new LinkedListNode(new KeyValuePair(key, value), null));
+        ++size;
 
         return null;
     }
@@ -94,25 +94,25 @@ public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
      * Removes element with a given key from list.
      * Complexity: linear in list size
      *
-     * @param aKey a key of element that will be removed
-     * @return a value associated with aKey or null if there is no element with a key equal to aKey
+     * @param key a key of element that will be removed
+     * @return a value associated with key or null if there is no element with a key equal to key
      */
-    public String remove(String aKey) {
-        if (aKey == null) {
-            throw new IllegalArgumentException(sNullKeyExceptionMsg);
+    public String remove(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException(NULL_KEY_EXCEPTION_MSG);
         }
 
-        LinkedListNode fPredecessor = findPredecessor(aKey);
-        LinkedListNode fNode = fPredecessor.next();
+        LinkedListNode predecessor = findPredecessor(key);
+        LinkedListNode node = predecessor.next();
 
-        String fValue = null;
-        if (fNode != null) {
-            fValue = fNode.element().value();
-            fPredecessor.setNext(fNode.next());
-            --mSize;
+        String value = null;
+        if (node != null) {
+            value = node.element().value();
+            predecessor.setNext(node.next());
+            --size;
         }
 
-        return fValue;
+        return value;
     }
 
     /**
@@ -120,62 +120,65 @@ public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
      * Complexity: linear in list size
      */
     public void clear() {
-        mHeadNode.setNext(null);
-        mSize = 0;
+        headNode.setNext(null);
+        size = 0;
     }
 
-    private LinkedListNode findPredecessor(String aKey) {
-        LinkedListNode fNode = mHeadNode;
+    private LinkedListNode findPredecessor(String key) {
+        LinkedListNode node = headNode;
 
-        while (fNode.next() != null) {
-            if (fNode.next().element().key().equals(aKey)) {
+        while (node.next() != null) {
+            if (node.next().element().key().equals(key)) {
                 break;
             }
 
-            fNode = fNode.next();
+            node = node.next();
         }
 
-        return fNode;
+        return node;
     }
 
-    private class LinkedListNode {
-        private KeyValuePair mKeyValuePair;
+    public Iterator<KeyValuePair> iterator() {
+        return new LinkedListIterator();
+    }
 
-        private LinkedListNode mNext;
+    private static class LinkedListNode {
+        private KeyValuePair keyValuePair;
+
+        private LinkedListNode next;
 
         public LinkedListNode() {
-            mKeyValuePair = null;
-            mNext = null;
+            keyValuePair = null;
+            next = null;
         }
 
-        public LinkedListNode(KeyValuePair aKeyValuePair, LinkedListNode aNext) {
-            mKeyValuePair = aKeyValuePair;
-            mNext = aNext;
+        public LinkedListNode(KeyValuePair keyValuePair, LinkedListNode next) {
+            this.keyValuePair = keyValuePair;
+            this.next = next;
         }
 
         public KeyValuePair element() {
-            return mKeyValuePair;
+            return keyValuePair;
         }
-
 
         public LinkedListNode next() {
-            return mNext;
+            return next;
         }
 
-        public void setNext(LinkedListNode aNext) {
-            mNext = aNext;
+        public void setNext(LinkedListNode next) {
+            this.next = next;
         }
     }
 
     private class LinkedListIterator implements Iterator<KeyValuePair> {
-        private LinkedListNode mNode;
+        private LinkedListNode node;
 
         public LinkedListIterator() {
-            mNode = LinkedList.this.mHeadNode.next();
+            node = LinkedList.this.headNode.next();
         }
 
         public boolean hasNext() {
-            return mNode != null;
+            return node != null;
         }
 
         public KeyValuePair next() {
@@ -183,14 +186,10 @@ public class LinkedList implements Iterable<KeyValuePair>, KeyValueMap {
                 throw new NoSuchElementException();
             }
 
-            KeyValuePair fValue = mNode.element();
-            mNode = mNode.next();
+            KeyValuePair value = node.element();
+            node = node.next();
 
-            return fValue;
+            return value;
         }
-    }
-
-    public Iterator<KeyValuePair> iterator() {
-        return new LinkedListIterator();
     }
 }
