@@ -15,8 +15,34 @@ public class Trie {
     public Trie() {
     }
 
+    /**
+     * Add new string to Trie.
+     *
+     * @param element string to add
+     * @return true if string was added, false if given string already presented in trie
+     */
     public boolean add(String element) {
-        return false;
+        if (element == null) {
+            throw new IllegalArgumentException("Argument must not be null!");
+        }
+
+        Node node = rootNode;
+
+        for (int i = 0; i < element.length(); ++i) {
+            Character character = element.charAt(i);
+            if (!node.isChildNodeExist(character)) {
+                node.newChildNode(character);
+            }
+
+            node = node.getChildNode(character);
+        }
+
+        if (node.isTerminal()) {
+            return false;
+        }
+
+        node.setTerminal(true);
+        return true;
     }
 
     public boolean contains(String element) {
@@ -43,6 +69,10 @@ public class Trie {
 
         public Node(Node parentNode) {
             this.parentNode = parentNode;
+        }
+
+        public boolean isChildNodeExist(Character edgeCharacter) {
+            return childNodes.containsKey(edgeCharacter);
         }
 
         public Node getChildNode(Character edgeCharacter) {
