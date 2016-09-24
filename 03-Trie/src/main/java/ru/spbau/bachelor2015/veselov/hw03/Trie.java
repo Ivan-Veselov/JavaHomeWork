@@ -7,7 +7,13 @@ import java.util.HashMap;
  * which begin with a given prefix. Also supports serialization.
  */
 public class Trie {
-    private Node rootNode;
+    private Node rootNode = new Node(null);
+
+    /**
+     * Creates empty Trie.
+     */
+    public Trie() {
+    }
 
     public boolean add(String element) {
         return false;
