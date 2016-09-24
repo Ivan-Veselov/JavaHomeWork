@@ -10,5 +10,5 @@ import java.io.Serializable;
  */
 public interface SelfSerializable extends Serializable {
     void serialize(OutputStream out) throws IOException;
-    void deserialize(InputStream in) throws IOException;
+    void deserialize(InputStream in) throws IOException, ClassNotFoundException;
 }

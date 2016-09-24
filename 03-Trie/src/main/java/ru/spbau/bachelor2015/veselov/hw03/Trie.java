@@ -1,6 +1,8 @@
 package ru.spbau.bachelor2015.veselov.hw03;
 
 import java.io.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 
 /**
@@ -105,6 +107,32 @@ public class Trie implements SelfSerializable {
         return node == null ? 0 : node.getNumberOfTerminalsInSubTree();
     }
 
+    /**
+     * Serialize object by writing data into a given stream.
+     *
+     * @param out stream where data will be written
+     * @throws IOException
+     */
+    public void serialize(OutputStream out) throws IOException {
+        ObjectOutputStream objectOut = new ObjectOutputStream(out);
+        objectOut.defaultWriteObject();
+    }
+
+    public void deserialize(InputStream in) throws IOException, ClassNotFoundException {
+        ObjectInputStream objectIn = new ObjectInputStream(in);
+        objectIn.defaultReadObject();
+
+        // restore parent links
+        Deque<Node> stack = new ArrayDeque<>();
+        stack.push(rootNode);
+
+        while (!stack.isEmpty()) {
+            /*for () {
+
+            }*/
+        }
+    }
+
     private Node retrieveNode(String element, boolean addNewNodes) {
         Node node = rootNode;
 
@@ -122,12 +150,6 @@ public class Trie implements SelfSerializable {
         }
 
         return node;
-    }
-
-    public void serialize(OutputStream out) throws IOException {
-    }
-
-    public void deserialize(InputStream in) throws IOException {
     }
 
     static private class Node implements Serializable {
@@ -179,6 +201,7 @@ public class Trie implements SelfSerializable {
         }
 
         private void writeObject(ObjectOutputStream out) throws IOException {
+            parentNode = null;
             out.writeObject(childNodes);
             out.writeBoolean(isTerminal);
             out.writeInt(numberOfTerminalsInSubTree);
