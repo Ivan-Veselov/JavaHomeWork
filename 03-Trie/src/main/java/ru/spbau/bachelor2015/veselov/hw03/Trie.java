@@ -74,8 +74,11 @@ public class Trie {
         return true;
     }
 
+    /**
+     * @return number of string stored in Trie
+     */
     public int size() {
-        return 0;
+        return rootNode.getNumberOfTerminalsInSubTree();
     }
 
     public int howManyStartsWithPrefix(String prefix) {

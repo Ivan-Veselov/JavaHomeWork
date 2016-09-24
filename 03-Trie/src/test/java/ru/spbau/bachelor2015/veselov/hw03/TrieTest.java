@@ -151,4 +151,43 @@ public class TrieTest {
         assertFalse(trie.remove("a"));
         assertFalse(trie.remove("ab"));
     }
+
+    @Test
+    public void testSize1() throws Exception {
+        Trie trie = new Trie();
+
+        assertEquals(0, trie.size());
+
+        assertTrue(trie.add(""));
+        assertEquals(1, trie.size());
+
+        assertFalse(trie.add(""));
+        assertEquals(1, trie.size());
+
+        assertTrue(trie.add("a"));
+        assertEquals(2, trie.size());
+
+        assertTrue(trie.remove(""));
+        assertEquals(1, trie.size());
+
+        assertFalse(trie.remove(""));
+        assertEquals(1, trie.size());
+
+        assertTrue(trie.remove("a"));
+        assertEquals(0, trie.size());
+    }
+
+    @Test
+    public void testSize2() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add("string"));
+        assertEquals(1, trie.size());
+
+        assertTrue(trie.add("bring"));
+        assertEquals(2, trie.size());
+
+        assertTrue(trie.add("ring"));
+        assertEquals(3, trie.size());
+    }
 }
