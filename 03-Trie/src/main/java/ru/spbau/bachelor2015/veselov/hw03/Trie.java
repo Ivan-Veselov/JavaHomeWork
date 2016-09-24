@@ -40,12 +40,12 @@ public class Trie {
         }
 
         public Node getChildNode(Character edgeCharacter) {
-            Node child = childNodes.get(edgeCharacter);
+            return childNodes.get(edgeCharacter);
+        }
 
-            if (child == null) {
-                child = new Node(this);
-                childNodes.put(edgeCharacter, child);
-            }
+        public Node newChildNode(Character edgeCharacter) {
+            Node child = new Node(this);
+            childNodes.put(edgeCharacter, child);
 
             return child;
         }
