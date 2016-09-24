@@ -26,16 +26,7 @@ public class Trie {
             throw new IllegalArgumentException("Argument must not be null!");
         }
 
-        Node node = rootNode;
-
-        for (int i = 0; i < element.length(); ++i) {
-            Character character = element.charAt(i);
-            if (!node.isChildNodeExist(character)) {
-                node.newChildNode(character);
-            }
-
-            node = node.getChildNode(character);
-        }
+        Node node = retrieveNode(element, true);
 
         if (node.isTerminal()) {
             return false;
@@ -59,6 +50,25 @@ public class Trie {
 
     public int howManyStartsWithPrefix(String prefix) {
         return 0;
+    }
+
+    private Node retrieveNode(String element, boolean addNewNodes) {
+        Node node = rootNode;
+
+        for (int i = 0; i < element.length(); ++i) {
+            Character character = element.charAt(i);
+            if (!node.isChildNodeExist(character)) {
+                if (addNewNodes) {
+                    node.newChildNode(character);
+                } else {
+                    return null;
+                }
+            }
+
+            node = node.getChildNode(character);
+        }
+
+        return node;
     }
 
     static private class Node {
