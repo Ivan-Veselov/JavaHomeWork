@@ -1,9 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw03;
 
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Trie structure which can maintain set of Strings and count Strings
@@ -152,7 +150,7 @@ public class Trie implements SelfSerializable {
         return node;
     }
 
-    static private class Node implements Serializable {
+    static private class Node implements Iterable<Map.Entry<Character, Node>>, Serializable {
         private Node parentNode;
         private HashMap<Character, Node> childNodes = new HashMap<>();
         private boolean isTerminal = false;
@@ -198,6 +196,11 @@ public class Trie implements SelfSerializable {
 
         public int getNumberOfTerminalsInSubTree() {
             return numberOfTerminalsInSubTree;
+        }
+
+        @Override
+        public Iterator<Map.Entry<Character, Node>> iterator() {
+            return childNodes.entrySet().iterator();
         }
 
         private void writeObject(ObjectOutputStream out) throws IOException {
