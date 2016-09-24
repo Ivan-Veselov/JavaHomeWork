@@ -1,12 +1,15 @@
 package ru.spbau.bachelor2015.veselov.hw03;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 
 /**
  * Trie structure which can maintain set of Strings and count Strings
  * which begin with a given prefix. Also supports serialization.
  */
-public class Trie {
+public class Trie implements SelfSerializable {
     private Node rootNode = new Node(null);
 
     private static final String NULL_ARG_EXCEPTION_MSG = "Argument must not be null!";
@@ -121,6 +124,12 @@ public class Trie {
         }
 
         return node;
+    }
+
+    public void serialize(OutputStream out) throws IOException {
+    }
+
+    public void deserialize(InputStream in) throws IOException {
     }
 
     static private class Node {
