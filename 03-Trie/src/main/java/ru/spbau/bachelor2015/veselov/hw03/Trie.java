@@ -106,7 +106,7 @@ public class Trie implements SelfSerializable {
     }
 
     /**
-     * Serialize object by writing data into a given stream.
+     * Serializes object by writing data into a given stream.
      *
      * @param out stream where data will be written
      * @throws IOException
