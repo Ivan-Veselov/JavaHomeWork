@@ -9,19 +9,19 @@ public class Trie {
         return false;
     }
 
-    boolean contains(String element) {
+    public boolean contains(String element) {
         return false;
     }
 
-    boolean remove(String element) {
+    public boolean remove(String element) {
         return false;
     }
 
-    int size() {
+    public int size() {
         return 0;
     }
 
-    int howManyStartsWithPrefix(String prefix) {
+    public int howManyStartsWithPrefix(String prefix) {
         return 0;
     }
 }
