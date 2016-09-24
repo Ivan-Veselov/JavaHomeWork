@@ -19,6 +19,7 @@ public class Trie {
 
     /**
      * Adds new string to Trie.
+     * Complexity: linear in string length
      *
      * @param element string to add
      * @return true if string was added, false if given string already presented in trie
@@ -40,6 +41,7 @@ public class Trie {
 
     /**
      * Checks whether given string contained in Trie.
+     * Complexity: linear in string length
      *
      * @param element string to check
      * @return true if given string contained in Trie, false otherwise
@@ -55,6 +57,7 @@ public class Trie {
 
     /**
      * Removes given string from Trie.
+     * Complexity: linear in string length
      *
      * @param element string to remove
      * @return true if Trie contained given string, false otherwise
@@ -75,6 +78,8 @@ public class Trie {
     }
 
     /**
+     * Complexity: constant
+     *
      * @return number of string stored in Trie
      */
     public int size() {
