@@ -116,6 +116,13 @@ public class Trie implements SelfSerializable {
         objectOut.defaultWriteObject();
     }
 
+    /**
+     * Deserializes object by reading data from a given stream.
+     *
+     * @param in stream to read data from
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void deserialize(InputStream in) throws IOException, ClassNotFoundException {
         ObjectInputStream objectIn = new ObjectInputStream(in);
         objectIn.defaultReadObject();
@@ -125,9 +132,13 @@ public class Trie implements SelfSerializable {
         stack.push(rootNode);
 
         while (!stack.isEmpty()) {
-            /*for () {
+            Node node = stack.pop();
+            for (Map.Entry<Character, Node> entry : node) {
+                Node childNode = entry.getValue();
+                childNode.bindToNewParent(node);
 
-            }*/
+                stack.push(childNode);
+            }
         }
     }
 
@@ -196,6 +207,10 @@ public class Trie implements SelfSerializable {
 
         public int getNumberOfTerminalsInSubTree() {
             return numberOfTerminalsInSubTree;
+        }
+
+        public void bindToNewParent(Node parentNode) {
+            this.parentNode = parentNode;
         }
 
         @Override
