@@ -86,8 +86,22 @@ public class Trie {
         return rootNode.getNumberOfTerminalsInSubTree();
     }
 
+    /**
+     * Counts number of strings in Trie with a given prefix.
+     * If trie contains string equal to argument then it also
+     * will be counted.
+     * Complexity: linear in prefix length
+     *
+     * @param prefix
+     * @return number of strings with a given prefix
+     */
     public int howManyStartsWithPrefix(String prefix) {
-        return 0;
+        if (prefix == null) {
+            throw new IllegalArgumentException(NULL_ARG_EXCEPTION_MSG);
+        }
+
+        Node node = retrieveNode(prefix, false);
+        return node == null ? 0 : node.getNumberOfTerminalsInSubTree();
     }
 
     private Node retrieveNode(String element, boolean addNewNodes) {

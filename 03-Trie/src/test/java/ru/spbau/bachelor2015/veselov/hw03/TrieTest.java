@@ -190,4 +190,37 @@ public class TrieTest {
         assertTrue(trie.add("ring"));
         assertEquals(3, trie.size());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testHowManyStartsWithPrefix1() throws Exception {
+        Trie trie = new Trie();
+
+        trie.howManyStartsWithPrefix(null);
+    }
+
+    @Test
+    public void testHowManyStartsWithPrefix2() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add("aba"));
+        assertTrue(trie.add("abb"));
+        assertTrue(trie.add("abac"));
+        assertTrue(trie.add("abad"));
+
+        assertEquals(3, trie.howManyStartsWithPrefix("aba"));
+        assertEquals(4, trie.howManyStartsWithPrefix("ab"));
+        assertEquals(4, trie.howManyStartsWithPrefix("a"));
+        assertEquals(0, trie.howManyStartsWithPrefix("caba"));
+        assertEquals(1, trie.howManyStartsWithPrefix("abad"));
+        assertEquals(0, trie.howManyStartsWithPrefix("abababa"));
+
+        assertTrue(trie.remove("aba"));
+
+        assertEquals(2, trie.howManyStartsWithPrefix("aba"));
+        assertEquals(3, trie.howManyStartsWithPrefix("ab"));
+        assertEquals(3, trie.howManyStartsWithPrefix("a"));
+        assertEquals(0, trie.howManyStartsWithPrefix("caba"));
+        assertEquals(1, trie.howManyStartsWithPrefix("abad"));
+        assertEquals(0, trie.howManyStartsWithPrefix("abababa"));
+    }
 }
