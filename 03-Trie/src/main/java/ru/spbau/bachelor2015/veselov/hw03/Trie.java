@@ -1,8 +1,6 @@
 package ru.spbau.bachelor2015.veselov.hw03;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -132,7 +130,7 @@ public class Trie implements SelfSerializable {
     public void deserialize(InputStream in) throws IOException {
     }
 
-    static private class Node {
+    static private class Node implements Serializable {
         private Node parentNode;
         private HashMap<Character, Node> childNodes = new HashMap<>();
         private boolean isTerminal = false;
@@ -178,6 +176,18 @@ public class Trie implements SelfSerializable {
 
         public int getNumberOfTerminalsInSubTree() {
             return numberOfTerminalsInSubTree;
+        }
+
+        private void writeObject(ObjectOutputStream out) throws IOException {
+            out.writeObject(childNodes);
+            out.writeBoolean(isTerminal);
+            out.writeInt(numberOfTerminalsInSubTree);
+        }
+
+        private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+            childNodes = (HashMap<Character, Node>)in.readObject();
+            isTerminal = in.readBoolean();
+            numberOfTerminalsInSubTree = in.readInt();
         }
     }
 }
