@@ -1,8 +1,6 @@
-package ru.spbau.bachelor2015.veselov.hw02;
+package ru.spbau.bachelor2015.veselov.hw03;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class TrieTest {
     @Test

@@ -1,4 +1,4 @@
-package ru.spbau.bachelor2015.veselov.hw02;
+package ru.spbau.bachelor2015.veselov.hw03;
 
 /**
  * Trie structure which can maintain set of Strings and count Strings
