@@ -16,7 +16,7 @@ public class Trie {
     }
 
     /**
-     * Add new string to Trie.
+     * Adds new string to Trie.
      *
      * @param element string to add
      * @return true if string was added, false if given string already presented in trie
