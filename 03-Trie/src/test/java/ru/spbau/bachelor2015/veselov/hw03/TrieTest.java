@@ -2,6 +2,9 @@ package ru.spbau.bachelor2015.veselov.hw03;
 
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
 import static org.junit.Assert.*;
 
 public class TrieTest {
@@ -222,5 +225,28 @@ public class TrieTest {
         assertEquals(0, trie.howManyStartsWithPrefix("caba"));
         assertEquals(1, trie.howManyStartsWithPrefix("abad"));
         assertEquals(0, trie.howManyStartsWithPrefix("abababa"));
+    }
+
+    @Test
+    public void testSerialization() throws Exception {
+        Trie trie1 = new Trie();
+
+        assertTrue(trie1.add("zzz"));
+        assertTrue(trie1.add("zz"));
+        assertTrue(trie1.add("zzy"));
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        trie1.serialize(out);
+
+        Trie trie2 = new Trie();
+        trie2.deserialize(new ByteArrayInputStream(out.toByteArray()));
+
+        assertEquals(3, trie2.size());
+        assertTrue(trie2.contains("zzz"));
+        assertTrue(trie2.contains("zz"));
+        assertTrue(trie2.contains("zzy"));
+
+        assertEquals(3, trie2.howManyStartsWithPrefix("z"));
+        assertEquals(3, trie2.howManyStartsWithPrefix("zz"));
     }
 }

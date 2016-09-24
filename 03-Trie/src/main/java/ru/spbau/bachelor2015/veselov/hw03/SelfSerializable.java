@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Interface of a class which can serialize and deserialize itself.
  */
-public interface SelfSerializable extends Serializable {
+public interface SelfSerializable {
     void serialize(OutputStream out) throws IOException;
     void deserialize(InputStream in) throws IOException, ClassNotFoundException;
 }

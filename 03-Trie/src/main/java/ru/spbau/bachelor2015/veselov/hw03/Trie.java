@@ -113,7 +113,7 @@ public class Trie implements SelfSerializable {
      */
     public void serialize(OutputStream out) throws IOException {
         ObjectOutputStream objectOut = new ObjectOutputStream(out);
-        objectOut.defaultWriteObject();
+        objectOut.writeObject(rootNode);
     }
 
     /**
@@ -125,7 +125,7 @@ public class Trie implements SelfSerializable {
      */
     public void deserialize(InputStream in) throws IOException, ClassNotFoundException {
         ObjectInputStream objectIn = new ObjectInputStream(in);
-        objectIn.defaultReadObject();
+        rootNode = (Node)objectIn.readObject();
 
         // restore parent links
         Deque<Node> stack = new ArrayDeque<>();
