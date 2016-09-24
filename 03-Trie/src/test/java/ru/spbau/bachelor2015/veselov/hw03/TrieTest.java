@@ -61,4 +61,53 @@ public class TrieTest {
 
         trie.add(null);
     }
+
+    @Test
+    public void testContains1() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add("aba"));
+        assertTrue(trie.contains("aba"));
+    }
+
+    @Test
+    public void testContains2() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add("aba"));
+        assertFalse(trie.contains(""));
+        assertFalse(trie.contains("a"));
+        assertFalse(trie.contains("ab"));
+        assertTrue(trie.contains("aba"));
+        assertFalse(trie.contains("abac"));
+    }
+
+    @Test
+    public void testContains3() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add("ab"));
+        assertTrue(trie.add("abc"));
+        assertTrue(trie.add("abd"));
+
+        assertFalse(trie.contains("a"));
+        assertTrue(trie.contains("ab"));
+        assertTrue(trie.contains("abc"));
+        assertTrue(trie.contains("abd"));
+        assertFalse(trie.contains("abcd"));
+    }
+
+    @Test
+    public void testContains4() throws Exception {
+        Trie trie = new Trie();
+
+        assertFalse(trie.contains("string"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testContains5() throws Exception {
+        Trie trie = new Trie();
+
+        assertFalse(trie.contains(null));
+    }
 }

@@ -36,8 +36,19 @@ public class Trie {
         return true;
     }
 
+    /**
+     * Checks whether given string contained in Trie.
+     *
+     * @param element string to check
+     * @return true if given string contained in Trie, false otherwise
+     */
     public boolean contains(String element) {
-        return false;
+        if (element == null) {
+            throw new IllegalArgumentException("Argument must not be null!");
+        }
+
+        Node node = retrieveNode(element, false);
+        return node != null && node.isTerminal();
     }
 
     public boolean remove(String element) {
