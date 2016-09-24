@@ -108,6 +108,47 @@ public class TrieTest {
     public void testContains5() throws Exception {
         Trie trie = new Trie();
 
-        assertFalse(trie.contains(null));
+        trie.contains(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemove1() throws Exception {
+        Trie trie = new Trie();
+
+        trie.remove(null);
+    }
+
+    @Test
+    public void testRemove2() throws Exception {
+        Trie trie = new Trie();
+
+        assertFalse(trie.remove("ab"));
+        assertTrue(trie.add("ab"));
+        assertTrue(trie.remove("ab"));
+        assertFalse(trie.contains("ab"));
+    }
+
+    @Test
+    public void testRemove3() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add(""));
+        assertTrue(trie.contains(""));
+    }
+
+    @Test
+    public void testRemove4() throws Exception {
+        Trie trie = new Trie();
+
+        assertTrue(trie.add(""));
+        assertTrue(trie.add("a"));
+        assertTrue(trie.add("aa"));
+
+        assertTrue(trie.remove("a"));
+        assertTrue(trie.contains(""));
+        assertFalse(trie.contains("a"));
+        assertTrue(trie.contains("aa"));
+        assertFalse(trie.remove("a"));
+        assertFalse(trie.remove("ab"));
     }
 }

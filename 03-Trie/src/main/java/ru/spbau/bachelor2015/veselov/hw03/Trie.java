@@ -53,8 +53,25 @@ public class Trie {
         return node != null && node.isTerminal();
     }
 
+    /**
+     * Removes given string from Trie.
+     *
+     * @param element string to remove
+     * @return true if Trie contained given string, false otherwise
+     */
     public boolean remove(String element) {
-        return false;
+        if (element == null) {
+            throw new IllegalArgumentException(NULL_ARG_EXCEPTION_MSG);
+        }
+
+        Node node = retrieveNode(element, false);
+
+        if (node == null || !node.isTerminal()) {
+            return false;
+        }
+
+        node.setTerminal(false);
+        return true;
     }
 
     public int size() {
