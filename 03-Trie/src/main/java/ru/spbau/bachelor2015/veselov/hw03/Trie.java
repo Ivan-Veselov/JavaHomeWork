@@ -9,6 +9,8 @@ import java.util.HashMap;
 public class Trie {
     private Node rootNode = new Node(null);
 
+    private static final String NULL_ARG_EXCEPTION_MSG = "Argument must not be null!";
+
     /**
      * Creates empty Trie.
      */
@@ -23,7 +25,7 @@ public class Trie {
      */
     public boolean add(String element) {
         if (element == null) {
-            throw new IllegalArgumentException("Argument must not be null!");
+            throw new IllegalArgumentException(NULL_ARG_EXCEPTION_MSG);
         }
 
         Node node = retrieveNode(element, true);
@@ -44,7 +46,7 @@ public class Trie {
      */
     public boolean contains(String element) {
         if (element == null) {
-            throw new IllegalArgumentException("Argument must not be null!");
+            throw new IllegalArgumentException(NULL_ARG_EXCEPTION_MSG);
         }
 
         Node node = retrieveNode(element, false);
