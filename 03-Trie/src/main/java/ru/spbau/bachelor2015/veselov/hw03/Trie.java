@@ -149,7 +149,7 @@ public class Trie implements SelfSerializable {
         return node;
     }
 
-    static private class Node implements Iterable<Map.Entry<Character, Node>>, Serializable {
+    static private class Node implements Serializable {
         private Node parentNode;
         private HashMap<Character, Node> childNodes = new HashMap<>();
         private boolean isTerminal = false;
@@ -203,7 +203,7 @@ public class Trie implements SelfSerializable {
 
             while (!stack.isEmpty()) {
                 Node node = stack.pop();
-                for (Map.Entry<Character, Node> entry : node) {
+                for (Map.Entry<Character, Node> entry : node.childNodes.entrySet()) {
                     Node childNode = entry.getValue();
                     childNode.parentNode = node;
 
@@ -211,12 +211,7 @@ public class Trie implements SelfSerializable {
                 }
             }
         }
-
-        @Override
-        public Iterator<Map.Entry<Character, Node>> iterator() {
-            return childNodes.entrySet().iterator();
-        }
-
+        
         private void writeObject(ObjectOutputStream out) throws IOException {
             parentNode = null;
             out.writeObject(childNodes);
