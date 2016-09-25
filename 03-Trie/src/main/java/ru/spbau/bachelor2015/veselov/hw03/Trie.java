@@ -127,19 +127,7 @@ public class Trie implements SelfSerializable {
         ObjectInputStream objectIn = new ObjectInputStream(in);
         rootNode = (Node)objectIn.readObject();
 
-        // restore parent links
-        Deque<Node> stack = new ArrayDeque<>();
-        stack.push(rootNode);
-
-        while (!stack.isEmpty()) {
-            Node node = stack.pop();
-            for (Map.Entry<Character, Node> entry : node) {
-                Node childNode = entry.getValue();
-                childNode.bindToNewParent(node);
-
-                stack.push(childNode);
-            }
-        }
+        rootNode.restoreParentLinks();
     }
 
     private Node retrieveNode(String element, boolean addNewNodes) {
@@ -209,8 +197,19 @@ public class Trie implements SelfSerializable {
             return numberOfTerminalsInSubTree;
         }
 
-        public void bindToNewParent(Node parentNode) {
-            this.parentNode = parentNode;
+        public void restoreParentLinks() {
+            Deque<Node> stack = new ArrayDeque<>();
+            stack.push(this);
+
+            while (!stack.isEmpty()) {
+                Node node = stack.pop();
+                for (Map.Entry<Character, Node> entry : node) {
+                    Node childNode = entry.getValue();
+                    childNode.parentNode = node;
+
+                    stack.push(childNode);
+                }
+            }
         }
 
         @Override
