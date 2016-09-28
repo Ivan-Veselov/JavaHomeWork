@@ -16,6 +16,10 @@ public class Maybe<T> {
     }
 
     public @NotNull T get() {
+        if (object == null) {
+            throw new ValueIsNotPresentedException();
+        }
+
         return object;
     }
 
