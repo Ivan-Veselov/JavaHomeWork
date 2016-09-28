@@ -27,7 +27,7 @@ public class Maybe<T> {
         return object != null;
     }
 
-    public <U> Maybe<U> map(Function<T, U> mapper) {
+    public <U> Maybe<U> map(Function<? super T, ? extends U> mapper) {
         if (!isPresent()) {
             return Maybe.nothing();
         }
