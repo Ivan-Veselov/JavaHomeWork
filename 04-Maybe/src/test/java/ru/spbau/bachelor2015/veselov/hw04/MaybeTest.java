@@ -47,4 +47,11 @@ public class MaybeTest {
         Function<Integer, Integer> f = x -> x * 2;
         assertEquals(2048, maybe.map(f).get().intValue());
     }
+
+    @Test
+    public void testMap2() throws Exception {
+        Maybe<Integer> maybe = Maybe.<Integer>nothing();
+        Function<Integer, Integer> f = x -> x * 2;
+        assertFalse(maybe.map(f).isPresent());
+    }
 }
