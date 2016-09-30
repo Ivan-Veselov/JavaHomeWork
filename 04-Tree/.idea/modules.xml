@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/04-Tree.iml" filepath="$PROJECT_DIR$/.idea/modules/04-Tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/04-Tree_main.iml" filepath="$PROJECT_DIR$/.idea/modules/04-Tree_main.iml" group="04-Tree" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/04-Tree_test.iml" filepath="$PROJECT_DIR$/.idea/modules/04-Tree_test.iml" group="04-Tree" />
     </modules>
   </component>
 </project>
