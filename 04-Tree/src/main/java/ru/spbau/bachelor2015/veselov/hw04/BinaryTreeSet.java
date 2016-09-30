@@ -1,13 +1,15 @@
 package ru.spbau.bachelor2015.veselov.hw04;
 
+import org.jetbrains.annotations.NotNull;
+
 public class BinaryTreeSet<T extends Comparable<? super T>> {
     public BinaryTreeSet() {
     }
 
-    public void add(T newElement) {
+    public void add(@NotNull T newElement) {
     }
 
-    public boolean contains(T element) {
+    public boolean contains(@NotNull T element) {
         return false;
     }
 
