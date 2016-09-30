@@ -7,7 +7,7 @@ import java.util.function.Function;
 public class Maybe<T> {
     private T object;
 
-    public static <T> Maybe<T> just(T t) {
+    public static <T> Maybe<T> just(@NotNull T t) {
         return new Maybe<T> (t);
     }
 
