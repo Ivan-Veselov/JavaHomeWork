@@ -54,4 +54,17 @@ public class MaybeTest {
         Function<Integer, Integer> f = x -> x * 2;
         assertFalse(maybe.map(f).isPresent());
     }
+
+    @Test
+    public void testToString1() throws Exception {
+        Maybe<Integer> maybe = Maybe.<Integer>nothing();
+        assertEquals("null", maybe.toString());
+    }
+
+    @Test
+    public void testToString2() throws Exception {
+        Integer i = new Integer(1024);
+        Maybe<Integer> maybe = Maybe.<Integer>just(i);
+        assertEquals(i.toString(), maybe.toString());
+    }
 }

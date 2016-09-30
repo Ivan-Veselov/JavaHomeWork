@@ -71,6 +71,21 @@ public class Maybe<T> {
         return Maybe.just(mapper.apply(object));
     }
 
+    /**
+     * Returns string representation of an underlying object
+     * or "null" if Maybe represents lack of object.
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        if (!isPresent()) {
+            return "null";
+        }
+
+        return object.toString();
+    }
+
     private Maybe(T object) {
         this.object = object;
     }
