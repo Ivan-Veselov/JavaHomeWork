@@ -22,7 +22,7 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
         Node<T> leftChild = null;
         Node<T> rightChild = null;
 
-        private Node(@NotNull T element) {
+        public Node(@NotNull T element) {
             this.element = element;
         }
     }
