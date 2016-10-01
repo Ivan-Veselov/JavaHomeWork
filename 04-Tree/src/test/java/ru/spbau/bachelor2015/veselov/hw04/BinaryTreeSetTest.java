@@ -3,6 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw04;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class BinaryTreeSetTest {
@@ -37,7 +38,23 @@ public class BinaryTreeSetTest {
 
     @Test
     public void size() throws Exception {
+        BinaryTreeSet<Integer> set = new BinaryTreeSet<Integer>();
 
+        assertEquals(0, set.size());
+
+        assertTrue(set.add(0));
+        assertEquals(1, set.size());
+
+        assertFalse(set.add(0));
+        assertEquals(1, set.size());
+
+        assertTrue(set.add(1));
+        assertEquals(2, set.size());
+
+        assertFalse(set.add(0));
+        assertEquals(2, set.size());
+
+        assertTrue(set.add(-1));
+        assertEquals(3, set.size());
     }
-
 }
