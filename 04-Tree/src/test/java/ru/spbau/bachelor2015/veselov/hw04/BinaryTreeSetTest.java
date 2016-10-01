@@ -59,7 +59,7 @@ public class BinaryTreeSetTest {
     }
 
     @Test
-    public void size() throws Exception {
+    public void testSize() throws Exception {
         BinaryTreeSet<Integer> set = new BinaryTreeSet<Integer>();
 
         assertEquals(0, set.size());
