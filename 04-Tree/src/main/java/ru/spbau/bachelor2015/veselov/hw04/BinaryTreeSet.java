@@ -56,7 +56,26 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
         }
     }
 
+    /**
+     * Checks whether given element is contained in set.
+     *
+     * @param element element which presence is checked
+     * @return true if set contains given element, false otherwise
+     */
     public boolean contains(@NotNull T element) {
+        Node<T> node = root;
+
+        while (node != null) {
+            int compareResult = node.getElement().compareTo(element);
+            if (compareResult == 0) {
+                return true;
+            } else if (compareResult < 0) {
+                node = node.getRightChild();
+            } else {
+                node = node.getLeftChild();
+            }
+        }
+
         return false;
     }
 

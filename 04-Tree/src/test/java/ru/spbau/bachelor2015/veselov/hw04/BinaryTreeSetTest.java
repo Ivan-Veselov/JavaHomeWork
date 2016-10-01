@@ -32,8 +32,30 @@ public class BinaryTreeSetTest {
     }
 
     @Test
-    public void contains() throws Exception {
+    public void testContains() throws Exception {
+        BinaryTreeSet<Integer> set = new BinaryTreeSet<Integer>();
 
+        assertFalse(set.contains(0));
+
+        assertTrue(set.add(0));
+        assertTrue(set.contains(0));
+        assertFalse(set.contains(1));
+
+        assertFalse(set.add(0));
+        assertTrue(set.contains(0));
+        assertFalse(set.contains(1));
+
+        assertTrue(set.add(1));
+        assertTrue(set.contains(0));
+        assertTrue(set.contains(1));
+
+        assertTrue(set.add(-2));
+        assertTrue(set.contains(0));
+        assertTrue(set.contains(1));
+        assertFalse(set.contains(2));
+        assertFalse(set.contains(-1));
+        assertTrue(set.contains(-2));
+        assertFalse(set.contains(-3));
     }
 
     @Test
