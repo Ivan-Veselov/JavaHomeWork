@@ -2,13 +2,27 @@ package ru.spbau.bachelor2015.veselov.hw04;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Class which represents sets of objects of given class. Implemented as
+ * unbalanced BST.
+ *
+ * @param <T> a type of objects to store inside set
+ */
 public class BinaryTreeSet<T extends Comparable<? super T>> {
     private Node<T> root = null;
     private int size = 0;
 
+    /**
+     * Creates empty set.
+     */
     public BinaryTreeSet() {
     }
 
+    /**
+     * Adds new element to set.
+     *
+     * @param newElement new element to add
+     */
     public void add(@NotNull T newElement) {
         if (root == null) {
             root = new Node<T>(newElement);
