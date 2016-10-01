@@ -22,24 +22,25 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
      * Adds new element to set.
      *
      * @param newElement new element to add
+     * @return true if new element was added, false if a given element has already been presented in set
      */
-    public void add(@NotNull T newElement) {
+    public boolean add(@NotNull T newElement) {
         if (root == null) {
             root = new Node<T>(newElement);
             size = 1;
-            return;
+            return true;
         }
 
         Node<T> node = root;
         while (true) {
             int compareResult = node.getElement().compareTo(newElement);
             if (compareResult == 0) {
-                break;
+                return false;
             } else if (compareResult < 0) {
                 if (node.getRightChild() == null) {
                     node.setRightChild(new Node<T>(newElement));
                     ++size;
-                    break;
+                    return true;
                 }
 
                 node = node.getRightChild();
@@ -47,7 +48,7 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
                 if (node.getLeftChild() == null) {
                     node.setLeftChild(new Node<T>(newElement));
                     ++size;
-                    break;
+                    return true;
                 }
 
                 node = node.getLeftChild();
