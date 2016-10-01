@@ -59,8 +59,11 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
         return false;
     }
 
+    /**
+     * @return number of elements currently stored in set
+     */
     public int size() {
-        return 0;
+        return size;
     }
 
     static class Node<T extends Comparable<? super T>> {
