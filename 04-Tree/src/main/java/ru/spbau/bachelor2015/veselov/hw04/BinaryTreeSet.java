@@ -25,5 +25,25 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
         public Node(@NotNull T element) {
             this.element = element;
         }
+
+        public Node<T> getLeftChild() {
+            return leftChild;
+        }
+
+        public Node<T> getRightChild() {
+            return rightChild;
+        }
+
+        public void setLeftChild(Node<T> leftChild) {
+            this.leftChild = leftChild;
+        }
+
+        public void setRightChild(Node<T> rightChild) {
+            this.rightChild = rightChild;
+        }
+
+        public T getElement() {
+            return element;
+        }
     }
 }
