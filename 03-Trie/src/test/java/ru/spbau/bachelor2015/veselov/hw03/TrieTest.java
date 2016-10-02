@@ -1,5 +1,6 @@
 package ru.spbau.bachelor2015.veselov.hw03;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -8,20 +9,20 @@ import java.io.ByteArrayOutputStream;
 import static org.junit.Assert.*;
 
 public class TrieTest {
-    @Test
-    public void testConstructor() throws Exception {
-        Trie trie = new Trie();
+    Trie trie;
+
+    @Before
+    public void createTrie() throws Exception {
+        trie = new Trie();
     }
 
     @Test
     public void testAdd1() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add(""));
         assertTrue(trie.add("a"));
         assertTrue(trie.add("b"));
         assertTrue(trie.add("cabaabac"));
-        
+
         assertFalse(trie.add("cabaabac"));
         assertFalse(trie.add("a"));
         assertFalse(trie.add("b"));
@@ -30,16 +31,12 @@ public class TrieTest {
 
     @Test
     public void testAdd2() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add("abacaba"));
         assertFalse(trie.add("abacaba"));
     }
 
     @Test
     public void testAdd3() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add(""));
         assertTrue(trie.add("s"));
         assertTrue(trie.add("st"));
@@ -59,23 +56,17 @@ public class TrieTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testAdd4() throws Exception {
-        Trie trie = new Trie();
-
         trie.add(null);
     }
 
     @Test
     public void testContains1() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add("aba"));
         assertTrue(trie.contains("aba"));
     }
 
     @Test
     public void testContains2() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add("aba"));
         assertFalse(trie.contains(""));
         assertFalse(trie.contains("a"));
@@ -86,8 +77,6 @@ public class TrieTest {
 
     @Test
     public void testContains3() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add("ab"));
         assertTrue(trie.add("abc"));
         assertTrue(trie.add("abd"));
@@ -101,29 +90,21 @@ public class TrieTest {
 
     @Test
     public void testContains4() throws Exception {
-        Trie trie = new Trie();
-
         assertFalse(trie.contains("string"));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testContains5() throws Exception {
-        Trie trie = new Trie();
-
         trie.contains(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testRemove1() throws Exception {
-        Trie trie = new Trie();
-
         trie.remove(null);
     }
 
     @Test
     public void testRemove2() throws Exception {
-        Trie trie = new Trie();
-
         assertFalse(trie.remove("ab"));
         assertTrue(trie.add("ab"));
         assertTrue(trie.remove("ab"));
@@ -132,16 +113,12 @@ public class TrieTest {
 
     @Test
     public void testRemove3() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add(""));
         assertTrue(trie.contains(""));
     }
 
     @Test
     public void testRemove4() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add(""));
         assertTrue(trie.add("a"));
         assertTrue(trie.add("aa"));
@@ -156,8 +133,6 @@ public class TrieTest {
 
     @Test
     public void testSize1() throws Exception {
-        Trie trie = new Trie();
-
         assertEquals(0, trie.size());
 
         assertTrue(trie.add(""));
@@ -181,8 +156,6 @@ public class TrieTest {
 
     @Test
     public void testSize2() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add("string"));
         assertEquals(1, trie.size());
 
@@ -195,15 +168,11 @@ public class TrieTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testHowManyStartsWithPrefix1() throws Exception {
-        Trie trie = new Trie();
-
         trie.howManyStartsWithPrefix(null);
     }
 
     @Test
     public void testHowManyStartsWithPrefix2() throws Exception {
-        Trie trie = new Trie();
-
         assertTrue(trie.add("aba"));
         assertTrue(trie.add("abb"));
         assertTrue(trie.add("abac"));
