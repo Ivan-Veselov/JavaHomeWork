@@ -109,7 +109,7 @@ public class Trie implements SelfSerializable {
      * Serializes object by writing data into a given stream.
      *
      * @param out stream where data will be written
-     * @throws IOException
+     * @throws IOException any exception thrown by the underlying OutputStream.
      */
     public void serialize(OutputStream out) throws IOException {
         ObjectOutputStream objectOut = new ObjectOutputStream(out);
@@ -120,8 +120,8 @@ public class Trie implements SelfSerializable {
      * Deserializes object by reading data from a given stream.
      *
      * @param in stream to read data from
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException any of the usual Input/Output related exceptions.
+     * @throws ClassNotFoundException class of a serialized object cannot be found.
      */
     public void deserialize(InputStream in) throws IOException, ClassNotFoundException {
         ObjectInputStream objectIn = new ObjectInputStream(in);
