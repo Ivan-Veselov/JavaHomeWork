@@ -86,10 +86,10 @@ public class BinaryTreeSet<T extends Comparable<? super T>> {
         return size;
     }
 
-    static class Node<T extends Comparable<? super T>> {
+    private static class Node<T extends Comparable<? super T>> {
         private @NotNull T element;
-        Node<T> leftChild = null;
-        Node<T> rightChild = null;
+        private Node<T> leftChild = null;
+        private Node<T> rightChild = null;
 
         public Node(@NotNull T element) {
             this.element = element;
