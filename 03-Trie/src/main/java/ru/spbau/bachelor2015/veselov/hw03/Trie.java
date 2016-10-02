@@ -93,7 +93,6 @@ public class Trie implements SelfSerializable {
      * will be counted.
      * Complexity: linear in prefix length
      *
-     * @param prefix
      * @return number of strings with a given prefix
      */
     public int howManyStartsWithPrefix(String prefix) {
