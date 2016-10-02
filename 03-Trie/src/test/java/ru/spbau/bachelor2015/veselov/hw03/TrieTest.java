@@ -21,8 +21,7 @@ public class TrieTest {
         assertTrue(trie.add("a"));
         assertTrue(trie.add("b"));
         assertTrue(trie.add("cabaabac"));
-
-
+        
         assertFalse(trie.add("cabaabac"));
         assertFalse(trie.add("a"));
         assertFalse(trie.add("b"));
