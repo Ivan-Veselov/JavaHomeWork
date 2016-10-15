@@ -6,6 +6,9 @@ package ru.spbau.bachelor2015.veselov.hw05;
  * @param <Source> Type of predicate argument.
  */
 public abstract class Predicate<Source> extends Function1<Source, Boolean> {
+    /**
+     * A predicate which is always true.
+     */
     public static Predicate<Object> ALWAYS_TRUE = new Predicate<Object>() {
         @Override
         public Boolean apply(Object argument) {
@@ -13,6 +16,9 @@ public abstract class Predicate<Source> extends Function1<Source, Boolean> {
         }
     };
 
+    /**
+     * A predicate which is always false.
+     */
     public static Predicate<Object> ALWAYS_FALSE = new Predicate<Object>() {
         @Override
         public Boolean apply(Object argument) {
