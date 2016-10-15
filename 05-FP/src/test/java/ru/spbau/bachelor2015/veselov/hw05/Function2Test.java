@@ -44,36 +44,38 @@ public class Function2Test {
         }
     }
 
-    private <T> void testExtensionality(Function1<Integer, T> f1, Function1<Integer, T> f2) {
-        final int limit = 100;
-        for (int i = -limit; i <= limit; i++) {
-            assertTrue(f1.apply(i).equals(f2.apply(i)));
-        }
-    }
-
     @Test
     public void testBind1() throws Exception {
-        testExtensionality(linearXY.bind1(3), y -> 3 + y);
-        testExtensionality(cubicXXY.bind1(3), y -> 3 * 3 * y);
+        TestExtensionality.test(linearXY.bind1(3), y -> 3 + y);
+        TestExtensionality.test(cubicXXY.bind1(3), y -> 3 * 3 * y);
     }
 
     @Test
     public void testBind2() throws Exception {
-        testExtensionality(linearXY.bind2(9), x -> x + 9);
-        testExtensionality(cubicXXY.bind2(3), x -> x * x * 3);
+        TestExtensionality.test(linearXY.bind2(9), x -> x + 9);
+        TestExtensionality.test(cubicXXY.bind2(3), x -> x * x * 3);
     }
 
     @Test
     public void testCurry() throws Exception {
-        testExtensionality(linearXY.curry().apply(-5), y -> -5 + y);
-        testExtensionality(cubicXXY.curry().apply(-5), y -> -5 * (-5) * y);
+        TestExtensionality.test(linearXY.curry().apply(-5), y -> -5 + y);
+        TestExtensionality.test(cubicXXY.curry().apply(-5), y -> -5 * (-5) * y);
     }
 
     @Test
     public void testTypes() throws Exception {
         Function2<Integer, String, String> f = (n, s) -> s + n.toString() + s;
         Function1<Integer, String> g = f.bind2("|");
-        
+
         assertEquals("|128|", g.apply(128));
+    }
+}
+
+class TestExtensionality {
+    public static <T> void test(Function1<Integer, T> f1, Function1<Integer, T> f2) {
+        final int limit = 100;
+        for (int i = -limit; i <= limit; i++) {
+            assertTrue(f1.apply(i).equals(f2.apply(i)));
+        }
     }
 }
