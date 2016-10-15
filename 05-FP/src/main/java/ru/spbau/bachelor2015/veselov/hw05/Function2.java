@@ -57,6 +57,6 @@ public interface Function2<Source1, Source2, Target> {
      * @return Function of one argument which returns function.
      */
     default @NotNull Function1<Source1, Function1<Source2, Target>> curry() {
-        return argument -> Function2.this.bind1(argument);
+        return Function2.this::bind1;
     }
 }
