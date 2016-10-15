@@ -2,7 +2,9 @@ package ru.spbau.bachelor2015.veselov.hw05;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -193,10 +195,20 @@ public final class Collections {
             @NotNull Function2<Source1, Source2, Target> function,
             Target initialValue,
             @NotNull Iterable<T> iterable) {
-        throw new UnsupportedOperationException();
+        return foldl(function, initialValue, reversed(iterable));
     }
 
     private Collections() {
         throw new UnsupportedOperationException();
+    }
+
+    private static <T> @NotNull Iterable<T> reversed(@NotNull Iterable<T> iterable) {
+        List<T> list = new ArrayList<T>();
+        for (T element : iterable) {
+            list.add(element);
+        }
+
+        java.util.Collections.reverse(list);
+        return list;
     }
 }
