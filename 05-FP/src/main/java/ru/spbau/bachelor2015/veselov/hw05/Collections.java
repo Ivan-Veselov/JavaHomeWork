@@ -146,7 +146,7 @@ public final class Collections {
      */
     public static <Source, T extends Source> @NotNull Iterable<T> takeUnless(@NotNull Predicate<Source> predicate,
                                                                              @NotNull Iterable<T> iterable) {
-        throw new UnsupportedOperationException();
+        return takeWhile(predicate.not(), iterable);
     }
 
     /**
