@@ -3,6 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw05;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class which provides functions which use Collections and Functional classes together.
@@ -53,7 +54,45 @@ public final class Collections {
      */
     public static <Source, T extends Source> @NotNull Iterable<T> filter(@NotNull Predicate<Source> predicate,
                                                                          @NotNull Iterable<T> iterable) {
-        throw new UnsupportedOperationException();
+        return new Iterable<T>() {
+            @Override
+            public Iterator<T> iterator() {
+                return new IteratorWrapper();
+            }
+
+            class IteratorWrapper implements Iterator<T> {
+                private Iterator<T> iterator = iterable.iterator();
+                private T element = null;
+
+                @Override
+                public boolean hasNext() {
+                    if (element != null) {
+                        return true;
+                    }
+
+                    while (iterator.hasNext()) {
+                        element = iterator.next();
+                        if (predicate.apply(element)) {
+                            return true;
+                        }
+                    }
+
+                    element = null;
+                    return false;
+                }
+
+                @Override
+                public T next() {
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    }
+
+                    T tmp = element;
+                    element = null;
+                    return tmp;
+                }
+            }
+        };
     }
 
     /**
