@@ -93,7 +93,45 @@ public final class Collections {
      */
     public static <Source, T extends Source> @NotNull Iterable<T> takeWhile(@NotNull Predicate<Source> predicate,
                                                                             @NotNull Iterable<T> iterable) {
-        throw new UnsupportedOperationException();
+        return () -> new Iterator<T>() {
+            Iterator<T> iterator = iterable.iterator();
+            T element = null;
+            boolean terminated = false;
+
+            @Override
+            public boolean hasNext() {
+                if (terminated) {
+                    return false;
+                }
+
+                if (element != null) {
+                    return true;
+                }
+
+                if (!iterator.hasNext()) {
+                    return false;
+                }
+
+                element = iterator.next();
+                if (predicate.apply(element)) {
+                    return true;
+                }
+
+                terminated = true;
+                return false;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                T tmp = element;
+                element = null;
+                return tmp;
+            }
+        };
     }
 
     /**
