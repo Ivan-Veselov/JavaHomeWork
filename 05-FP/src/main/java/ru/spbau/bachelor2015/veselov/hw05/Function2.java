@@ -18,9 +18,9 @@ public abstract class Function2<Source1, Source2, Target> {
     public abstract Target apply(Source1 argument1, Source2 argument2);
 
     /**
-     * Composes given Function1 with method caller.
+     * Composes given Function1 with current one.
      *
-     * @param function A Function which will be composed with method caller.
+     * @param function A Function which will be composed with current.
      * @param <ArgTarget> Type of returning value of method argument.
      * @return The resulting composition.
      */
