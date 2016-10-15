@@ -16,7 +16,7 @@ public final class Collections {
      * @param <Source> Type of function argument.
      * @param <Target> Type of function returning value.
      * @param <T> Type of elements in iterable object.
-     * @return Iterable object which consists of results of application.
+     * @return Non modifiable Iterable object which consists of results of application.
      */
     public static <Source, Target, T extends Source> @NotNull Iterable<Target> map(
             @NotNull Function1<Source, Target> function, @NotNull Iterable<T> iterable) {
@@ -49,7 +49,7 @@ public final class Collections {
      * @param iterable A list of elements.
      * @param <Source> Type of predicate argument.
      * @param <T> Type of elements in a list.
-     * @return New list of elements which were accepted by predicate.
+     * @return New non modifiable list of elements which were accepted by predicate.
      */
     public static <Source, T extends Source> @NotNull Iterable<T> filter(@NotNull Predicate<Source> predicate,
                                                                          @NotNull Iterable<T> iterable) {
@@ -64,7 +64,7 @@ public final class Collections {
      * @param iterable A list of elements.
      * @param <Source> Type of predicate argument.
      * @param <T> Type of elements in a list.
-     * @return New list which is a prefix of a given one.
+     * @return New non modifiable list which is a prefix of a given one.
      */
     public static <Source, T extends Source> @NotNull Iterable<T> takeWhile(@NotNull Predicate<Source> predicate,
                                                                             @NotNull Iterable<T> iterable) {
@@ -79,7 +79,7 @@ public final class Collections {
      * @param iterable A list of elements.
      * @param <Source> Type of predicate argument.
      * @param <T> Type of elements in a list.
-     * @return New list which is a prefix of a given one.
+     * @return New non modifiable list which is a prefix of a given one.
      */
     public static <Source, T extends Source> @NotNull Iterable<T> takeUnless(@NotNull Predicate<Source> predicate,
                                                                              @NotNull Iterable<T> iterable) {
