@@ -18,7 +18,7 @@ public class Collections {
      * @param <T> Type of elements in iterable object.
      * @return Iterable object which consists of results of application.
      */
-    public static <Source, Target, T extends Source> Iterable<Target> map(
+    public static <Source, Target, T extends Source> @NotNull Iterable<Target> map(
             @NotNull Function1<Source, Target> function, @NotNull Iterable<T> iterable) {
         return new Iterable<Target>() {
             @Override
