@@ -21,24 +21,17 @@ public final class Collections {
      */
     public static <Source, Target, T extends Source> @NotNull Iterable<Target> map(
             @NotNull Function1<Source, Target> function, @NotNull Iterable<T> iterable) {
-        return new Iterable<Target>() {
+        return () -> new Iterator<Target>() {
+            private Iterator<T> iterator = iterable.iterator();
+
             @Override
-            public Iterator<Target> iterator() {
-                return new IteratorWrapper();
+            public boolean hasNext() {
+                return iterator.hasNext();
             }
 
-            class IteratorWrapper implements Iterator<Target> {
-                private Iterator<T> iterator = iterable.iterator();
-
-                @Override
-                public boolean hasNext() {
-                    return iterator.hasNext();
-                }
-
-                @Override
-                public Target next() {
-                    return function.apply(iterator.next());
-                }
+            @Override
+            public Target next() {
+                return function.apply(iterator.next());
             }
         };
     }
@@ -54,43 +47,36 @@ public final class Collections {
      */
     public static <Source, T extends Source> @NotNull Iterable<T> filter(@NotNull Predicate<Source> predicate,
                                                                          @NotNull Iterable<T> iterable) {
-        return new Iterable<T>() {
+        return () -> new Iterator<T>() {
+            private Iterator<T> iterator = iterable.iterator();
+            private T element = null;
+
             @Override
-            public Iterator<T> iterator() {
-                return new IteratorWrapper();
-            }
+            public boolean hasNext() {
+                if (element != null) {
+                    return true;
+                }
 
-            class IteratorWrapper implements Iterator<T> {
-                private Iterator<T> iterator = iterable.iterator();
-                private T element = null;
-
-                @Override
-                public boolean hasNext() {
-                    if (element != null) {
+                while (iterator.hasNext()) {
+                    element = iterator.next();
+                    if (predicate.apply(element)) {
                         return true;
                     }
-
-                    while (iterator.hasNext()) {
-                        element = iterator.next();
-                        if (predicate.apply(element)) {
-                            return true;
-                        }
-                    }
-
-                    element = null;
-                    return false;
                 }
 
-                @Override
-                public T next() {
-                    if (!hasNext()) {
-                        throw new NoSuchElementException();
-                    }
+                element = null;
+                return false;
+            }
 
-                    T tmp = element;
-                    element = null;
-                    return tmp;
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
+
+                T tmp = element;
+                element = null;
+                return tmp;
             }
         };
     }
