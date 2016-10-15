@@ -3,7 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw05;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Class that represents function of two arguments which can be applied to them.
+ * Interface that represents function of two arguments which can be applied to them.
  *
  * @param <Source1> Type of function first argument.
  * @param <Source2> Type of function second argument.

@@ -3,7 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw05;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Class that represents function which can be applied to one argument.
+ * Interface that represents function which can be applied to one argument.
  *
  * @param <Source> Type of function argument.
  * @param <Target> Type of returning value.
