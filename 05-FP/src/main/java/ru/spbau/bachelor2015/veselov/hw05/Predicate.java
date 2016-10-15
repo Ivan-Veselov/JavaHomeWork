@@ -5,7 +5,7 @@ package ru.spbau.bachelor2015.veselov.hw05;
  *
  * @param <Source> Type of predicate argument.
  */
-public abstract class Predicate<Source> extends Function1<Source, Boolean> {
+public interface Predicate<Source> extends Function1<Source, Boolean> {
     /**
      * A predicate which is always true.
      */
@@ -33,7 +33,7 @@ public abstract class Predicate<Source> extends Function1<Source, Boolean> {
      * @param <ArgSource> Type of second predicate argument.
      * @return Disjunction of predicates.
      */
-    public <ArgSource extends Source> Predicate<ArgSource> or(Predicate<ArgSource> predicate) {
+    default <ArgSource extends Source> Predicate<ArgSource> or(Predicate<ArgSource> predicate) {
         return new Predicate<ArgSource>() {
             @Override
             public Boolean apply(ArgSource argument) {
@@ -49,7 +49,7 @@ public abstract class Predicate<Source> extends Function1<Source, Boolean> {
      * @param <ArgSource> Type of second predicate argument.
      * @return Conjunction of predicates.
      */
-    public <ArgSource extends Source> Predicate<ArgSource> and(Predicate<ArgSource> predicate) {
+    default <ArgSource extends Source> Predicate<ArgSource> and(Predicate<ArgSource> predicate) {
         return new Predicate<ArgSource>() {
             @Override
             public Boolean apply(ArgSource argument) {
@@ -61,7 +61,7 @@ public abstract class Predicate<Source> extends Function1<Source, Boolean> {
     /**
      * @return A predicate which is the opposite of current one.
      */
-    public Predicate<Source> not() {
+    default Predicate<Source> not() {
         return new Predicate<Source>() {
             @Override
             public Boolean apply(Source argument) {

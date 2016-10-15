@@ -7,7 +7,7 @@ package ru.spbau.bachelor2015.veselov.hw05;
  * @param <Source2> Type of function second argument.
  * @param <Target> Type of returning value.
  */
-public abstract class Function2<Source1, Source2, Target> {
+public interface Function2<Source1, Source2, Target> {
     /**
      * Applies Function to arguments.
      *
@@ -15,7 +15,7 @@ public abstract class Function2<Source1, Source2, Target> {
      * @param argument2 Second argument of a function.
      * @return The result of application.
      */
-    public abstract Target apply(Source1 argument1, Source2 argument2);
+    Target apply(Source1 argument1, Source2 argument2);
 
     /**
      * Composes given Function1 with current one.
@@ -24,7 +24,7 @@ public abstract class Function2<Source1, Source2, Target> {
      * @param <ArgTarget> Type of returning value of method argument.
      * @return The resulting composition.
      */
-    public <ArgTarget> Function2<Source1, Source2, ArgTarget> compose(Function1<? super Target, ArgTarget> function) {
+    default <ArgTarget> Function2<Source1, Source2, ArgTarget> compose(Function1<? super Target, ArgTarget> function) {
         return new Function2<Source1, Source2, ArgTarget>() {
             @Override
             public ArgTarget apply(Source1 argument1, Source2 argument2) {
@@ -39,7 +39,7 @@ public abstract class Function2<Source1, Source2, Target> {
      * @param argument1 A value to which first argument will be bound.
      * @return The resulting function of one argument.
      */
-    public Function1<Source2, Target> bind1(Source1 argument1) {
+    default Function1<Source2, Target> bind1(Source1 argument1) {
         return new Function1<Source2, Target>() {
             @Override
             public Target apply(Source2 argument2) {
@@ -54,7 +54,7 @@ public abstract class Function2<Source1, Source2, Target> {
      * @param argument2 A value to which second argument will be bound.
      * @return The resulting function of one argument.
      */
-    public Function1<Source1, Target> bind2(Source2 argument2) {
+    default Function1<Source1, Target> bind2(Source2 argument2) {
         return new Function1<Source1, Target>() {
             @Override
             public Target apply(Source1 argument1) {
@@ -68,7 +68,7 @@ public abstract class Function2<Source1, Source2, Target> {
      *
      * @return Function of one argument which returns function.
      */
-    public Function1<Source1, Function1<Source2, Target>> curry() {
+    default Function1<Source1, Function1<Source2, Target>> curry() {
         return new Function1<Source1, Function1<Source2, Target>>() {
             @Override
             public Function1<Source2, Target> apply(Source1 argument) {
