@@ -42,4 +42,13 @@ public class Function1Test {
             assertEquals(new Integer(4 * i * i), quadratic4.apply(i));
         }
     }
+
+    @Test
+    public void testTypes() throws Exception {
+        Function1<Integer, String> f = n -> n.toString();
+        Function1<String, String>  g = s -> "[" + s + "]";
+        Function1<Integer, String> h = f.compose(g);
+
+        assertEquals("[128]", h.apply(128));
+    }
 }

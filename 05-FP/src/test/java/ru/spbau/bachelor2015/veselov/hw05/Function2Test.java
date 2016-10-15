@@ -68,4 +68,12 @@ public class Function2Test {
         testExtensionality(linearXY.curry().apply(-5), y -> -5 + y);
         testExtensionality(cubicXXY.curry().apply(-5), y -> -5 * (-5) * y);
     }
+
+    @Test
+    public void testTypes() throws Exception {
+        Function2<Integer, String, String> f = (n, s) -> s + n.toString() + s;
+        Function1<Integer, String> g = f.bind2("|");
+        
+        assertEquals("|128|", g.apply(128));
+    }
 }
