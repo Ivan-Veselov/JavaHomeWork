@@ -25,7 +25,12 @@ public abstract class Function2<Source1, Source2, Target> {
      * @return The resulting composition.
      */
     public <ArgTarget> Function2<Source1, Source2, ArgTarget> compose(Function1<? super Target, ArgTarget> function) {
-        throw new UnsupportedOperationException();
+        return new Function2<Source1, Source2, ArgTarget>() {
+            @Override
+            public ArgTarget apply(Source1 argument1, Source2 argument2) {
+                return function.apply(Function2.this.apply(argument1, argument2));
+            }
+        };
     }
 
     /**
