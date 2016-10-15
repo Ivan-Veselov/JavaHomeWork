@@ -40,14 +40,14 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
     /**
      * @return A predicate which is always true.
      */
-    default @NotNull Predicate<Source> alwaysTrue() {
+    static <Source> @NotNull Predicate<Source> alwaysTrue() {
         return argument -> true;
     }
 
     /**
      * @return A predicate which is always false.
      */
-    default @NotNull Predicate<Source> alwaysFalse() {
+    static <Source> @NotNull Predicate<Source> alwaysFalse() {
         return argument -> false;
     }
 }

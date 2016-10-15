@@ -48,11 +48,11 @@ public class PredicateTest {
 
     @Test
     public void testAlwaysTrue() throws Exception {
-        TestExtensionality.test(even.alwaysTrue(), n -> true);
+        TestExtensionality.test(Predicate.<Integer>alwaysTrue(), n -> true);
     }
 
     @Test
     public void testAlwaysFalse() throws Exception {
-        TestExtensionality.test(even.alwaysFalse(), n -> false);
+        TestExtensionality.test(Predicate.<Integer>alwaysFalse(), n -> false);
     }
 }
