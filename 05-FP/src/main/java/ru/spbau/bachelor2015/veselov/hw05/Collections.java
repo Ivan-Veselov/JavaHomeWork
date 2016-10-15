@@ -203,7 +203,7 @@ public final class Collections {
     }
 
     private static <T> @NotNull Iterable<T> reversed(@NotNull Iterable<T> iterable) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         for (T element : iterable) {
             list.add(element);
         }
