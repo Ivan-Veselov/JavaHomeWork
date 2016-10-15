@@ -40,7 +40,12 @@ public abstract class Function2<Source1, Source2, Target> {
      * @return The resulting function of one argument.
      */
     public Function1<Source2, Target> bind1(Source1 argument1) {
-        throw new UnsupportedOperationException();
+        return new Function1<Source2, Target>() {
+            @Override
+            public Target apply(Source2 argument2) {
+                return Function2.this.apply(argument1, argument2);
+            }
+        };
     }
 
     /**
@@ -50,7 +55,12 @@ public abstract class Function2<Source1, Source2, Target> {
      * @return The resulting function of one argument.
      */
     public Function1<Source1, Target> bind2(Source2 argument2) {
-        throw new UnsupportedOperationException();
+        return new Function1<Source1, Target>() {
+            @Override
+            public Target apply(Source1 argument1) {
+                return Function2.this.apply(argument1, argument2);
+            }
+        };
     }
 
     /**
