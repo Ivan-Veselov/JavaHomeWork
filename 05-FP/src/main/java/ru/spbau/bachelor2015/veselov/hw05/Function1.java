@@ -23,11 +23,6 @@ public interface Function1<Source, Target> {
      * @return The resulting composition.
      */
     default <ArgTarget> Function1<Source, ArgTarget> compose(Function1<? super Target, ArgTarget> function) {
-        return new Function1<Source, ArgTarget>() {
-            @Override
-            public ArgTarget apply(Source argument) {
-                return function.apply(Function1.this.apply(argument));
-            }
-        };
+        return argument -> function.apply(Function1.this.apply(argument));
     }
 }

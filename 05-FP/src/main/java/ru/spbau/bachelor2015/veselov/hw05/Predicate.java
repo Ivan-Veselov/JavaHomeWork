@@ -9,22 +9,12 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
     /**
      * A predicate which is always true.
      */
-    public static Predicate<Object> ALWAYS_TRUE = new Predicate<Object>() {
-        @Override
-        public Boolean apply(Object argument) {
-            return true;
-        }
-    };
+    public static Predicate<Object> ALWAYS_TRUE = argument -> true;
 
     /**
      * A predicate which is always false.
      */
-    public static Predicate<Object> ALWAYS_FALSE = new Predicate<Object>() {
-        @Override
-        public Boolean apply(Object argument) {
-            return false;
-        }
-    };
+    public static Predicate<Object> ALWAYS_FALSE = argument -> false;
 
     /**
      * Returns new predicate which is disjunction of current and given one.
@@ -34,12 +24,7 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
      * @return Disjunction of predicates.
      */
     default <ArgSource extends Source> Predicate<ArgSource> or(Predicate<ArgSource> predicate) {
-        return new Predicate<ArgSource>() {
-            @Override
-            public Boolean apply(ArgSource argument) {
-                return Predicate.this.apply(argument) || predicate.apply(argument);
-            }
-        };
+        return argument -> Predicate.this.apply(argument) || predicate.apply(argument);
     }
 
     /**
@@ -50,23 +35,13 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
      * @return Conjunction of predicates.
      */
     default <ArgSource extends Source> Predicate<ArgSource> and(Predicate<ArgSource> predicate) {
-        return new Predicate<ArgSource>() {
-            @Override
-            public Boolean apply(ArgSource argument) {
-                return Predicate.this.apply(argument) && predicate.apply(argument);
-            }
-        };
+        return argument -> Predicate.this.apply(argument) && predicate.apply(argument);
     }
 
     /**
      * @return A predicate which is the opposite of current one.
      */
     default Predicate<Source> not() {
-        return new Predicate<Source>() {
-            @Override
-            public Boolean apply(Source argument) {
-                return !Predicate.this.apply(argument);
-            }
-        };
+        return argument -> !Predicate.this.apply(argument);
     }
 }
