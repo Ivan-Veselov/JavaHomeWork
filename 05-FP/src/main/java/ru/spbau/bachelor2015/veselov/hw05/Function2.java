@@ -69,6 +69,11 @@ public abstract class Function2<Source1, Source2, Target> {
      * @return Function of one argument which returns function.
      */
     public Function1<Source1, Function1<Source2, Target>> curry() {
-        throw new UnsupportedOperationException();
+        return new Function1<Source1, Function1<Source2, Target>>() {
+            @Override
+            public Function1<Source2, Target> apply(Source1 argument) {
+                return Function2.this.bind1(argument);
+            }
+        };
     }
 }
