@@ -7,16 +7,6 @@ package ru.spbau.bachelor2015.veselov.hw05;
  */
 public interface Predicate<Source> extends Function1<Source, Boolean> {
     /**
-     * A predicate which is always true.
-     */
-    Predicate<Object> ALWAYS_TRUE = argument -> true;
-
-    /**
-     * A predicate which is always false.
-     */
-    Predicate<Object> ALWAYS_FALSE = argument -> false;
-
-    /**
      * Returns new predicate which is disjunction of current and given one.
      *
      * @param predicate A predicate to make a disjunction with.
@@ -43,5 +33,19 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
      */
     default Predicate<Source> not() {
         return argument -> !Predicate.this.apply(argument);
+    }
+
+    /**
+     * @return A predicate which is always true.
+     */
+    default Predicate<Source> alwaysTrue() {
+        return argument -> true;
+    }
+
+    /**
+     * @return A predicate which is always false.
+     */
+    default Predicate<Source> alwaysFalse() {
+        return argument -> false;
     }
 }
