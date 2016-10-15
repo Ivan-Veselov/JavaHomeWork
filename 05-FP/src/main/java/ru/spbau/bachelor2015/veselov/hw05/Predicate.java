@@ -9,12 +9,12 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
     /**
      * A predicate which is always true.
      */
-    public static Predicate<Object> ALWAYS_TRUE = argument -> true;
+    Predicate<Object> ALWAYS_TRUE = argument -> true;
 
     /**
      * A predicate which is always false.
      */
-    public static Predicate<Object> ALWAYS_FALSE = argument -> false;
+    Predicate<Object> ALWAYS_FALSE = argument -> false;
 
     /**
      * Returns new predicate which is disjunction of current and given one.
