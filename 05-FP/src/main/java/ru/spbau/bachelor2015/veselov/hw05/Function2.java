@@ -1,5 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw05;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Class that represents function of two arguments which can be applied to them.
  *
@@ -24,7 +26,8 @@ public interface Function2<Source1, Source2, Target> {
      * @param <ArgTarget> Type of returning value of method argument.
      * @return The resulting composition.
      */
-    default <ArgTarget> Function2<Source1, Source2, ArgTarget> compose(Function1<? super Target, ArgTarget> function) {
+    default <ArgTarget> @NotNull Function2<Source1, Source2, ArgTarget> compose(
+            @NotNull Function1<? super Target, ArgTarget> function) {
         return (argument1, argument2) -> function.apply(Function2.this.apply(argument1, argument2));
     }
 
@@ -34,7 +37,7 @@ public interface Function2<Source1, Source2, Target> {
      * @param argument1 A value to which first argument will be bound.
      * @return The resulting function of one argument.
      */
-    default Function1<Source2, Target> bind1(Source1 argument1) {
+    default @NotNull Function1<Source2, Target> bind1(Source1 argument1) {
         return argument2 -> Function2.this.apply(argument1, argument2);
     }
 
@@ -44,7 +47,7 @@ public interface Function2<Source1, Source2, Target> {
      * @param argument2 A value to which second argument will be bound.
      * @return The resulting function of one argument.
      */
-    default Function1<Source1, Target> bind2(Source2 argument2) {
+    default @NotNull Function1<Source1, Target> bind2(Source2 argument2) {
         return argument1 -> Function2.this.apply(argument1, argument2);
     }
 
@@ -53,7 +56,7 @@ public interface Function2<Source1, Source2, Target> {
      *
      * @return Function of one argument which returns function.
      */
-    default Function1<Source1, Function1<Source2, Target>> curry() {
+    default @NotNull Function1<Source1, Function1<Source2, Target>> curry() {
         return argument -> Function2.this.bind1(argument);
     }
 }

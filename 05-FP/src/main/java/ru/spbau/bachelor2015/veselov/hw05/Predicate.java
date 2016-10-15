@@ -1,5 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw05;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A function of one argument which either accepts it (returns true) or rejects it (returns false).
  *
@@ -13,7 +15,7 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
      * @param <ArgSource> Type of second predicate argument.
      * @return Disjunction of predicates.
      */
-    default <ArgSource extends Source> Predicate<ArgSource> or(Predicate<ArgSource> predicate) {
+    default <ArgSource extends Source> @NotNull Predicate<ArgSource> or(@NotNull Predicate<ArgSource> predicate) {
         return argument -> Predicate.this.apply(argument) || predicate.apply(argument);
     }
 
@@ -24,28 +26,28 @@ public interface Predicate<Source> extends Function1<Source, Boolean> {
      * @param <ArgSource> Type of second predicate argument.
      * @return Conjunction of predicates.
      */
-    default <ArgSource extends Source> Predicate<ArgSource> and(Predicate<ArgSource> predicate) {
+    default <ArgSource extends Source> @NotNull Predicate<ArgSource> and(@NotNull Predicate<ArgSource> predicate) {
         return argument -> Predicate.this.apply(argument) && predicate.apply(argument);
     }
 
     /**
      * @return A predicate which is the opposite of current one.
      */
-    default Predicate<Source> not() {
+    default @NotNull Predicate<Source> not() {
         return argument -> !Predicate.this.apply(argument);
     }
 
     /**
      * @return A predicate which is always true.
      */
-    default Predicate<Source> alwaysTrue() {
+    default @NotNull Predicate<Source> alwaysTrue() {
         return argument -> true;
     }
 
     /**
      * @return A predicate which is always false.
      */
-    default Predicate<Source> alwaysFalse() {
+    default @NotNull Predicate<Source> alwaysFalse() {
         return argument -> false;
     }
 }

@@ -1,5 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw05;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Class that represents function which can be applied to one argument.
  *
@@ -22,7 +24,7 @@ public interface Function1<Source, Target> {
      * @param <ArgTarget> Type of returning value of method argument.
      * @return The resulting composition.
      */
-    default <ArgTarget> Function1<Source, ArgTarget> compose(Function1<? super Target, ArgTarget> function) {
+    default <ArgTarget> @NotNull Function1<Source, ArgTarget> compose(@NotNull Function1<? super Target, ArgTarget> function) {
         return argument -> function.apply(Function1.this.apply(argument));
     }
 }
