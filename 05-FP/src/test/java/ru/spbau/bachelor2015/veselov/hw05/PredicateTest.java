@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PredicateTest {
-    Predicate<Integer> even;
-    Predicate<Integer> positive;
-    Predicate<Integer> prime;
+    private Predicate<Integer> even;
+    private Predicate<Integer> positive;
+    private Predicate<Integer> prime;
 
     private static boolean isPrime(int n) {
         n = Math.abs(n);
@@ -28,7 +28,7 @@ public class PredicateTest {
         even = n -> n % 2 == 0;
         positive = n -> n > 0;
 
-        prime = n -> isPrime(n);
+        prime = PredicateTest::isPrime;
     }
 
     @Test
@@ -48,11 +48,11 @@ public class PredicateTest {
 
     @Test
     public void testAlwaysTrue() throws Exception {
-        TestExtensionality.test(Predicate.<Integer>alwaysTrue(), n -> true);
+        TestExtensionality.test(Predicate.alwaysTrue(), n -> true);
     }
 
     @Test
     public void testAlwaysFalse() throws Exception {
-        TestExtensionality.test(Predicate.<Integer>alwaysFalse(), n -> false);
+        TestExtensionality.test(Predicate.alwaysFalse(), n -> false);
     }
 }

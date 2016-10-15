@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Function1Test {
-    Function1<Integer, Integer> id;
-    Function1<Integer, Integer> linear2;
-    Function1<Integer, Integer> linear3Shift5;
-    Function1<Integer, Integer> quadratic;
+    private Function1<Integer, Integer> id;
+    private Function1<Integer, Integer> linear2;
+    private Function1<Integer, Integer> linear3Shift5;
+    private Function1<Integer, Integer> quadratic;
 
     @Before
     public void setUp() throws Exception {
@@ -45,7 +45,7 @@ public class Function1Test {
 
     @Test
     public void testTypes() throws Exception {
-        Function1<Integer, String> f = n -> n.toString();
+        Function1<Integer, String> f = Object::toString;
         Function1<String, String>  g = s -> "[" + s + "]";
         Function1<Integer, String> h = f.compose(g);
 

@@ -7,11 +7,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Function2Test {
-    Function1<Integer, Integer> linear2;
-    Function1<Integer, Integer> quadratic;
+    private Function1<Integer, Integer> linear2;
+    private Function1<Integer, Integer> quadratic;
 
-    Function2<Integer, Integer, Integer> linearXY;
-    Function2<Integer, Integer, Integer> cubicXXY;
+    private Function2<Integer, Integer, Integer> linearXY;
+    private Function2<Integer, Integer, Integer> cubicXXY;
 
     @Before
     public void setUp() throws Exception {
