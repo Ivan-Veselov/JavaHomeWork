@@ -42,29 +42,86 @@ public class Collections {
         };
     }
 
+    /**
+     * Filters elements of iterable object by using a given predicate.
+     *
+     * @param predicate A predicate to filter elements.
+     * @param iterable A list of elements.
+     * @param <Source> Type of predicate argument.
+     * @param <T> Type of elements in a list.
+     * @return New list of elements which were accepted by predicate.
+     */
     public static <Source, T extends Source> @NotNull Iterable<T> filter(@NotNull Predicate<Source> predicate,
                                                                          @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Returns some elements from the beginning of a given list of elements up to an element which was rejected by a
+     * given predicate. Rejected element will not be included in resulting list.
+     *
+     * @param predicate A predicate which determines terminal element.
+     * @param iterable A list of elements.
+     * @param <Source> Type of predicate argument.
+     * @param <T> Type of elements in a list.
+     * @return New list which is a prefix of a given one.
+     */
     public static <Source, T extends Source> @NotNull Iterable<T> takeWhile(@NotNull Predicate<Source> predicate,
                                                                             @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Returns some elements from the beginning of a given list of elements up to an element which was accepted by a
+     * given predicate. Accepted element will not be included in resulting list.
+     *
+     * @param predicate A predicate which determines terminal element.
+     * @param iterable A list of elements.
+     * @param <Source> Type of predicate argument.
+     * @param <T> Type of elements in a list.
+     * @return New list which is a prefix of a given one.
+     */
     public static <Source, T extends Source> @NotNull Iterable<T> takeUnless(@NotNull Predicate<Source> predicate,
                                                                              @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
-    public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldr(
+    /**
+     * Folds given list of elements into one value which is computed by a given function of two arguments. Method
+     * sequentially (from the beginning of the list) applies this function to the elements of the list and accumulates
+     * result. The function should accept accumulated result and next element.
+     *
+     * @param function A function of two arguments which folds a list of elements.
+     * @param initialValue Initially accumulated result.
+     * @param iterable A list of elements.
+     * @param <Source1> Type of first argument of a function.
+     * @param <Source2> Type of second argument of a function.
+     * @param <Target> Type of returning value of a function.
+     * @param <T> Type of elements in a list.
+     * @return One value - the result of folding.
+     */
+    public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldl(
             @NotNull Function2<Source1, Source2, Target> function,
             Source1 initialValue,
             @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
-    public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldl(
+    /**
+     * Folds given list of elements into one value which is computed by a given function of two arguments. Method
+     * sequentially (from the end of the list) applies this function to the elements of the list and accumulates
+     * result. The function should accept accumulated result and next element.
+     *
+     * @param function A function of two arguments which folds a list of elements.
+     * @param initialValue Initially accumulated result.
+     * @param iterable A list of elements.
+     * @param <Source1> Type of first argument of a function.
+     * @param <Source2> Type of second argument of a function.
+     * @param <Target> Type of returning value of a function.
+     * @param <T> Type of elements in a list.
+     * @return One value - the result of folding.
+     */
+    public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldr(
             @NotNull Function2<Source1, Source2, Target> function,
             Source1 initialValue,
             @NotNull Iterable<T> iterable) {
