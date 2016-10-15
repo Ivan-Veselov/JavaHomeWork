@@ -34,7 +34,12 @@ public abstract class Predicate<Source> extends Function1<Source, Boolean> {
      * @return Disjunction of predicates.
      */
     public <ArgSource extends Source> Predicate<ArgSource> or(Predicate<ArgSource> predicate) {
-        throw new UnsupportedOperationException();
+        return new Predicate<ArgSource>() {
+            @Override
+            public Boolean apply(ArgSource argument) {
+                return Predicate.this.apply(argument) || predicate.apply(argument);
+            }
+        };
     }
 
     /**
@@ -45,13 +50,23 @@ public abstract class Predicate<Source> extends Function1<Source, Boolean> {
      * @return Conjunction of predicates.
      */
     public <ArgSource extends Source> Predicate<ArgSource> and(Predicate<ArgSource> predicate) {
-        throw new UnsupportedOperationException();
+        return new Predicate<ArgSource>() {
+            @Override
+            public Boolean apply(ArgSource argument) {
+                return Predicate.this.apply(argument) && predicate.apply(argument);
+            }
+        };
     }
 
     /**
      * @return A predicate which is the opposite of current one.
      */
     public Predicate<Source> not() {
-        throw new UnsupportedOperationException();
+        return new Predicate<Source>() {
+            @Override
+            public Boolean apply(Source argument) {
+                return !Predicate.this.apply(argument);
+            }
+        };
     }
 }
