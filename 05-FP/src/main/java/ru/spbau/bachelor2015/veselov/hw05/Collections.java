@@ -165,9 +165,14 @@ public final class Collections {
      */
     public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldl(
             @NotNull Function2<Source1, Source2, Target> function,
-            Source1 initialValue,
+            Target initialValue,
             @NotNull Iterable<T> iterable) {
-        throw new UnsupportedOperationException();
+        Target accumulatedValue = initialValue;
+        for (T element : iterable) {
+            accumulatedValue = function.apply(accumulatedValue, element);
+        }
+
+        return accumulatedValue;
     }
 
     /**
