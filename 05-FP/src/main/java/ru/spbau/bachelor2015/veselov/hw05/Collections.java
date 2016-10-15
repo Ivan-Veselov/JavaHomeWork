@@ -42,23 +42,32 @@ public class Collections {
         };
     }
 
-    public static void filter() {
+    public static <Source, T extends Source> @NotNull Iterable<T> filter(@NotNull Predicate<Source> predicate,
+                                                                         @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
-    public static void takeWhile() {
+    public static <Source, T extends Source> @NotNull Iterable<T> takeWhile(@NotNull Predicate<Source> predicate,
+                                                                            @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
-    public static void takeUnless() {
+    public static <Source, T extends Source> @NotNull Iterable<T> takeUnless(@NotNull Predicate<Source> predicate,
+                                                                             @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
-    public static void foldr() {
+    public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldr(
+            @NotNull Function2<Source1, Source2, Target> function,
+            Source1 initialValue,
+            @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
-    public static void foldl() {
+    public static <Source1, Source2, Target extends Source1, T extends Source2> @NotNull Target foldl(
+            @NotNull Function2<Source1, Source2, Target> function,
+            Source1 initialValue,
+            @NotNull Iterable<T> iterable) {
         throw new UnsupportedOperationException();
     }
 
