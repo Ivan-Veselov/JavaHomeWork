@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Class which provides functions which use Collections and Functional classes together.
  */
-public class Collections {
+public final class Collections {
     /**
      * Applies given function to all elements of iterable object and returns iterable object of results of application.
      *
