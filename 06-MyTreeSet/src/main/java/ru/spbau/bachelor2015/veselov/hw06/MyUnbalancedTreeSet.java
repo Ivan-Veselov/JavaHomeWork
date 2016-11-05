@@ -4,6 +4,12 @@ import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
 
+/**
+ * Structure which maintains set of elements in order specified by natural comparison or a given comparator. To store
+ * elements unbalanced tree is used, therefore worst time complexity of almost every operation is linear.
+ *
+ * @param <E> type of elements which will be stored.
+ */
 public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<E> {
     private Node<E> root = null;
     private Comparator<? super E> comparator = null;
