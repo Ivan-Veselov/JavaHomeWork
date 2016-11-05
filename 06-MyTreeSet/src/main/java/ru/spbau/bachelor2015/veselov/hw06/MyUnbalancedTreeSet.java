@@ -77,6 +77,12 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return true;
     }
 
+    /**
+     * Removes given element from tree.
+     *
+     * @param obj an element to remove.
+     * @return true if element was removed, false if it was not presented in tree.
+     */
     @Override
     public boolean remove(@NotNull Object obj) {
         E element = (E)obj;
@@ -251,7 +257,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
                 if (node != null) {
                     node.cutFromTree();
                 }
-                
+
                 return this;
             }
 
