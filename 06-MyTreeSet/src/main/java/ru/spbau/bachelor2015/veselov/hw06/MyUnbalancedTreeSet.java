@@ -169,7 +169,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             return node.getElement();
         }
 
-        node = leftmostPrev(node);
+        node = node.previous();
         if (node == null) {
             return null;
         }
@@ -194,7 +194,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             return node.getElement();
         }
 
-        node = rightmostNext(node);
+        node = node.next();
         if (node == null) {
             return null;
         }
@@ -249,24 +249,6 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         return prev;
-    }
-
-    private @Nullable Node<E> leftmostPrev(@NotNull Node<E> leftest) {
-        Node<E> node = leftest;
-        while (node.isLeftChild()) {
-            node = node.getParent();
-        }
-
-        return node.parent;
-    }
-
-    private @Nullable Node<E> rightmostNext(@NotNull Node<E> rightest) {
-        Node<E> node = rightest;
-        while (node.isRightChild()) {
-            node = node.getParent();
-        }
-
-        return node.parent;
     }
 
     private static class Node<E> {
@@ -374,6 +356,32 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             }
 
             return node;
+        }
+
+        public @Nullable Node<E> previous() {
+            if (leftChild != null) {
+                return leftChild.rightmost();
+            }
+
+            Node<E> node = this;
+            while (node.isLeftChild()) {
+                node = node.getParent();
+            }
+
+            return node.parent;
+        }
+
+        public @Nullable Node<E> next() {
+            if (rightChild != null) {
+                return rightChild.leftmost();
+            }
+
+            Node<E> node = this;
+            while (node.isRightChild()) {
+                node = node.getParent();
+            }
+
+            return node.parent;
         }
     }
 }
