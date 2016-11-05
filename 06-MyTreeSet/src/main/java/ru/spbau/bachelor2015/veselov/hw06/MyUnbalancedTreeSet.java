@@ -179,7 +179,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             return node.getElement();
         }
 
-        node = leftestPrev(node);
+        node = leftmostPrev(node);
         if (node == null) {
             return null;
         }
@@ -187,9 +187,29 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return node.getElement();
     }
 
+    /**
+     * Returns the least element in tree which is greater than or equal to a given one. If there is no such element then
+     * null pointer will be returned.
+     *
+     * @param element a given element.
+     */
     @Override
     public @Nullable E ceiling(@NotNull E element) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+
+        Node<E> node = findElementOrLeaf(root, element);
+        if (comparator.compare(element, node.getElement()) <= 0) {
+            return node.getElement();
+        }
+
+        node = rightmostNext(node);
+        if (node == null) {
+            return null;
+        }
+
+        return node.getElement();
     }
 
     @Override
@@ -235,7 +255,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return prev;
     }
 
-    private @Nullable Node<E> leftestPrev(@NotNull Node<E> leftest) {
+    private @Nullable Node<E> leftmostPrev(@NotNull Node<E> leftest) {
         Node<E> node = leftest;
         while (node.isLeftChild()) {
             node = node.getParent();
@@ -244,7 +264,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return node.parent;
     }
 
-    private @Nullable Node<E> rightestNext(@NotNull Node<E> rightest) {
+    private @Nullable Node<E> rightmostNext(@NotNull Node<E> rightest) {
         Node<E> node = rightest;
         while (node.isRightChild()) {
             node = node.getParent();
