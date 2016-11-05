@@ -102,6 +102,9 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
         if (leftChild == null && rightChild == null) {
             node.cutFromTree();
+            if (parent == null) {
+                root = null;
+            }
         } else if (leftChild != null) {
             node.replaceWith(leftChild);
             if (parent == null) {
@@ -213,6 +216,10 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         public void setLeftChild(@Nullable Node<E> leftChild) {
+            if (this.leftChild != null) {
+                this.leftChild.parent = null;
+            }
+
             if (leftChild != null) {
                 leftChild.cutFromTree();
                 leftChild.parent = this;
@@ -222,6 +229,10 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         public void setRightChild(@Nullable Node<E> rightChild) {
+            if (this.rightChild != null) {
+                this.rightChild.parent = null;
+            }
+
             if (rightChild != null) {
                 rightChild.cutFromTree();
                 rightChild.parent = this;
@@ -237,6 +248,10 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
         public @NotNull Node<E> replaceWith(@Nullable Node<E> node) {
             if (parent == null) {
+                if (node != null) {
+                    node.cutFromTree();
+                }
+                
                 return this;
             }
 

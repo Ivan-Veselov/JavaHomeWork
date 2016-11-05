@@ -69,8 +69,8 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testRemove() throws Exception {
-        removeTest(setUpEmptySet());
-        removeTest(setUpEmptySetWithComparator());
+        removeTest(setUpSet(setUpEmptySet()));
+        removeTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
     private void sizeTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
@@ -106,8 +106,8 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testSize() throws Exception {
-        sizeTest(setUpEmptySet());
-        sizeTest(setUpEmptySetWithComparator());
+        sizeTest(setUpSet(setUpEmptySet()));
+        sizeTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
     /*@Test
