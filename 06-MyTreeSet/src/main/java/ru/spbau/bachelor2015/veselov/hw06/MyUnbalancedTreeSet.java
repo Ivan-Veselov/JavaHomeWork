@@ -16,6 +16,7 @@ import java.util.Iterator;
 public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<E> {
     private Node<E> root = null;
     private Comparator<? super E> comparator = null;
+    private int size = 0;
 
     /**
      * Creates tree object which will use natural ordering of elements.
@@ -32,8 +33,11 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         this.comparator = comparator;
     }
 
+    /**
+     * @return number of elements stored in set.
+     */
     public int size() {
-        return 0;
+        return size;
     }
 
     public boolean add(@NotNull E e) {
