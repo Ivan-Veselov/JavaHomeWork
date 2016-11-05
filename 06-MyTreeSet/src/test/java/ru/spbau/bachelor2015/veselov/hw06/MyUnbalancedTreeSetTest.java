@@ -190,11 +190,28 @@ public class MyUnbalancedTreeSetTest {
         lowerTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
-    /*@Test
-    public void testHigher() throws Exception {
+    private void higherTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        for (int i = -2; i <= 10; ++i) {
+            int higher = Math.max(0, i + (Math.abs(i % 2)));
+            if (higher == i) {
+                higher += 2;
+            }
+            
+            if (higher > 8) {
+                assertEquals(null, set.higher(i));
+            } else {
+                assertEquals(higher, set.higher(i).intValue());
+            }
+        }
     }
 
     @Test
+    public void testHigher() throws Exception {
+        higherTest(setUpSet(setUpEmptySet()));
+        higherTest(setUpSet(setUpEmptySetWithComparator()));
+    }
+
+    /*@Test
     public void testIterator() throws Exception {
     }
 
