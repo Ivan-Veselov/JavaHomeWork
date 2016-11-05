@@ -135,11 +135,24 @@ public class MyUnbalancedTreeSetTest {
         firstAndLastTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
-    /*@Test
-    public void testFloor() throws Exception {
+    private void floorTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        for (int i = -2; i <= 10; ++i) {
+            int floor = Math.min(8, i - (Math.abs(i % 2)));
+            if (floor < 0) {
+                assertEquals(null, set.floor(i));
+            } else {
+                assertEquals(floor, set.floor(i).intValue());
+            }
+        }
     }
 
     @Test
+    public void testFloor() throws Exception {
+        floorTest(setUpSet(setUpEmptySet()));
+        floorTest(setUpSet(setUpEmptySetWithComparator()));
+    }
+
+    /*@Test
     public void testCeiling() throws Exception {
     }
 

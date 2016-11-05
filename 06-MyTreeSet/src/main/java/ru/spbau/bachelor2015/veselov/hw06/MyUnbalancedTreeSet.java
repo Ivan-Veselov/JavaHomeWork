@@ -162,9 +162,29 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return node.getElement();
     }
 
+    /**
+     * Returns the greatest element in tree which is less than or equal to a given one. If there is no such element then
+     * null pointer will be returned.
+     *
+     * @param element a given element.
+     */
     @Override
     public @Nullable E floor(@NotNull E element) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+
+        Node<E> node = findElementOrLeaf(root, element);
+        if (comparator.compare(element, node.getElement()) >= 0) {
+            return node.getElement();
+        }
+
+        node = leftestPrev(node);
+        if (node == null) {
+            return null;
+        }
+
+        return node.getElement();
     }
 
     @Override
@@ -213,6 +233,24 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         return prev;
+    }
+
+    private @Nullable Node<E> leftestPrev(@NotNull Node<E> leftest) {
+        Node<E> node = leftest;
+        while (node.isLeftChild()) {
+            node = node.getParent();
+        }
+
+        return node.parent;
+    }
+
+    private @Nullable Node<E> rightestNext(@NotNull Node<E> rightest) {
+        Node<E> node = rightest;
+        while (node.isRightChild()) {
+            node = node.getParent();
+        }
+
+        return node.parent;
     }
 
     private static class Node<E> {
@@ -271,6 +309,14 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
             this.rightChild = rightChild;
 
+        }
+
+        public boolean isLeftChild() {
+            return parent != null && parent.getLeftChild() == this;
+        }
+
+        public boolean isRightChild() {
+            return parent != null && parent.getRightChild() == this;
         }
 
         public @NotNull Node<E> cutFromTree() {
