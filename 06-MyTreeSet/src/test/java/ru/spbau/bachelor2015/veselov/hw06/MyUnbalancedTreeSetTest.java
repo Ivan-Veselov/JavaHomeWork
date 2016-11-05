@@ -3,9 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw06;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MyUnbalancedTreeSetTest {
     private MyUnbalancedTreeSet<Integer> setUpEmptySet() throws Exception {
@@ -196,7 +194,7 @@ public class MyUnbalancedTreeSetTest {
             if (higher == i) {
                 higher += 2;
             }
-            
+
             if (higher > 8) {
                 assertEquals(null, set.higher(i));
             } else {
@@ -211,11 +209,17 @@ public class MyUnbalancedTreeSetTest {
         higherTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
-    /*@Test
-    public void testIterator() throws Exception {
+    private void iteratorTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        assertArrayEquals(new Integer[] {0, 2, 4, 6, 8}, set.toArray());
     }
 
     @Test
+    public void testIterator() throws Exception {
+        iteratorTest(setUpSet(setUpEmptySet()));
+        iteratorTest(setUpSet(setUpEmptySetWithComparator()));
+    }
+
+    /*@Test
     public void testDescendingIterator() throws Exception {
     }
 

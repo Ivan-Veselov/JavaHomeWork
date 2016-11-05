@@ -254,7 +254,25 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
     @Override
     public @NotNull Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            private Node<E> node;
+
+            {
+                node = root == null ? null : root.leftmost();
+            }
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public E next() {
+                E element = node.getElement();
+                node = node.next();
+                return element;
+            }
+        };
     }
 
     @Override
