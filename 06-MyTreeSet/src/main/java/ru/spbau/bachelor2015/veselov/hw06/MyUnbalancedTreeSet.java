@@ -137,12 +137,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             throw new NoSuchElementException();
         }
 
-        Node<E> node = root;
-        while (node.getLeftChild() != null) {
-            node = node.getLeftChild();
-        }
-
-        return node.getElement();
+        return root.leftmost().getElement();
     }
 
     /**
@@ -154,12 +149,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             throw new NoSuchElementException();
         }
 
-        Node<E> node = root;
-        while (node.getRightChild() != null) {
-            node = node.getRightChild();
-        }
-
-        return node.getElement();
+        return root.rightmost().getElement();
     }
 
     /**
@@ -366,6 +356,24 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
             parent = null;
             return this;
+        }
+
+        public @NotNull Node<E> leftmost() {
+            Node<E> node = this;
+            while (node.getLeftChild() != null) {
+                node = node.getLeftChild();
+            }
+
+            return node;
+        }
+
+        public @NotNull Node<E> rightmost() {
+            Node<E> node = this;
+            while (node.getRightChild() != null) {
+                node = node.getRightChild();
+            }
+
+            return node;
         }
     }
 }
