@@ -169,11 +169,28 @@ public class MyUnbalancedTreeSetTest {
         ceilingTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
-    /*@Test
-    public void testLower() throws Exception {
+    private void lowerTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        for (int i = -2; i <= 10; ++i) {
+            int lower = Math.min(8, i - (Math.abs(i % 2)));
+            if (lower == i) {
+                lower -= 2;
+            }
+
+            if (lower < 0) {
+                assertEquals(null, set.lower(i));
+            } else {
+                assertEquals(lower, set.lower(i).intValue());
+            }
+        }
     }
 
     @Test
+    public void testLower() throws Exception {
+        lowerTest(setUpSet(setUpEmptySet()));
+        lowerTest(setUpSet(setUpEmptySetWithComparator()));
+    }
+
+    /*@Test
     public void testHigher() throws Exception {
     }
 

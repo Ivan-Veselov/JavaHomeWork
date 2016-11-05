@@ -210,7 +210,21 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
      */
     @Override
     public @Nullable E lower(@NotNull E element) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+
+        Node<E> node = findElementOrLeaf(root, element);
+        if (comparator.compare(element, node.getElement()) > 0) {
+            return node.getElement();
+        }
+
+        node = node.previous();
+        if (node == null) {
+            return null;
+        }
+
+        return node.getElement();
     }
 
     @Override
