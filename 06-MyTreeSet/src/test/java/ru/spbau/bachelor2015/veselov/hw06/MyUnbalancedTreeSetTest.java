@@ -53,7 +53,7 @@ public class MyUnbalancedTreeSetTest {
         setUpSet(setUpEmptySetWithComparator());
     }
 
-    @Test
+    /*@Test
     public void testRemove() throws Exception {
     }
 
@@ -95,5 +95,5 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testDescendingSet() throws Exception {
-    }
+    }*/
 }
