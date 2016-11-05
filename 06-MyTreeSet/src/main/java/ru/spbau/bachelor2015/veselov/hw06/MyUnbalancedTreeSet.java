@@ -212,6 +212,12 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return node.getElement();
     }
 
+    /**
+     * Returns the greatest element in tree which is less than a given one. If there is no such element then
+     * null pointer will be returned.
+     *
+     * @param element a given element.
+     */
     @Override
     public @Nullable E lower(@NotNull E element) {
         return null;
