@@ -59,13 +59,15 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
             return true;
         }
 
-        Node<E> leaf = findNearestLeaf(root, element);
-        if (leaf == null) {
+        Node<E> leaf = findElementOrLeaf(root, element);
+        int compareRes = comparator.compare(element, leaf.getElement());
+
+        if (compareRes == 0) {
             return false;
         }
 
         Node<E> newNode = new Node<>(element);
-        if (comparator.compare(element, leaf.getElement()) < 0) {
+        if (compareRes < 0) {
             leaf.setLeftChild(newNode);
         } else {
             leaf.setRightChild(newNode);
@@ -125,14 +127,14 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return null;
     }
 
-    private @Nullable Node<E> findNearestLeaf(@NotNull Node<E> node, @NotNull E element) {
+    private @NotNull Node<E> findElementOrLeaf(@NotNull Node<E> node, @NotNull E element) {
         Node<E> prev = node;
         while (node != null) {
             int compareRes = comparator.compare(element, node.getElement());
             prev = node;
 
             if (compareRes == 0) {
-                return null;
+                return node;
             } else if (compareRes < 0) {
                 node = node.getLeftChild();
             } else if (compareRes > 0) {
