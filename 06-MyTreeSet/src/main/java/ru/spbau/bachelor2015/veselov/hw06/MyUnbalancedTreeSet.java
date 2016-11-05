@@ -5,8 +5,12 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<E> {
-    Node<E> root = null;
+    private Node<E> root = null;
+    private Comparator<? super E> comparator = null;
 
+    /**
+     * Creates tree object which will use natural ordering of elements.
+     */
     public MyUnbalancedTreeSet() {
     }
 
