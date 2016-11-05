@@ -145,17 +145,25 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
     private static class Node<E> {
         private E element;
+        private Node<E> parent = null;
         private Node<E> leftChild;
         private Node<E> rightChild;
 
         public Node(@NotNull E element) {
             this.element = element;
-            this.leftChild = null;
-            this.rightChild = null;
+        }
+
+        public Node(@NotNull E element, @NotNull Node<E> parent) {
+            this(element);
+            this.parent = parent;
         }
 
         public @NotNull E getElement() {
             return element;
+        }
+
+        public @Nullable Node<E> getParent() {
+            return parent;
         }
 
         public @Nullable Node<E> getLeftChild() {
@@ -167,11 +175,34 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         public void setLeftChild(@Nullable Node<E> leftChild) {
+            if (leftChild != null) {
+                leftChild.cutFromTree();
+            }
+
             this.leftChild = leftChild;
         }
 
         public void setRightChild(@Nullable Node<E> rightChild) {
+            if (rightChild != null) {
+                rightChild.cutFromTree();
+            }
+
             this.rightChild = rightChild;
+        }
+
+        public @NotNull Node<E> cutFromTree() {
+            if (parent == null) {
+                return this;
+            }
+
+            if (parent.getLeftChild() == this) {
+                parent.setLeftChild(null);
+            } else {
+                parent.setRightChild(null);
+            }
+
+            parent = null;
+            return this;
         }
     }
 }
