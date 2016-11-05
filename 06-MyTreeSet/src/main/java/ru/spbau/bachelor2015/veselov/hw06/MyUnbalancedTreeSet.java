@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Structure which maintains set of elements in order specified by natural comparison or a given comparator. To store
@@ -127,14 +128,38 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return true;
     }
 
+    /**
+     * Returns the lowest element in tree.
+     */
     @Override
     public @NotNull E first() {
-        return null;
+        if (root == null) {
+            throw new NoSuchElementException();
+        }
+
+        Node<E> node = root;
+        while (node.getLeftChild() != null) {
+            node = node.getLeftChild();
+        }
+
+        return node.getElement();
     }
 
+    /**
+     * Returns the greatest element in tree.
+     */
     @Override
     public @NotNull E last() {
-        return null;
+        if (root == null) {
+            throw new NoSuchElementException();
+        }
+
+        Node<E> node = root;
+        while (node.getRightChild() != null) {
+            node = node.getRightChild();
+        }
+
+        return node.getElement();
     }
 
     @Override

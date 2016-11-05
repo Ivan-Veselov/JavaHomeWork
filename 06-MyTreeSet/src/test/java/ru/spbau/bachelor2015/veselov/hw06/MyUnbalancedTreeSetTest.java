@@ -110,15 +110,32 @@ public class MyUnbalancedTreeSetTest {
         sizeTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
+    private void firstAndLastTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        assertEquals(0, set.first().intValue());
+        assertEquals(8, set.last().intValue());
+
+        assertTrue(set.remove(0));
+        assertTrue(set.add(9));
+
+        assertEquals(2, set.first().intValue());
+        assertEquals(9, set.last().intValue());
+
+        assertTrue(set.remove(2));
+        assertTrue(set.remove(4));
+        assertTrue(set.remove(6));
+        assertTrue(set.remove(8));
+
+        assertEquals(9, set.first().intValue());
+        assertEquals(9, set.last().intValue());
+    }
+
+    @Test
+    public void testFirstAndLast() throws Exception {
+        firstAndLastTest(setUpSet(setUpEmptySet()));
+        firstAndLastTest(setUpSet(setUpEmptySetWithComparator()));
+    }
+
     /*@Test
-    public void testFirst() throws Exception {
-    }
-
-    @Test
-    public void testLast() throws Exception {
-    }
-
-    @Test
     public void testFloor() throws Exception {
     }
 
