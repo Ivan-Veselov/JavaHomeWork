@@ -15,6 +15,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
     private Node<E> root = null;
     private Comparator<? super E> comparator = null;
     private int size = 0;
+    private long state = 0;
 
     /**
      * Creates tree object which will use natural ordering of elements.
@@ -54,6 +55,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         if (root == null) {
             root = new Node<> (element);
             ++size;
+            ++state;
             return true;
         }
 
@@ -72,6 +74,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         ++size;
+        ++state;
         return true;
     }
 
@@ -122,6 +125,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         }
 
         --size;
+        ++state;
         return true;
     }
 
@@ -256,18 +260,28 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
     public @NotNull Iterator<E> iterator() {
         return new Iterator<E>() {
             private Node<E> node;
+            private long state;
 
             {
                 node = root == null ? null : root.leftmost();
+                state = MyUnbalancedTreeSet.this.state;
             }
 
             @Override
             public boolean hasNext() {
+                if (state != MyUnbalancedTreeSet.this.state) {
+                    throw new ConcurrentModificationException();
+                }
+
                 return node != null;
             }
 
             @Override
             public E next() {
+                if (state != MyUnbalancedTreeSet.this.state) {
+                    throw new ConcurrentModificationException();
+                }
+
                 E element = node.getElement();
                 node = node.next();
                 return element;
@@ -285,15 +299,24 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
             {
                 node = root == null ? null : root.rightmost();
+                state = MyUnbalancedTreeSet.this.state;
             }
 
             @Override
             public boolean hasNext() {
+                if (state != MyUnbalancedTreeSet.this.state) {
+                    throw new ConcurrentModificationException();
+                }
+
                 return node != null;
             }
 
             @Override
             public E next() {
+                if (state != MyUnbalancedTreeSet.this.state) {
+                    throw new ConcurrentModificationException();
+                }
+
                 E element = node.getElement();
                 node = node.previous();
                 return element;

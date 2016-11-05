@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.util.Comparator;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
@@ -241,6 +242,17 @@ public class MyUnbalancedTreeSetTest {
     @Test
     public void testDescendingIterator() throws Exception {
         testOn(this::descendingIteratorTest);
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void testIteratorInvalidation() throws Exception {
+        MyTreeSet<Integer> set = setUpSet(setUpEmptySet());
+
+        Iterator<Integer> it = set.iterator();
+        it.next();
+
+        set.remove(2);
+        it.next();
     }
 
     private interface TestCase {
