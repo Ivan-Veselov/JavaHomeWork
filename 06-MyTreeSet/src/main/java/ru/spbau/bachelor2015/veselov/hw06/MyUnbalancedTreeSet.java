@@ -78,7 +78,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
     }
 
     @Override
-    public boolean remove(@NotNull Object o) {
+    public boolean remove(@NotNull Object obj) {
         return false;
     }
 
@@ -93,22 +93,22 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
     }
 
     @Override
-    public @Nullable E floor(@NotNull E e) {
+    public @Nullable E floor(@NotNull E element) {
         return null;
     }
 
     @Override
-    public @Nullable E ceiling(@NotNull E e) {
+    public @Nullable E ceiling(@NotNull E element) {
         return null;
     }
 
     @Override
-    public @Nullable E lower(@NotNull E e) {
+    public @Nullable E lower(@NotNull E element) {
         return null;
     }
 
     @Override
-    public @Nullable E higher(@NotNull E e) {
+    public @Nullable E higher(@NotNull E element) {
         return null;
     }
 
