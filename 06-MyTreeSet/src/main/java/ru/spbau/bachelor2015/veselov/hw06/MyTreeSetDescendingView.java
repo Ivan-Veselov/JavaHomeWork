@@ -15,17 +15,17 @@ class MyTreeSetDescendingView<E> extends AbstractSet<E> implements MyTreeSet<E> 
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return origin.size();
     }
 
     @Override
     public boolean add(@NotNull E element) {
-        throw new UnsupportedOperationException();
+        return origin.add(element);
     }
 
     @Override
     public boolean remove(@NotNull Object obj) {
-        throw new UnsupportedOperationException();
+        return origin.remove(obj);
     }
 
     @Override
@@ -39,8 +39,7 @@ class MyTreeSetDescendingView<E> extends AbstractSet<E> implements MyTreeSet<E> 
     }
 
     @Override
-    public @Nullable
-    E floor(@NotNull E element) {
+    public @Nullable E floor(@NotNull E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -71,6 +70,6 @@ class MyTreeSetDescendingView<E> extends AbstractSet<E> implements MyTreeSet<E> 
 
     @Override
     public @NotNull MyTreeSet<E> descendingSet() {
-        throw new UnsupportedOperationException();
+        return new MyTreeSetDescendingView<> (this);
     }
 }
