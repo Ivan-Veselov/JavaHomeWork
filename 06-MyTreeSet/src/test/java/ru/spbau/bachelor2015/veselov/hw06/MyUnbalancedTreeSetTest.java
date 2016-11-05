@@ -32,6 +32,16 @@ public class MyUnbalancedTreeSetTest {
         return set;
     }
 
+    private void testOnEmpty(TestCase test) throws Exception {
+        test.run(setUpEmptySet());
+        test.run(setUpEmptySetWithComparator());
+        test.run(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet());
+    }
+
+    private void testOn(TestCase test) throws Exception {
+        testOnEmpty(set -> {setUpSet(set); test.run(set);});
+    }
+
     private void addTest1(@NotNull MyTreeSet<Integer> set) throws Exception {
         assertTrue(set.add(5));
         assertTrue(set.add(6));
@@ -49,16 +59,12 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testAdd1() throws Exception {
-        addTest1(setUpEmptySet());
-        addTest1(setUpEmptySetWithComparator());
-        addTest1((setUpEmptySetWithComparator((a, b) -> b.compareTo(a))).descendingSet());
+        testOnEmpty(this::addTest1);
     }
 
     @Test
     public void testAdd2() throws Exception {
-        setUpSet(setUpEmptySet());
-        setUpSet(setUpEmptySetWithComparator());
-        setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet());
+        testOn(set -> {});
     }
 
     private void removeTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -76,9 +82,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testRemove() throws Exception {
-        removeTest(setUpSet(setUpEmptySet()));
-        removeTest(setUpSet(setUpEmptySetWithComparator()));
-        removeTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::removeTest);
     }
 
     private void sizeTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -114,9 +118,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testSize() throws Exception {
-        sizeTest(setUpSet(setUpEmptySet()));
-        sizeTest(setUpSet(setUpEmptySetWithComparator()));
-        sizeTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::sizeTest);
     }
 
     private void firstAndLastTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -140,9 +142,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testFirstAndLast() throws Exception {
-        firstAndLastTest(setUpSet(setUpEmptySet()));
-        firstAndLastTest(setUpSet(setUpEmptySetWithComparator()));
-        firstAndLastTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::firstAndLastTest);
     }
 
     private void floorTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -158,9 +158,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testFloor() throws Exception {
-        floorTest(setUpSet(setUpEmptySet()));
-        floorTest(setUpSet(setUpEmptySetWithComparator()));
-        floorTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::floorTest);
     }
 
     private void ceilingTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -176,9 +174,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testCeiling() throws Exception {
-        ceilingTest(setUpSet(setUpEmptySet()));
-        ceilingTest(setUpSet(setUpEmptySetWithComparator()));
-        ceilingTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::ceilingTest);
     }
 
     private void lowerTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -198,9 +194,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testLower() throws Exception {
-        lowerTest(setUpSet(setUpEmptySet()));
-        lowerTest(setUpSet(setUpEmptySetWithComparator()));
-        lowerTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::lowerTest);
     }
 
     private void higherTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -220,9 +214,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testHigher() throws Exception {
-        higherTest(setUpSet(setUpEmptySet()));
-        higherTest(setUpSet(setUpEmptySetWithComparator()));
-        higherTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::higherTest);
     }
 
     private void iteratorTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -231,9 +223,7 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testIterator() throws Exception {
-        iteratorTest(setUpSet(setUpEmptySet()));
-        iteratorTest(setUpSet(setUpEmptySetWithComparator()));
-        iteratorTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::iteratorTest);
     }
 
     private void descendingIteratorTest(@NotNull MyTreeSet<Integer> set) throws Exception {
@@ -250,8 +240,10 @@ public class MyUnbalancedTreeSetTest {
 
     @Test
     public void testDescendingIterator() throws Exception {
-        descendingIteratorTest(setUpSet(setUpEmptySet()));
-        descendingIteratorTest(setUpSet(setUpEmptySetWithComparator()));
-        descendingIteratorTest(setUpSet(setUpEmptySetWithComparator((a, b) -> b.compareTo(a)).descendingSet()));
+        testOn(this::descendingIteratorTest);
+    }
+
+    private interface TestCase {
+        void run(MyTreeSet<Integer> set) throws Exception;
     }
 }
