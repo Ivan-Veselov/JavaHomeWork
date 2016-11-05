@@ -1,5 +1,8 @@
 package ru.spbau.bachelor2015.veselov.hw06;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -25,7 +28,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
      *
      * @param comparator a comparator which will be used to order elements.
      */
-    public MyUnbalancedTreeSet(Comparator<? super E> comparator) {
+    public MyUnbalancedTreeSet(@NotNull Comparator<? super E> comparator) {
         this.comparator = comparator;
     }
 
@@ -33,78 +36,78 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return 0;
     }
 
-    public boolean add(E e) {
+    public boolean add(@NotNull E e) {
         return false;
     }
 
-    public boolean remove(Object o) {
+    public boolean remove(@NotNull Object o) {
         return false;
     }
 
-    public E first() {
+    public @NotNull E first() {
         return null;
     }
 
-    public E last() {
+    public @NotNull E last() {
         return null;
     }
 
-    public E floor(E e) {
+    public @Nullable E floor(@NotNull E e) {
         return null;
     }
 
-    public E ceiling(E e) {
+    public @Nullable E ceiling(@NotNull E e) {
         return null;
     }
 
-    public E lower(E e) {
+    public @Nullable E lower(@NotNull E e) {
         return null;
     }
 
-    public E higher(E e) {
+    public @Nullable E higher(@NotNull E e) {
         return null;
     }
 
-    public Iterator<E> iterator() {
+    public @NotNull Iterator<E> iterator() {
         return null;
     }
 
-    public Iterator<E> descendingIterator() {
+    public @NotNull Iterator<E> descendingIterator() {
         return null;
     }
 
-    public MyTreeSet<E> descendingSet() {
+    public @NotNull MyTreeSet<E> descendingSet() {
         return null;
     }
 
     private static class Node<E> {
         private E element;
-        private Node leftChild;
-        private Node rightChild;
+        private Node<E> leftChild;
+        private Node<E> rightChild;
 
-        public Node(E element) {
+        public Node(@NotNull E element) {
             this.element = element;
             this.leftChild = null;
             this.rightChild = null;
         }
 
-        public E getElement() {
+        public @NotNull E getElement() {
             return element;
         }
 
-        public Node getLeftChild() {
+        public @Nullable Node<E> getLeftChild() {
             return leftChild;
         }
 
-        public Node getRightChild() {
+        public @Nullable Node<E> getRightChild() {
             return rightChild;
         }
 
-        public void setLeftChild(Node leftChild) {
+        public void setLeftChild(@Nullable Node<E> leftChild) {
             this.leftChild = leftChild;
         }
 
-        public void setRightChild(Node rightChild) {
+        public void setRightChild(@Nullable Node<E> rightChild) {
             this.rightChild = rightChild;
         }
     }
