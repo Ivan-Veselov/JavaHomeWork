@@ -238,8 +238,4 @@ public class MyUnbalancedTreeSetTest {
         descendingIteratorTest(setUpSet(setUpEmptySet()));
         descendingIteratorTest(setUpSet(setUpEmptySetWithComparator()));
     }
-
-    /*@Test
-    public void testDescendingSet() throws Exception {
-    }*/
 }

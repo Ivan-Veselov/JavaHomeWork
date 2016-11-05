@@ -297,7 +297,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
     @Override
     public @NotNull MyTreeSet<E> descendingSet() {
-        return null;
+        return new MyTreeSetDescendingView<> (this);
     }
 
     private @NotNull Node<E> findElementOrLeaf(@NotNull Node<E> node, @NotNull E element) {
