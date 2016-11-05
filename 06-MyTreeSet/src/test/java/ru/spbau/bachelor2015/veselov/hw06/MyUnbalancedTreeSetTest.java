@@ -3,6 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw06;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -53,15 +54,63 @@ public class MyUnbalancedTreeSetTest {
         setUpSet(setUpEmptySetWithComparator());
     }
 
-    /*@Test
+    private void removeTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        assertTrue(set.remove(2));
+        assertFalse(set.remove(2));
+
+        assertTrue(set.add(2));
+        assertTrue(set.remove(2));
+
+        assertTrue(set.remove(6));
+        assertTrue(set.remove(4));
+        assertTrue(set.remove(0));
+        assertTrue(set.remove(8));
+    }
+
+    @Test
     public void testRemove() throws Exception {
+        removeTest(setUpEmptySet());
+        removeTest(setUpEmptySetWithComparator());
+    }
+
+    private void sizeTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        assertEquals(5, set.size());
+
+        assertTrue(set.add(1));
+        assertEquals(6, set.size());
+
+        assertFalse(set.add(6));
+        assertEquals(6, set.size());
+
+        assertTrue(set.remove(2));
+        assertEquals(5, set.size());
+
+        assertTrue(set.remove(4));
+        assertEquals(4, set.size());
+
+        assertTrue(set.remove(0));
+        assertEquals(3, set.size());
+
+        assertTrue(set.remove(6));
+        assertEquals(2, set.size());
+
+        assertTrue(set.remove(8));
+        assertEquals(1, set.size());
+
+        assertTrue(set.remove(1));
+        assertEquals(0, set.size());
+
+        assertTrue(set.add(0));
+        assertEquals(1, set.size());
     }
 
     @Test
     public void testSize() throws Exception {
+        sizeTest(setUpEmptySet());
+        sizeTest(setUpEmptySetWithComparator());
     }
 
-    @Test
+    /*@Test
     public void testFirst() throws Exception {
     }
 
