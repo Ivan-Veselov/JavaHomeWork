@@ -41,9 +41,38 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return size;
     }
 
+    /**
+     * Adds given element to the set if it is not present.
+     *
+     * @param element element to add.
+     * @return true if new element was added, false if it was already presented.
+     */
     @Override
-    public boolean add(@NotNull E e) {
-        return false;
+    public boolean add(@NotNull E element) {
+        if (comparator == null) {
+            comparator = (e1, e2) -> ((Comparable) e1).compareTo(e2);
+        }
+
+        if (root == null) {
+            root = new Node<> (element);
+            ++size;
+            return true;
+        }
+
+        Node<E> leaf = findNearestLeaf(root, element);
+        if (leaf == null) {
+            return false;
+        }
+
+        Node<E> newNode = new Node<>(element);
+        if (comparator.compare(element, leaf.getElement()) < 0) {
+            leaf.setLeftChild(newNode);
+        } else {
+            leaf.setRightChild(newNode);
+        }
+
+        ++size;
+        return true;
     }
 
     @Override
@@ -94,6 +123,24 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
     @Override
     public @NotNull MyTreeSet<E> descendingSet() {
         return null;
+    }
+
+    private @Nullable Node<E> findNearestLeaf(@NotNull Node<E> node, @NotNull E element) {
+        Node<E> prev = node;
+        while (node != null) {
+            int compareRes = comparator.compare(element, node.getElement());
+            prev = node;
+
+            if (compareRes == 0) {
+                return null;
+            } else if (compareRes < 0) {
+                node = node.getLeftChild();
+            } else if (compareRes > 0) {
+                node = node.getRightChild();
+            }
+        }
+
+        return prev;
     }
 
     private static class Node<E> {

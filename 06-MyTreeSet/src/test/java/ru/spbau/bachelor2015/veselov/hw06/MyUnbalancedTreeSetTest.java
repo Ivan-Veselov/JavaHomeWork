@@ -33,7 +33,7 @@ public class MyUnbalancedTreeSetTest {
         assertTrue(set.add(4));
         assertTrue(set.add(3));
 
-        assertFalse(set.add(0));
+        assertFalse(set.add(4));
         assertFalse(set.add(3));
 
         assertTrue(set.add(7));
