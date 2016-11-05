@@ -249,6 +249,9 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         return node.getElement();
     }
 
+    /**
+     * @return an iterator over elements of tree in ascending order.
+     */
     @Override
     public @NotNull Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -272,6 +275,9 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         };
     }
 
+    /**
+     * @return an iterator over elements of tree in descending order.
+     */
     @Override
     public @NotNull Iterator<E> descendingIterator() {
         return new Iterator<E>() {
@@ -295,6 +301,9 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         };
     }
 
+    /**
+     * @return a reverse order view of elements.
+     */
     @Override
     public @NotNull MyTreeSet<E> descendingSet() {
         return new MyTreeSetDescendingView<> (this);
