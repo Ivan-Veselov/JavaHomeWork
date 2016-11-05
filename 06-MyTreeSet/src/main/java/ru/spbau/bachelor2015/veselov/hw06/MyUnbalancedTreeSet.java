@@ -14,7 +14,13 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
     public MyUnbalancedTreeSet() {
     }
 
+    /**
+     * Creates tree object which will use given comparator to order elements.
+     *
+     * @param comparator a comparator which will be used to order elements.
+     */
     public MyUnbalancedTreeSet(Comparator<? super E> comparator) {
+        this.comparator = comparator;
     }
 
     public int size() {
