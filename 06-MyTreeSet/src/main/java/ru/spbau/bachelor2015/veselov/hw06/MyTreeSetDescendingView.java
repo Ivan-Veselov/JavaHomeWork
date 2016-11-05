@@ -60,12 +60,12 @@ class MyTreeSetDescendingView<E> extends AbstractSet<E> implements MyTreeSet<E> 
 
     @Override
     public @NotNull Iterator<E> iterator() {
-        throw new UnsupportedOperationException();
+        return origin.descendingIterator();
     }
 
     @Override
     public @NotNull Iterator<E> descendingIterator() {
-        throw new UnsupportedOperationException();
+        return origin.iterator();
     }
 
     @Override
