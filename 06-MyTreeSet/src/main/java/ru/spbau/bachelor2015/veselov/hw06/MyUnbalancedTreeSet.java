@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<E> {
+    Node<E> root = null;
+
     public MyUnbalancedTreeSet() {
     }
 
@@ -57,5 +59,37 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
     public MyTreeSet<E> descendingSet() {
         return null;
+    }
+
+    private static class Node<E> {
+        private E element;
+        private Node leftChild;
+        private Node rightChild;
+
+        public Node(E element) {
+            this.element = element;
+            this.leftChild = null;
+            this.rightChild = null;
+        }
+
+        public E getElement() {
+            return element;
+        }
+
+        public Node getLeftChild() {
+            return leftChild;
+        }
+
+        public Node getRightChild() {
+            return rightChild;
+        }
+
+        public void setLeftChild(Node leftChild) {
+            this.leftChild = leftChild;
+        }
+
+        public void setRightChild(Node rightChild) {
+            this.rightChild = rightChild;
+        }
     }
 }
