@@ -3,6 +3,8 @@ package ru.spbau.bachelor2015.veselov.hw06;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 public class MyUnbalancedTreeSetTest {
@@ -219,11 +221,25 @@ public class MyUnbalancedTreeSetTest {
         iteratorTest(setUpSet(setUpEmptySetWithComparator()));
     }
 
-    /*@Test
-    public void testDescendingIterator() throws Exception {
+    private void descendingIteratorTest(@NotNull MyUnbalancedTreeSet<Integer> set) throws Exception {
+        Iterator<Integer> it = set.descendingIterator();
+        int value = 8;
+
+        while (it.hasNext()) {
+            assertEquals(value, it.next().intValue());
+            value -= 2;
+        }
+
+        assertEquals(-2, value);
     }
 
     @Test
+    public void testDescendingIterator() throws Exception {
+        descendingIteratorTest(setUpSet(setUpEmptySet()));
+        descendingIteratorTest(setUpSet(setUpEmptySetWithComparator()));
+    }
+
+    /*@Test
     public void testDescendingSet() throws Exception {
     }*/
 }

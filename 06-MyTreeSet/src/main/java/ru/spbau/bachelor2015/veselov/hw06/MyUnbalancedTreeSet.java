@@ -3,10 +3,7 @@ package ru.spbau.bachelor2015.veselov.hw06;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.AbstractSet;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Structure which maintains set of elements in order specified by natural comparison or a given comparator. To store
@@ -277,7 +274,25 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
     @Override
     public @NotNull Iterator<E> descendingIterator() {
-        return null;
+        return new Iterator<E>() {
+            private Node<E> node;
+
+            {
+                node = root == null ? null : root.rightmost();
+            }
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public E next() {
+                E element = node.getElement();
+                node = node.previous();
+                return element;
+            }
+        };
     }
 
     @Override
