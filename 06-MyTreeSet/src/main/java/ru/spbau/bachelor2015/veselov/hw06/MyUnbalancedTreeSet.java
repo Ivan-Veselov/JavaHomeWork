@@ -79,7 +79,43 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
 
     @Override
     public boolean remove(@NotNull Object obj) {
-        return false;
+        E element = (E)obj;
+
+        if (root == null) {
+            return false;
+        }
+
+        Node<E> node = findElementOrLeaf(root, element);
+        if (comparator.compare(element, node.getElement()) != 0) {
+            return false;
+        }
+
+        Node<E> parent = node.getParent();
+        Node<E> leftChild = node.getLeftChild();
+        Node<E> rightChild = node.getRightChild();
+
+        if (leftChild != null && rightChild != null) {
+            Node<E> rightSubTreeLeftmostLeaf = findElementOrLeaf(rightChild, leftChild.getElement());
+            rightSubTreeLeftmostLeaf.setLeftChild(leftChild);
+            leftChild = null;
+        }
+
+        if (leftChild == null && rightChild == null) {
+            node.cutFromTree();
+        } else if (leftChild != null) {
+            node.replaceWith(leftChild);
+            if (parent == null) {
+                root = leftChild;
+            }
+        } else {
+            node.replaceWith(rightChild);
+            if (parent == null) {
+                root = rightChild;
+            }
+        }
+
+        --size;
+        return true;
     }
 
     @Override
@@ -179,6 +215,7 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         public void setLeftChild(@Nullable Node<E> leftChild) {
             if (leftChild != null) {
                 leftChild.cutFromTree();
+                leftChild.parent = this;
             }
 
             this.leftChild = leftChild;
@@ -187,20 +224,26 @@ public class MyUnbalancedTreeSet<E> extends AbstractSet<E> implements MyTreeSet<
         public void setRightChild(@Nullable Node<E> rightChild) {
             if (rightChild != null) {
                 rightChild.cutFromTree();
+                rightChild.parent = this;
             }
 
             this.rightChild = rightChild;
+
         }
 
         public @NotNull Node<E> cutFromTree() {
+            return replaceWith(null);
+        }
+
+        public @NotNull Node<E> replaceWith(@Nullable Node<E> node) {
             if (parent == null) {
                 return this;
             }
 
             if (parent.getLeftChild() == this) {
-                parent.setLeftChild(null);
+                parent.setLeftChild(node);
             } else {
-                parent.setRightChild(null);
+                parent.setRightChild(node);
             }
 
             parent = null;
