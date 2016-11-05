@@ -30,32 +30,32 @@ class MyTreeSetDescendingView<E> extends AbstractSet<E> implements MyTreeSet<E> 
 
     @Override
     public @NotNull E first() {
-        throw new UnsupportedOperationException();
+        return origin.last();
     }
 
     @Override
     public @NotNull E last() {
-        throw new UnsupportedOperationException();
+        return origin.first();
     }
 
     @Override
     public @Nullable E floor(@NotNull E element) {
-        throw new UnsupportedOperationException();
+        return origin.ceiling(element);
     }
 
     @Override
     public @Nullable E ceiling(@NotNull E element) {
-        throw new UnsupportedOperationException();
+        return origin.floor(element);
     }
 
     @Override
     public @Nullable E lower(@NotNull E element) {
-        throw new UnsupportedOperationException();
+        return origin.higher(element);
     }
 
     @Override
     public @Nullable E higher(@NotNull E element) {
-        throw new UnsupportedOperationException();
+        return origin.lower(element);
     }
 
     @Override
