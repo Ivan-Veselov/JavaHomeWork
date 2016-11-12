@@ -2,6 +2,9 @@ package ru.spbau.bachelor2015.veselov.hw08;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class SecondPartTasks {
 
@@ -16,7 +19,14 @@ public final class SecondPartTasks {
     // Стрелок атакует мишень и каждый раз попадает в произвольную точку квадрата.
     // Надо промоделировать этот процесс с помощью класса java.util.Random и посчитать, какова вероятность попасть в мишень.
     public static double piDividedBy4() {
-        throw new UnsupportedOperationException();
+        Random generator = new Random();
+        return Stream.generate(() ->
+                                {
+                                    if (Math.hypot(generator.nextDouble(), generator.nextDouble()) <= 1.0) return 1;
+                                    else return 0;
+                                })
+                     .limit(1000000)
+                     .collect(Collectors.averagingInt(a -> a));
     }
 
     // Дано отображение из имени автора в список с содержанием его произведений.
