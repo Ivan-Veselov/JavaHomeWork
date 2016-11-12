@@ -5,10 +5,14 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Enumeration;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -45,11 +49,9 @@ public class Main {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     try (ZipFile archive = new ZipFile(file.toFile())) {
-                        unZip(archive, pattern);
+                        unZip(file.getParent(), archive, pattern);
                     } catch (ZipException e) {
                         // Not a zip archive
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
                     }
 
                     return FileVisitResult.CONTINUE;
@@ -69,7 +71,21 @@ public class Main {
         );
     }
 
-    private static void unZip(@NotNull ZipFile archive, @NotNull Pattern pattern) {
-        throw new UnsupportedOperationException();
+    private static void unZip(@NotNull Path path,
+                              @NotNull ZipFile archive,
+                              @NotNull Pattern pattern) throws IOException {
+        Enumeration<? extends ZipEntry> entries = archive.entries();
+
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+
+            if (entry.isDirectory()) {
+                Files.createDirectories(path.resolve(entry.getName()));
+            } else {
+                if (pattern.matcher(entry.getName()).matches()) {
+                    Files.copy(archive.getInputStream(entry), path.resolve(entry.getName()), REPLACE_EXISTING);
+                }
+            }
+        }
     }
 }
