@@ -1,5 +1,6 @@
 package ru.spbau.bachelor2015.veselov.hw08;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -38,6 +39,13 @@ public final class SecondPartTasks {
     // Вы крупный поставщик продуктов. Каждая торговая сеть делает вам заказ в виде Map<Товар, Количество>.
     // Необходимо вычислить, какой товар и в каком количестве надо поставить.
     public static Map<String, Integer> calculateGlobalOrder(List<Map<String, Integer>> orders) {
-        throw new UnsupportedOperationException();
+        return orders.stream().reduce(new HashMap<>(),
+                                      (acc, map) -> {
+                                                map.entrySet()
+                                                   .forEach(e -> acc.merge(e.getKey(),
+                                                                           e.getValue(),
+                                                                           (a, b) -> a + b));
+                                                return acc;
+                                      });
     }
 }
