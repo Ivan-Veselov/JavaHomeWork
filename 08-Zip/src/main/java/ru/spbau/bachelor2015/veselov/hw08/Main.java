@@ -14,7 +14,18 @@ import java.util.zip.ZipFile;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+/**
+ * Accepts directory and regex as arguments. Unzips all files which matches given regex from all zip archives in the
+ * given directory.
+ */
 public class Main {
+    /**
+     * Entry point.
+     *
+     * @param args two arguments expected. First - directory, second - regex.
+     * @throws IOException any IO exception which may occur during process of traversing file tree and unzipping
+     *                     archives.
+     */
     public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             System.out.println("Invalid number of arguments! Must be 2.");
