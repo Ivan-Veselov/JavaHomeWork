@@ -59,16 +59,13 @@ public final class FirstPartTasks {
     // Альбом, в котором максимум рейтинга минимален
     // (если в альбоме нет ни одного трека, считать, что максимум рейтинга в нем --- 0)
     public static Optional<Album> minMaxRating(Stream<Album> albums) {
-        return albums.collect(Collectors.toMap(Function.identity(),
-                                               a -> a.getTracks()
-                                                     .stream()
-                                                     .mapToInt(Track::getRating)
-                                                     .reduce(Integer::max)
-                                                     .orElse(0)))
-                     .entrySet()
-                     .stream()
-                     .min(Comparator.comparingInt(Map.Entry::getValue))
-                     .map(Map.Entry::getKey);
+        return albums.collect(Collectors.minBy(
+                Comparator.comparingInt(a -> a.getTracks()
+                                              .stream()
+                                              .mapToInt(Track::getRating)
+                                              .reduce(Integer::max)
+                                              .orElse(0))
+        ));
     }
 
     // Список альбомов, отсортированный по убыванию среднего рейтинга его треков (0, если треков нет)
