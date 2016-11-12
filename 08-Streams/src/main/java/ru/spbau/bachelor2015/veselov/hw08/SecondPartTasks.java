@@ -1,5 +1,8 @@
 package ru.spbau.bachelor2015.veselov.hw08;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,7 +13,16 @@ public final class SecondPartTasks {
 
     // Найти строки из переданных файлов, в которых встречается указанная подстрока.
     public static List<String> findQuotes(List<String> paths, CharSequence sequence) {
-        throw new UnsupportedOperationException();
+        return paths.stream()
+                    .flatMap(s -> {
+                        try {
+                            return Files.lines(Paths.get(s));
+                        } catch (IOException e) {
+                            return Stream.of();
+                        }
+                    })
+                    .filter(s -> s.contains(sequence))
+                    .collect(Collectors.toList());
     }
 
     // В квадрат с длиной стороны 1 вписана мишень.

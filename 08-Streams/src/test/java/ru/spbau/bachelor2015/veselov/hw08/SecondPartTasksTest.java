@@ -7,16 +7,14 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.calculateGlobalOrder;
-import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.findPrinter;
-import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.piDividedBy4;
+import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.*;
 
 public class SecondPartTasksTest {
 
     @Test
     public void testFindQuotes() {
-        fail();
+        assertEquals(Arrays.asList("AtestA", "BtestB", "AtestA", "BtestB"),
+                     findQuotes(Arrays.asList("test/test1", "test/test2"), "test"));
     }
 
     @Test
