@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.calculateGlobalOrder;
+import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.findPrinter;
 import static ru.spbau.bachelor2015.veselov.hw08.SecondPartTasks.piDividedBy4;
 
 public class SecondPartTasksTest {
@@ -26,7 +27,14 @@ public class SecondPartTasksTest {
 
     @Test
     public void testFindPrinter() {
-        fail();
+        assertEquals(
+                "B",
+                findPrinter(ImmutableMap.of(
+                        "A", Arrays.asList("Ababa", "acaba", "c"),
+                        "B", Arrays.asList("asdasd", "afasdfsadfsaddfsadfasdfasd"),
+                        "C", Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h")
+                ))
+        );
     }
 
     @Test

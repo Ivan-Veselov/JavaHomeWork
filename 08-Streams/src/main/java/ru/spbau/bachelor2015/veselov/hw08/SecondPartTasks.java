@@ -1,9 +1,6 @@
 package ru.spbau.bachelor2015.veselov.hw08;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +30,14 @@ public final class SecondPartTasks {
     // Дано отображение из имени автора в список с содержанием его произведений.
     // Надо вычислить, чья общая длина произведений наибольшая.
     public static String findPrinter(Map<String, List<String>> compositions) {
-        throw new UnsupportedOperationException();
+        return compositions.entrySet()
+                           .stream()
+                           .collect(Collectors.maxBy(
+                                   Comparator.comparingInt(e -> e.getValue()
+                                             .stream()
+                                             .collect(Collectors.summingInt(String::length)))))
+                           .get()
+                           .getKey();
     }
 
     // Вы крупный поставщик продуктов. Каждая торговая сеть делает вам заказ в виде Map<Товар, Количество>.
