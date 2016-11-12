@@ -40,12 +40,7 @@ public class Main {
 
     private static void unZip(@NotNull Path fileTree, @NotNull Pattern pattern) throws IOException {
         Files.walkFileTree(fileTree,
-            new FileVisitor<Path>() {
-                @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    return FileVisitResult.CONTINUE;
-                }
-
+            new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     try (ZipFile archive = new ZipFile(file.toFile())) {
@@ -54,17 +49,6 @@ public class Main {
                         // Not a zip archive
                     }
 
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    System.out.println(exc.getMessage());
-                    return FileVisitResult.SKIP_SUBTREE;
-                }
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
                     return FileVisitResult.CONTINUE;
                 }
             }
