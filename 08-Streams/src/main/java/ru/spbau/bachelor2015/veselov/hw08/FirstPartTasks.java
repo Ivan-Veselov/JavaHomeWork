@@ -70,15 +70,11 @@ public final class FirstPartTasks {
 
     // Список альбомов, отсортированный по убыванию среднего рейтинга его треков (0, если треков нет)
     public static List<Album> sortByAverageRating(Stream<Album> albums) {
-        return albums.collect(Collectors.toMap(Function.identity(),
-                                               a -> a.getTracks()
-                                                     .stream()
-                                                     .collect(Collectors.averagingInt(Track::getRating))))
-                     .entrySet()
-                     .stream()
-                     .sorted(Comparator.comparingDouble((ToDoubleFunction<Map.Entry>) e -> (Double) e.getValue())
+        return albums.sorted(Comparator.comparingDouble(
+                                    (ToDoubleFunction<Album>) a -> a.getTracks()
+                                                                    .stream()
+                                                                    .collect(Collectors.averagingInt(Track::getRating)))
                                        .reversed())
-                     .map(Map.Entry::getKey)
                      .collect(Collectors.toList());
     }
 
