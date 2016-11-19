@@ -7,7 +7,18 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+/**
+ * This class provides two static methods: serialize and deserialize. This methods allow to serialize and deserialize
+ * objects of simple classes. Class called simple if type of any of it's field is either primitive or String.
+ */
 public class Serialization {
+    /**
+     * Serializes given object of simple class into given stream.
+     *
+     * @param obj object of simple class.
+     * @param stream stream where result of serialization will be written.
+     * @throws IOException any IO exception that can occur during usage of given stream.
+     */
     public static void serialize(@NotNull Object obj, @NotNull OutputStream stream) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stream));
 
@@ -46,6 +57,15 @@ public class Serialization {
         writer.flush();
     }
 
+    /**
+     * Deserializes object of given simple class from given stream.
+     *
+     * @param stream a stream where serialized object is stored.
+     * @param clazz an object which represents simple class, object of which will be deserialized.
+     * @param <T> simple class, object of which will be deserialized.
+     * @return deserialized object.
+     * @throws IOException any IO exception that can occur during usage of given stream.
+     */
     public static <T> @NotNull T deserialize(@NotNull InputStream stream, @NotNull Class<T> clazz) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
