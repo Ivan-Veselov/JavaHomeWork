@@ -18,7 +18,7 @@ public final class SecondPartTasks {
                         try {
                             return Files.lines(Paths.get(s));
                         } catch (IOException e) {
-                            return Stream.of();
+                            throw new RuntimeException(e);
                         }
                     })
                     .filter(s -> s.contains(sequence))
