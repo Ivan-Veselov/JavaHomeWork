@@ -6,8 +6,8 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 /**
- * Class which represents an entry in a phone book database. One entry consists of a name and a telephone number.
- * Format of a telephone number isn't specified, so it's just a String field.
+ * Class which represents an entry in a phone book database. One entry consists of a name and a phone number.
+ * Format of a phone number isn't specified, so it's just a String field.
  */
 @Entity
 public class PhoneBookEntry {
@@ -15,19 +15,19 @@ public class PhoneBookEntry {
     private final ObjectId id;
 
     private final String name;
-    private final String telephone;
+    private final String phone;
 
     /**
      * Creates a brand new entry which has a unique new id.
      *
      * @param name a person name.
-     * @param telephone a telephone number.
+     * @param phone a phone number.
      */
-    public PhoneBookEntry(@NotNull String name, @NotNull String telephone) {
+    public PhoneBookEntry(@NotNull String name, @NotNull String phone) {
         this.id = new ObjectId();
 
         this.name = name;
-        this.telephone = telephone;
+        this.phone = phone;
     }
 
     /**
@@ -35,13 +35,13 @@ public class PhoneBookEntry {
      *
      * @param id an id of an entry in a database.
      * @param name a person name.
-     * @param telephone a telephone number.
+     * @param phone a phone number.
      */
-    public PhoneBookEntry(@NotNull ObjectId id, @NotNull String name, @NotNull String telephone) {
+    public PhoneBookEntry(@NotNull ObjectId id, @NotNull String name, @NotNull String phone) {
         this.id = id;
 
         this.name = name;
-        this.telephone = telephone;
+        this.phone = phone;
     }
 
     /**
@@ -59,9 +59,9 @@ public class PhoneBookEntry {
     }
 
     /**
-     * Returns a telephone number.
+     * Returns a phone number.
      */
-    public @NotNull String getTelephone() {
-        return telephone;
+    public @NotNull String getPhone() {
+        return phone;
     }
 }

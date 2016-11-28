@@ -13,11 +13,11 @@ public class Main {
     private static final String prompt =
             "0 - quit\n" +
             "1 - add new entry\n" +
-            "2 - find telephones by name\n" +
-            "3 - find names by telephone\n" +
-            "4 - delete entry name-telephone\n" +
-            "5 - change name of name-telephone entry\n" +
-            "6 - change telephone of name-telephone entry\n" +
+            "2 - find phones by name\n" +
+            "3 - find names by phone\n" +
+            "4 - delete entry name-phone\n" +
+            "5 - change name of name-phone entry\n" +
+            "6 - change phone of name-phone entry\n" +
             "7 - print all entries\n" +
             "8 - print this prompt";
 
@@ -51,57 +51,57 @@ public class Main {
 
                 String name;
                 String newName;
-                String telephone;
-                String newTelephone;
+                String phone;
+                String newPhone;
                 switch (command) {
                     case 0:
                         break mainLoop;
 
                     case 1:
-                        System.out.println("Enter <name> and <telephone> to add new entry.");
+                        System.out.println("Enter <name> and <phone> to add new entry.");
 
                         name = in.readLine();
-                        telephone = in.readLine();
+                        phone = in.readLine();
                         System.out.println("Unsupported command");
                         break;
 
                     case 2:
-                        System.out.println("Enter <name> to find telephones of this person.");
+                        System.out.println("Enter <name> to find phones of this person.");
 
                         name = in.readLine();
                         System.out.println("Unsupported command");
                         break;
 
                     case 3:
-                        System.out.println("Enter <telephone> to find it's owners.");
+                        System.out.println("Enter <phone> to find it's owners.");
 
-                        telephone = in.readLine();
+                        phone = in.readLine();
                         System.out.println("Unsupported command");
                         break;
 
                     case 4:
-                        System.out.println("Enter <name> and <telephone> to delete entry.");
+                        System.out.println("Enter <name> and <phone> to delete entry.");
 
                         name = in.readLine();
-                        telephone = in.readLine();
+                        phone = in.readLine();
                         System.out.println("Unsupported command");
                         break;
 
                     case 5:
-                        System.out.println("Enter <old name>, <telephone> and <new name> to change entry.");
+                        System.out.println("Enter <old name>, <phone> and <new name> to change entry.");
 
                         name = in.readLine();
-                        telephone = in.readLine();
+                        phone = in.readLine();
                         newName = in.readLine();
                         System.out.println("Unsupported command");
                         break;
 
                     case 6:
-                        System.out.println("Enter <name>, <old telephone> and <new telephone> to change entry.");
+                        System.out.println("Enter <name>, <old phone> and <new phone> to change entry.");
 
                         name = in.readLine();
-                        telephone = in.readLine();
-                        newTelephone = in.readLine();
+                        phone = in.readLine();
+                        newPhone = in.readLine();
                         System.out.println("Unsupported command");
                         break;
 
