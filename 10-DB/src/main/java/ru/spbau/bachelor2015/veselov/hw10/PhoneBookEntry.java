@@ -1,6 +1,7 @@
 package ru.spbau.bachelor2015.veselov.hw10;
 
 import org.bson.types.ObjectId;
+import org.jetbrains.annotations.NotNull;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -22,7 +23,7 @@ public class PhoneBookEntry {
      * @param name a person name.
      * @param telephone a telephone number.
      */
-    public PhoneBookEntry(String name, String telephone) {
+    public PhoneBookEntry(@NotNull String name, @NotNull String telephone) {
         this.id = new ObjectId();
 
         this.name = name;
@@ -36,7 +37,7 @@ public class PhoneBookEntry {
      * @param name a person name.
      * @param telephone a telephone number.
      */
-    public PhoneBookEntry(ObjectId id, String name, String telephone) {
+    public PhoneBookEntry(@NotNull ObjectId id, @NotNull String name, @NotNull String telephone) {
         this.id = id;
 
         this.name = name;
@@ -46,21 +47,21 @@ public class PhoneBookEntry {
     /**
      * Returns id of an entry.
      */
-    public ObjectId getId() {
+    public @NotNull ObjectId getId() {
         return id;
     }
 
     /**
      * Returns a person name.
      */
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
     /**
      * Returns a telephone number.
      */
-    public String getTelephone() {
+    public @NotNull String getTelephone() {
         return telephone;
     }
 }
