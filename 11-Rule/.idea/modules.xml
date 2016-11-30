@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/11-Rule.iml" filepath="$PROJECT_DIR$/.idea/modules/11-Rule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/11-Rule_main.iml" filepath="$PROJECT_DIR$/.idea/modules/11-Rule_main.iml" group="11-Rule" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/11-Rule_test.iml" filepath="$PROJECT_DIR$/.idea/modules/11-Rule_test.iml" group="11-Rule" />
+    </modules>
+  </component>
+</project>
