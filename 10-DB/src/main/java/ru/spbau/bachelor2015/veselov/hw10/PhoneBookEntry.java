@@ -18,6 +18,15 @@ public class PhoneBookEntry {
     private final String phone;
 
     /**
+     * Creates an empty object. Used by morphia.
+     */
+    public PhoneBookEntry() {
+        id = null;
+        name = null;
+        phone = null;
+    }
+
+    /**
      * Creates a brand new entry which has a unique new id.
      *
      * @param name a person name.
