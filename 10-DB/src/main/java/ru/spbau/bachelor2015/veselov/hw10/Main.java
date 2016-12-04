@@ -35,10 +35,10 @@ public class Main {
         System.out.println("Enter a command:");
         System.out.println(prompt);
 
+        DataBase database = new DataBase("ru-spbau-bachelor2015-veselov-hw10");
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             mainLoop: while (true) {
                 String commandString = in.readLine();
-
 
                 int command;
 
@@ -62,21 +62,30 @@ public class Main {
 
                         name = in.readLine();
                         phone = in.readLine();
-                        System.out.println("Unsupported command");
+                        if (database.addNewEntry(name, phone) == DataBase.Respond.ENTRY_ALREADY_EXISTS) {
+                            System.out.println("Entry with such name and phone already exists.");
+                        }
+
                         break;
 
                     case 2:
                         System.out.println("Enter <name> to find phones of this person.");
 
                         name = in.readLine();
-                        System.out.println("Unsupported command");
+                        for (PhoneBookEntry entry : database.findByName(name)) {
+                            System.out.println(entry.getPhone());
+                        }
+
                         break;
 
                     case 3:
                         System.out.println("Enter <phone> to find it's owners.");
 
                         phone = in.readLine();
-                        System.out.println("Unsupported command");
+                        for (PhoneBookEntry entry : database.findByPhone(phone)) {
+                            System.out.println(entry.getName());
+                        }
+
                         break;
 
                     case 4:
@@ -84,7 +93,10 @@ public class Main {
 
                         name = in.readLine();
                         phone = in.readLine();
-                        System.out.println("Unsupported command");
+                        if (database.deleteEntry(name, phone) == DataBase.Respond.NO_SUCH_ENTRY) {
+                            System.out.println("Entry with such name and phone doesn't exist.");
+                        }
+
                         break;
 
                     case 5:
@@ -93,7 +105,19 @@ public class Main {
                         name = in.readLine();
                         phone = in.readLine();
                         newName = in.readLine();
-                        System.out.println("Unsupported command");
+                        switch (database.changeName(name, phone, newName)) {
+                            case NO_SUCH_ENTRY:
+                                System.out.println("Entry with such name and phone doesn't exist.");
+                                break;
+
+                            case ENTRY_ALREADY_EXISTS:
+                                System.out.println("Entry with given new name and phone already exists.");
+                                break;
+
+                            default:
+                                break;
+                        }
+
                         break;
 
                     case 6:
@@ -102,11 +126,26 @@ public class Main {
                         name = in.readLine();
                         phone = in.readLine();
                         newPhone = in.readLine();
-                        System.out.println("Unsupported command");
+                        switch (database.changePhone(name, phone, newPhone)) {
+                            case NO_SUCH_ENTRY:
+                                System.out.println("Entry with such name and phone doesn't exist.");
+                                break;
+
+                            case ENTRY_ALREADY_EXISTS:
+                                System.out.println("Entry with given name and new phone already exists.");
+                                break;
+
+                            default:
+                                break;
+                        }
+
                         break;
 
                     case 7:
-                        System.out.println("Unsupported command");
+                        for (PhoneBookEntry entry : database.getAllEntries()) {
+                            System.out.println("name: " + entry.getName() + ", phone: " + entry.getPhone());
+                        }
+
                         break;
 
                     case 8:
