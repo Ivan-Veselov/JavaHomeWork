@@ -8,7 +8,7 @@ import org.mongodb.morphia.Morphia;
 import java.util.List;
 
 /**
- * A singleton class which performs interaction with mongo database with a given name.
+ * A class which performs interaction with mongo database with a given name.
  */
 public class DataBase {
     private final Datastore datastore;
