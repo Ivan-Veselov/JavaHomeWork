@@ -9,9 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class DataBaseTest {
     private DataBase database = new DataBase("DataBase-test");
@@ -69,10 +67,10 @@ public class DataBaseTest {
     public void testAddition() throws Exception {
         fillDataBase();
 
-        assertThat(database.addNewEntry(name1, phone1), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
-        assertThat(database.addNewEntry(name2, phone2), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
-        assertThat(database.addNewEntry(name1, phone2), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
-        assertThat(database.addNewEntry(name2, phone1), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.addNewEntry(name1, phone1));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.addNewEntry(name2, phone2));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.addNewEntry(name1, phone2));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.addNewEntry(name2, phone1));
     }
 
     @Test
@@ -106,16 +104,16 @@ public class DataBaseTest {
     public void testDeletion() throws Exception {
         fillDataBase();
 
-        assertThat(database.deleteEntry(name3, phone1), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
-        assertThat(database.deleteEntry(name1, phone3), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
-        assertThat(database.deleteEntry(name3, phone3), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.deleteEntry(name3, phone1));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.deleteEntry(name1, phone3));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.deleteEntry(name3, phone3));
 
-        assertThat(database.deleteEntry(name1, phone1), is(equalTo(DataBase.Respond.OK)));
-        assertThat(database.deleteEntry(name1, phone2), is(equalTo(DataBase.Respond.OK)));
-        assertQueryResult(database.getAllEntries(), name1Entries);
+        assertEquals(DataBase.Respond.OK, database.deleteEntry(name1, phone1));
+        assertEquals(DataBase.Respond.OK, database.deleteEntry(name1, phone2));
+        assertQueryResult(database.getAllEntries(), name2Entries);
 
-        assertThat(database.addNewEntry(name1, phone1), is(equalTo(DataBase.Respond.OK)));
-        assertThat(database.addNewEntry(name1, phone2), is(equalTo(DataBase.Respond.OK)));
+        assertEquals(DataBase.Respond.OK, database.addNewEntry(name1, phone1));
+        assertEquals(DataBase.Respond.OK, database.addNewEntry(name1, phone2));
         assertQueryResult(database.getAllEntries(), allEntries);
     }
 
@@ -123,36 +121,36 @@ public class DataBaseTest {
     public void testChangeName() throws Exception {
         fillDataBase();
 
-        assertThat(database.changeName(name3, phone1, name1), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
-        assertThat(database.changeName(name1, phone3, name1), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
-        assertThat(database.changeName(name3, phone3, name1), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.changeName(name3, phone1, name1));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.changeName(name1, phone3, name1));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.changeName(name3, phone3, name1));
 
-        assertThat(database.changeName(name1, phone1, name2), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
-        assertThat(database.changeName(name2, phone2, name1), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.changeName(name1, phone1, name2));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.changeName(name2, phone2, name1));
 
-        assertThat(database.changeName(name1, phone1, name3), is(equalTo(DataBase.Respond.OK)));
-        assertThat(database.changeName(name1, phone2, name3), is(equalTo(DataBase.Respond.OK)));
+        assertEquals(DataBase.Respond.OK, database.changeName(name1, phone1, name3));
+        assertEquals(DataBase.Respond.OK, database.changeName(name1, phone2, name3));
 
         assertQueryResult(database.getAllEntries(), Arrays.asList(
                                                         new QuasiPhoneBookEntry(name2, phone1),
                                                         new QuasiPhoneBookEntry(name2, phone2),
                                                         new QuasiPhoneBookEntry(name3, phone1),
-                                                        new QuasiPhoneBookEntry(name1, phone2)));
+                                                        new QuasiPhoneBookEntry(name3, phone2)));
     }
 
     @Test
     public void testChangePhone() throws Exception {
         fillDataBase();
 
-        assertThat(database.changePhone(name1, phone3, phone1), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
-        assertThat(database.changePhone(name3, phone1, phone3), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
-        assertThat(database.changePhone(name3, phone3, phone1), is(equalTo(DataBase.Respond.NO_SUCH_ENTRY)));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.changePhone(name1, phone3, phone1));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.changePhone(name3, phone1, phone3));
+        assertEquals(DataBase.Respond.NO_SUCH_ENTRY, database.changePhone(name3, phone3, phone1));
 
-        assertThat(database.changePhone(name1, phone1, phone2), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
-        assertThat(database.changePhone(name2, phone2, phone1), is(equalTo(DataBase.Respond.ENTRY_ALREADY_EXISTS)));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.changePhone(name1, phone1, phone2));
+        assertEquals(DataBase.Respond.ENTRY_ALREADY_EXISTS, database.changePhone(name2, phone2, phone1));
 
-        assertThat(database.changePhone(name1, phone1, phone3), is(equalTo(DataBase.Respond.OK)));
-        assertThat(database.changePhone(name2, phone1, phone3), is(equalTo(DataBase.Respond.OK)));
+        assertEquals(DataBase.Respond.OK, database.changePhone(name1, phone1, phone3));
+        assertEquals(DataBase.Respond.OK, database.changePhone(name2, phone1, phone3));
 
         assertQueryResult(database.getAllEntries(), Arrays.asList(
                                                         new QuasiPhoneBookEntry(name1, phone2),
@@ -163,12 +161,12 @@ public class DataBaseTest {
 
     private void assertQueryResult(@NotNull List<PhoneBookEntry> result, @NotNull List<QuasiPhoneBookEntry> expected) {
         Collections.sort(result, phoneBookEntryComparator);
-        assertThat(result, is(equalTo(expected)));
+        assertEquals(expected, result);
     }
 
     private void fillDataBase() {
         for (QuasiPhoneBookEntry entry : allEntries) {
-            assertThat(database.addNewEntry(entry.getName(), entry.getPhone()), is(equalTo(DataBase.Respond.OK)));
+            assertEquals(DataBase.Respond.OK, database.addNewEntry(entry.getName(), entry.getPhone()));
         }
     }
 
