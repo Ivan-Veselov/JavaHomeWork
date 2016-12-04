@@ -2,6 +2,7 @@ package ru.spbau.bachelor2015.veselov.hw10;
 
 import com.mongodb.MongoClient;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -33,7 +34,12 @@ public class DataBase {
      * @return ENTRY_ALREADY_EXISTS if entry already exists, OK otherwise.
      */
     public @NotNull Respond addNewEntry(@NotNull String name, @NotNull String phone) {
-        throw new UnsupportedOperationException();
+        if (getEntry(name, phone) != null) {
+            return Respond.ENTRY_ALREADY_EXISTS;
+        }
+
+        datastore.save(new PhoneBookEntry(name, phone));
+        return Respond.OK;
     }
 
     /**
@@ -43,7 +49,7 @@ public class DataBase {
      * @return a list of entries, where each entry's name equals to given one.
      */
     public @NotNull List<PhoneBookEntry> findByName(@NotNull String name) {
-        throw new UnsupportedOperationException();
+        return datastore.createQuery(PhoneBookEntry.class).field("name").equal(name).asList();
     }
 
     /**
@@ -53,7 +59,7 @@ public class DataBase {
      * @return a list of entries, where each entry's phone equals to given one.
      */
     public @NotNull List<PhoneBookEntry> findByPhone(@NotNull String phone) {
-        throw new UnsupportedOperationException();
+        return datastore.createQuery(PhoneBookEntry.class).field("phone").equal(phone).asList();
     }
 
     /**
@@ -64,7 +70,13 @@ public class DataBase {
      * @return NO_SUCH_ENTRY if there is no entry with given name and phone in the database, OK otherwise.
      */
     public @NotNull Respond deleteEntry(@NotNull String name, @NotNull String phone) {
-        throw new UnsupportedOperationException();
+        PhoneBookEntry entry = getEntry(name, phone);
+        if (entry == null) {
+            return Respond.NO_SUCH_ENTRY;
+        }
+
+        datastore.delete(entry);
+        return Respond.OK;
     }
 
     /**
@@ -77,7 +89,17 @@ public class DataBase {
      *         there is an entry with given new name and phone in the database, OK otherwise.
      */
     public @NotNull Respond changeName(@NotNull String oldName, @NotNull String phone, @NotNull String newName) {
-        throw new UnsupportedOperationException();
+        PhoneBookEntry entry = getEntry(oldName, phone);
+        if (entry == null) {
+            return Respond.NO_SUCH_ENTRY;
+        }
+
+        if (getEntry(newName, phone) != null) {
+            return Respond.ENTRY_ALREADY_EXISTS;
+        }
+
+        datastore.save(new PhoneBookEntry(entry.getId(), newName, entry.getPhone()));
+        return Respond.OK;
     }
 
     /**
@@ -90,14 +112,24 @@ public class DataBase {
      *         there is an entry with given name and new phone in the database, OK otherwise.
      */
     public @NotNull Respond changePhone(@NotNull String name, @NotNull String oldPhone, @NotNull String newPhone) {
-        throw new UnsupportedOperationException();
+        PhoneBookEntry entry = getEntry(name, oldPhone);
+        if (entry == null) {
+            return Respond.NO_SUCH_ENTRY;
+        }
+
+        if (getEntry(name, newPhone) != null) {
+            return Respond.ENTRY_ALREADY_EXISTS;
+        }
+
+        datastore.save(new PhoneBookEntry(entry.getId(), entry.getName(), newPhone));
+        return Respond.OK;
     }
 
     /**
      * Returns a list of all entries in the database.
      */
     public @NotNull List<PhoneBookEntry> getAllEntries() {
-        throw new UnsupportedOperationException();
+        return datastore.createQuery(PhoneBookEntry.class).asList();
     }
 
     /**
@@ -105,6 +137,18 @@ public class DataBase {
      */
     public void drop() {
         datastore.getDB().dropDatabase();
+    }
+
+    private @Nullable PhoneBookEntry getEntry(@NotNull String name, @NotNull String phone) {
+        List<PhoneBookEntry> list = datastore.createQuery(PhoneBookEntry.class)
+                                                            .field("name").equal(name)
+                                                            .field("phone").equal(phone)
+                                                            .asList();
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return list.get(0);
     }
 
     public enum Respond { OK, NO_SUCH_ENTRY, ENTRY_ALREADY_EXISTS };
