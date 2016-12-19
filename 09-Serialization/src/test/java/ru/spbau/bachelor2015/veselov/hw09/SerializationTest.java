@@ -25,7 +25,7 @@ public class SerializationTest {
         Serialization.serialize(c, outputStream);
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-        Serialization.deserialize(inputStream, SimpleClass.class);
+        c = Serialization.deserialize(inputStream, SimpleClass.class);
 
         assertEquals(true, c.getBooleanField());
         assertEquals(Character.MAX_VALUE, c.getCharField());
