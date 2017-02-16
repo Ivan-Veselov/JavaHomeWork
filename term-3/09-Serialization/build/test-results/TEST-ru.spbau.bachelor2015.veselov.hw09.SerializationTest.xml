@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.spbau.bachelor2015.veselov.hw09.SerializationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-11-19T20:00:28" hostname="ivan-X550LB" time="0.005">
+  <properties/>
+  <testcase name="test" classname="ru.spbau.bachelor2015.veselov.hw09.SerializationTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
