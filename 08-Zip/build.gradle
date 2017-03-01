@@ -1,0 +1,16 @@
+group 'ru.spbau.bachelor2015.veselov.hw08'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
+}

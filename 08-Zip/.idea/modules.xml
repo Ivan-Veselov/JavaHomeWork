@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/08-Zip.iml" filepath="$PROJECT_DIR$/.idea/modules/08-Zip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/08-Zip_main.iml" filepath="$PROJECT_DIR$/.idea/modules/08-Zip_main.iml" group="08-Zip" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/08-Zip_test.iml" filepath="$PROJECT_DIR$/.idea/modules/08-Zip_test.iml" group="08-Zip" />
+    </modules>
+  </component>
+</project>
